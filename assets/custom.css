@@ -137,3 +137,58 @@ a#install-button { color: #fff; }
   margin: -7px;
   font-size: 20px;
 }
+
+/* Quick links */
+#quicklinks {
+  position: absolute;
+  top: 0;
+  right: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.quicklink {
+  display: flex;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  height: 42px;
+  background-color: #F5F3F1;
+  padding: 5px;
+  align-items: center;
+  transition: .4s;
+  transform: translateX(calc(100% - 50px));
+}
+
+.quicklink.load {
+  animation: quicklink-enter .8s;
+}
+
+.quicklink-icon {
+  display: block;
+  height: 32px;
+  width: 32px;
+  margin-right: 8px;
+  margin-left: 5px;
+}
+
+.quicklink-txt {
+  margin-right: 10px;
+}
+
+.quicklink:hover {
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+  transform: translateX(0);
+}
+
+@keyframes quicklink-enter {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(calc(100% - 50px));
+  }
+}

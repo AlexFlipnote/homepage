@@ -144,7 +144,8 @@ window.onload = function() {
       custombg: "",
       engines: "google",
       wkey: "",
-      tempc: true
+      tempc: true,
+      links: ""
     }, function(items) {
       if (items.custombg.length > 2) {
         var chooseranbg = items.custombg.split("\n");
@@ -157,8 +158,9 @@ window.onload = function() {
       if (items.wkey.length > 2) {
         navigator.geolocation.getCurrentPosition(function(position) {
           pos = position.coords
+          var lang = navigator.language.split('-')[0]
 
-          http(`http://api.openweathermap.org/data/2.5/weather?lat=${pos.latitude}&lon=${pos.longitude}&APPID=${items.wkey}`, function(r) {
+          http(`http://api.openweathermap.org/data/2.5/weather?lat=${pos.latitude}&lon=${pos.longitude}&lang=${lang}&APPID=${items.wkey}`, function(r) {
             document.getElementById('wicon').src = wicons[r.weather[0].icon]
             document.getElementById('wname').innerHTML = r.name
             document.getElementById('wdescription').innerHTML = r.weather[0].description.replace(/^\w/, c => c.toUpperCase());
@@ -180,6 +182,37 @@ window.onload = function() {
         }
         document.getElementById('formsearch').action = searchengine[items.engines].url;
         document.getElementById('forminput').placeholder = searchengine[items.engines].holder;
+      }
+
+      // Quick links
+      if (items.links.length > 2) {
+        var links = items.links.split('\n')
+        for (var i = 0; i < links.length; i++) {
+          (function (lnk) {
+            setTimeout(function () {
+              var link = document.createElement('a')
+              var img = document.createElement('img')
+              var txt = document.createElement('span')
+
+              link.classList.add('quicklink')
+              link.classList.add('load')
+              setTimeout(function () {
+                link.classList.remove('load')
+              }, 800)
+              link.setAttribute('href', lnk)
+
+              img.classList.add('quicklink-icon')
+              img.setAttribute('src', 'https://cdn.bowser65.tk/favicon/' + lnk)
+
+              txt.classList.add('quicklink-txt')
+              txt.innerText = lnk
+
+              link.appendChild(img)
+              link.appendChild(txt)
+              document.getElementById('quicklinks').appendChild(link)
+            }, i * 500)
+          })(links[i])
+        }
       }
     })
   }
