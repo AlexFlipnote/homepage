@@ -149,10 +149,10 @@ a#install-button { color: #fff; }
 
 .quicklink {
   display: flex;
+  opacity: .6;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   margin-top: 25px;
-  margin-bottom: 25px;
   height: 42px;
   background-color: #F5F3F1;
   padding: 5px;
@@ -161,8 +161,26 @@ a#install-button { color: #fff; }
   transform: translateX(calc(100% - 50px));
 }
 
+#settings {
+  box-sizing: border-box;
+  position: fixed;
+  margin: 0;
+  right: 0;
+  bottom: 25px;
+}
+
+#quicklinks.compact .quicklink, #settings {
+  transform: translateX(calc(100% - 39px));
+  margin-top: 10px;
+  height: 30px;
+}
+
 .quicklink.load {
   animation: quicklink-enter .8s;
+}
+
+#quicklinks.compact .quicklink.load {
+  animation: quicklink-enter-compact .8s;
 }
 
 .quicklink-icon {
@@ -173,14 +191,22 @@ a#install-button { color: #fff; }
   margin-left: 5px;
 }
 
+#quicklinks.compact .quicklink-icon, #settings .quicklink-icon {
+  height: 25px;
+  width: 25px;
+  margin-right: 5px;
+  margin-left: 3px;
+}
+
 .quicklink-txt {
   margin-right: 10px;
 }
 
 .quicklink:hover {
+  opacity: 1;
   border-top-left-radius: 2px;
   border-bottom-left-radius: 2px;
-  transform: translateX(0);
+  transform: translateX(0)!important;
 }
 
 @keyframes quicklink-enter {
@@ -190,5 +216,15 @@ a#install-button { color: #fff; }
 
   to {
     transform: translateX(calc(100% - 50px));
+  }
+}
+
+@keyframes quicklink-enter-compact {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(calc(100% - 39px));
   }
 }

@@ -145,7 +145,8 @@ window.onload = function() {
       engines: "google",
       wkey: "",
       tempc: true,
-      links: ""
+      links: "",
+      showSettings: true
     }, function(items) {
       if (items.custombg.length > 2) {
         var chooseranbg = items.custombg.split("\n");
@@ -186,33 +187,50 @@ window.onload = function() {
 
       // Quick links
       if (items.links.length > 2) {
-        var links = items.links.split('\n')
+        var screenH = document.getElementById('js-bg').getBoundingClientRect().height - 65
+        var links = items.links.split('\n').slice(0, Math.floor((window.innerHeight - 65) / 40))
+        console.log(links.length * 52)
+        console.log(screenH)
+        if (links.length * 52 > screenH) {
+          document.getElementById('quicklinks').classList.add('compact')
+        }
+
         for (var i = 0; i < links.length; i++) {
           (function (lnk) {
-            setTimeout(function () {
-              var link = document.createElement('a')
-              var img = document.createElement('img')
-              var txt = document.createElement('span')
-
-              link.classList.add('quicklink')
-              link.classList.add('load')
+            if (lnk.length > 2) {
               setTimeout(function () {
-                link.classList.remove('load')
-              }, 800)
-              link.setAttribute('href', lnk)
+                var link = document.createElement('a')
+                var img = document.createElement('img')
+                var txt = document.createElement('span')
 
-              img.classList.add('quicklink-icon')
-              img.setAttribute('src', 'https://cdn.bowser65.tk/favicon/' + lnk)
+                link.classList.add('quicklink')
+                link.classList.add('load')
+                setTimeout(function () {
+                  link.classList.remove('load')
+                }, 810)
+                link.setAttribute('href', lnk)
 
-              txt.classList.add('quicklink-txt')
-              txt.innerText = lnk
+                img.classList.add('quicklink-icon')
+                img.setAttribute('src', 'https://cdn.bowser65.tk/favicon/' + lnk + '/i.png')
 
-              link.appendChild(img)
-              link.appendChild(txt)
-              document.getElementById('quicklinks').appendChild(link)
-            }, i * 500)
+                txt.classList.add('quicklink-txt')
+                txt.innerText = lnk
+
+                link.appendChild(img)
+                link.appendChild(txt)
+                document.getElementById('quicklinks').appendChild(link)
+              }, i * 200)
+            }
           })(links[i])
         }
+      }
+
+      if (items.showSettings) {
+        var settings = document.getElementById('settings')
+        settings.removeAttribute('style')
+        settings.addEventListener('click', function () {
+          chrome.runtime.openOptionsPage()
+        })
       }
     })
   }

@@ -5,13 +5,15 @@ function save_options() {
   var wkey = document.getElementById('wkey').value;
   var tempc = document.getElementById('tempc').checked;
   var links = document.getElementById('links').value;
+  var showSettings = document.getElementById('show-settings').checked;
 
   chrome.storage.local.set({
     custombg: custombg,
     engines: engines,
     wkey: wkey,
     tempc: tempc,
-    links: links
+    links: links,
+    showSettings: showSettings
   }, function() {
     // Update status to let user know options were saved.
     var modal = document.getElementById('modal');
@@ -33,13 +35,16 @@ function restore_options() {
     engines: "google",
     wkey: "",
     tempc: true,
-    links: ""
+    links: "",
+    showSettings: true
   }, function(items) {
     document.getElementById('custombg').value = items.custombg;
     document.getElementById('engines').value = items.engines;
     document.getElementById('wkey').value = items.wkey;
     document.getElementById('tempc').checked = items.tempc;
     document.getElementById('links').value = items.links;
+    document.getElementById('show-settings').checked = items.showSettings;
+    document.getElementById('quicklink-limit').innerHTML = Math.floor((window.innerHeight - 65) / 40).toString()
   });
 }
 
