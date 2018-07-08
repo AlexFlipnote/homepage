@@ -44,7 +44,7 @@ function restore_options() {
     document.getElementById('tempc').checked = items.tempc;
     document.getElementById('links').value = items.links;
     document.getElementById('show-settings').checked = items.showSettings;
-    document.getElementById('quicklink-limit').innerHTML = Math.floor((window.innerHeight - 65) / 40).toString()
+    document.getElementById('quicklink-limit').innerText = Math.floor((window.innerHeight - 65) / 40).toString()
   });
 }
 
