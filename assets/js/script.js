@@ -137,6 +137,7 @@ window.onload = function() {
   } else if (website && isChrome == true) {
     randombg
     enableButton()
+    addbutton.onclick = "chrome.webstore.install()"
     addbutton.innerText = "Add to Chrome";
   } else if (!website && (isChrome || isFirefox == true)) {
     // Load custom settings
@@ -161,7 +162,7 @@ window.onload = function() {
           pos = position.coords
           var lang = navigator.language.split('-')[0]
 
-          http(`http://api.openweathermap.org/data/2.5/weather?lat=${pos.latitude}&lon=${pos.longitude}&lang=${lang}&APPID=${items.wkey}`, function(r) {
+          http(`https://api.openweathermap.org/data/2.5/weather?lat=${pos.latitude}&lon=${pos.longitude}&lang=${lang}&APPID=${items.wkey}`, function(r) {
             document.getElementById('wicon').src = wicons[r.weather[0].icon]
             document.getElementById('wname').innerText = r.name
             document.getElementById('wdescription').innerText = r.weather[0].description.replace(/^\w/, c => c.toUpperCase());

@@ -1,9 +1,10 @@
 {
   "manifest_version": 2,
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
 
   "name": "AlexFlipnote/Homepage",
   "description": "A website that gives you a clean homepage with random backgrounds!",
-  "version": "0.2.3",
+  "version": "0.2.4",
 
   "chrome_url_overrides": {
     "newtab": "index.html"
@@ -26,10 +27,24 @@
     "open_in_tab": true
   },
 
+  "applications": {
+    "gecko": {
+      "strict_min_version": "55.0"
+    }
+  },
+
+  "background": {
+    "scripts": [
+      "assets/js/script.js",
+      "assets/js/options.js",
+      "assets/js/moment-with-locales.min.js"
+    ]
+  },
+
   "permissions": [
     "activeTab",
-    "<all_urls>",
-    "storage",
-    "geolocation"
+    "geolocation",
+    "https://api.openweathermap.org/*",
+    "storage"
   ]
 }
