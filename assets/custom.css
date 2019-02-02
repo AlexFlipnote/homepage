@@ -109,6 +109,7 @@ input[type="text"], input[type="text"]:not(:focus) {
   padding: .5em;
   transition: all 500ms ease;
   width: 15em;
+  border-radius: 0px;
 }
 
 input[type="text"]:focus, input[type="text"]:focus::placeholder {
