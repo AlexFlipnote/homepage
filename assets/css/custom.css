@@ -325,6 +325,107 @@ a#install-button { color: #fff; }
   flex-direction: column;
 }
 
+.m-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    pointer-events: none;
+    margin: 0;
+    padding: 0;
+    
+}
+
+.m-menu__backdrop {
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    transition: opacity 500ms ease-out;
+    pointer-events: none;
+}
+
+.m-menu__burger {
+    z-index: 2;
+    position: absolute;
+    width: 4rem;
+    height: 4rem;
+    bottom: 10px;
+    left: 1.1rem;
+    padding: 0.6rem 0.4rem;
+}
+
+.m-menu__burger span,
+.m-menu__burger span::before,
+.m-menu__burger span::after {
+    content: '';
+    display: block;
+    width: 3.2rem;
+    height: 0.4rem;
+    position: absolute;
+    margin-top: 1.2rem;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 0.3rem;
+}
+
+.m-menu__burger span::before {
+    margin-top: -0.8rem;
+}
+
+.m-menu__burger span::after {
+    margin-top: 0.8rem;
+}
+
+.m-menu__toggle {
+    z-index: 3;
+    position: absolute;
+    width: 4rem;
+    height: 4rem;
+    bottom: 10px;
+    left: 1.1rem;
+    cursor: pointer;
+    opacity: 0;
+    outline: 1px solid black;
+    pointer-events: all;
+}
+
+.m-menu__content {
+    z-index: 4;
+    position: absolute;
+    bottom: 70px;
+    left: 0;
+    overflow: auto;
+    width: 30rem;
+    height: 250;
+    margin: 0;
+    padding: 0 0 2rem 0;
+    transform: translateX(-31.5rem);
+    transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+    pointer-events: all;
+}
+
+.m-menu__toggle:checked {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.m-menu__toggle:checked ~ .m-menu__content {
+    transform: none;
+}
+
+.m-menu__toggle:checked ~ .m-menu__backdrop {
+    opacity: 1;
+}
+
 .demoButtons * { font-family: "Lato", sans-serif, Arial; }
 .demoButtons p { margin: 0; }
 .demoButtons ul { margin: 0; padding-left: 30px; cursor: pointer; }

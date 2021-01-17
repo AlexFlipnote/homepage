@@ -49,22 +49,31 @@
       </div>
     </div>
 
-    <div class="demoButtons">
-      <p>Test some of the plugin features:</p>
-      <ul>
-        <li><a id="changebg">Change Font</a></li>
-        <li><a id="changefont">Change Background</a></li>
-        <li><a id="nosearch">Turn on/off search bar</a></li>
-        <li><a id="terminal">Turn on/off terminal</a></li>
-        <li><a id="weather">Turn on/off weather</a></li>
-        <li>
-          <span style="color: #1eaedb;">Change language</span>
-          <select id="language">
-            <option value="">Default: Local language</option>
-          </select>
-        </li>
-      </ul>
-    </div>
+    <div class="m-menu"></div>
+      <input class="m-menu__toggle" type="checkbox">
+      <div class="m-menu__burger">
+          <span></span>
+      </div>
+      <div class="m-menu__content">
+              <div class="demoButtons">
+                <p>Test some of the plugin features:</p>
+                <ul>
+                  <li><a id="changebg">Change Font</a></li>
+                  <li><a id="changefont">Change Background</a></li>
+                  <li><a id="nosearch">Turn on/off search bar</a></li>
+                  <li><a id="terminal">Turn on/off terminal</a></li>
+                  <li><a id="weather">Turn on/off weather</a></li>
+                  <li>
+                    <span style="color: #1eaedb;">Change language</span>
+                    <select id="language">
+                      <option value="">Default: Local language</option>
+                    </select>
+                  </li>
+                </ul>
+              </div>
+      </div>
+      <div class="m-menu__backdrop"></div>
+  </div>
 
     <a id="install-button" target="_blank" style="display: none;">PLACEHOLDER</a>
 
