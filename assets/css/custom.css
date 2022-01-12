@@ -295,6 +295,8 @@ a#install-button { color: #fff; }
 
 .quicklink-txt {
   margin-right: 10px;
+  color: #000;
+  text-decoration: none;
 }
 
 .quicklink:hover {

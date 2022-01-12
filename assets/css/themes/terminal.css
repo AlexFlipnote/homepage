@@ -184,6 +184,8 @@ a {
 .quicklink-txt::before { color: #fff; content: var(--link-prefix); }
 .quicklink-txt {
   margin-right: 0;
+  color: #fff;
+
 }
 
 #settings {
