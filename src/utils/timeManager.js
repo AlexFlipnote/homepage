@@ -1,6 +1,6 @@
 import moment from 'moment/min/moment-with-locales'
 
-var format
+let format
 try {
   chrome.storage.local.get({
     no_seconds: false
@@ -20,7 +20,7 @@ function getViewportDimensions () {
 }
 
 export function updateDateAndTime() {
-  var dateString = moment().format('LL'),
+  let dateString = moment().format('LL'),
       timeString = moment().format(format)
 
   document.getElementById('js-date').innerText = dateString
@@ -33,7 +33,7 @@ export function updateDateAndTime() {
 
 // Update the background image height and width properties based on the ratio of the viewport and the ratio of the image.
 export function handleViewportResize () {
-  var d = getViewportDimensions()
+  let d = getViewportDimensions()
   if ((d.w / d.h) < (backgroundElement.width / backgroundElement.height)) {
     backgroundElement.style.width = 'auto'
     backgroundElement.style.height = '100%'
@@ -47,10 +47,10 @@ export function handleViewportResize () {
 // HEX Time
 function pad(n) { return ("0" + n).slice(-2) }
 function getHexTime() {
-  var now = new Date()
-  var hour = pad(now.getHours())
-  var minute = pad(now.getMinutes())
-  var second = pad(now.getSeconds())
+  let now = new Date()
+  let hour = pad(now.getHours())
+  let minute = pad(now.getMinutes())
+  let second = pad(now.getSeconds())
   return hour.toString() + minute.toString() + second.toString()
 }
 

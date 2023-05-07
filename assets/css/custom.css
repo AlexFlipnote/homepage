@@ -22,13 +22,11 @@
 
 /* Global */
 * {
-	user-select: none;
 	-moz-user-select: none;
 	-webkit-user-select: none;
-
-  -webkit-user-drag: none;
   -moz-user-drag: none;
-  user-drag: none;
+  -webkit-user-drag: none;
+	user-select: none;
 }
 
 body {
@@ -59,32 +57,6 @@ body {
   font-size: 10vmin;
   margin: 0;
   transition: all .5s ease;
-}
-
-/* Google apps */
-#googleapps {
-  bottom: -2.15em;
-  display: none;
-  position: absolute;
-  width: 100%;
-}
-
-.buttons { display: none; }
-
-#googleapps img {
-  margin: 0 1em;
-  height: 62px;
-  width: 48.5px;
-}
-
-.btn {
-  padding: 0;
-  width: auto;
-  height: auto;
-}
-
-@media (max-width: 750px) {
-  .buttons { flex-flow: row nowrap; }
 }
 
 /* Input Box */

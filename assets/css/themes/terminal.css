@@ -119,45 +119,6 @@ a {
   margin-left: 0;
 }
 
-/* Google links */
-#googleapps a img { display: none; }
-#googleapps a:hover { transform: none; }
-
-#googleapps {
-  bottom: inherit;
-  position: relative;
-}
-
-#googleapps .buttons {
-  align-items: flex-start;
-  animation: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  position: relative;
-  text-align: left;
-  translate: none;
-}
-
-#googleapps a {
-  color: #3498db;
-  margin: 0;
-  margin-top: -12px;
-  animation: none;
-  transition: none;
-  opacity: 1;
-  font-family: var(--font-family-global);
-  font-size: var(--font-size-global);
-}
-
-#googleapps a::before { color: #fff; content: var(--link-prefix); }
-#googleapps a:nth-child(1)::after { content: "Google Docs"; }
-#googleapps a:nth-child(2)::after { content: "Google Sheets"; }
-#googleapps a:nth-child(3)::after { content: "Google Slides"; }
-#googleapps a:nth-child(4)::after { content: "Google Calendar"; }
-#googleapps a:nth-child(5)::after { content: "Google Photos"; }
-#googleapps a:nth-child(6)::after { content: "Google News"; }
-
 
 /* Quick links */
 .quicklink.load { animation: none; }

@@ -1,4 +1,4 @@
-export var searchengine = {
+export const searchengine = {
   "none": {"url": "none", "holder": "none"},
   "bing": {"url": "https://www.bing.com/search", "holder": "Search on Bing..."},
   "ddg": {"url": "https://duckduckgo.com", "holder": "Search on DuckDuckGo..."},
@@ -7,7 +7,7 @@ export var searchengine = {
   "yahoo": {"url": "https://search.yahoo.com/search", "holder": "Search on Yahoo..."}
 }
 
-export var wicons = {
+export const wicons = {
   '01d': '2600.png',
   '02d': '26c5.png',
   '03d': '2601.png',

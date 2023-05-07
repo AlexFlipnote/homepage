@@ -4,7 +4,7 @@
   "name": "AlexFlipnote/Homepage",
   "description": "A website that gives you a clean homepage with random backgrounds!",
   "homepage_url": "https://alexflipnote.dev",
-  "version": "2.1.0",
+  "version": "2.2.1",
 
   "chrome_url_overrides": {
     "newtab": "indexPlugin.html"
@@ -17,19 +17,9 @@
     "16": "assets/images/16.png"
   },
 
-  "browser_action": {
-   "default_icon": "assets/images/logo.png",
-   "default_popup": "assets/window.html"
-  },
-
-  "background": {
-    "service_worker": "assets/js/plugin.js"
-	},
-
-  "web_accessible_resouces": {
-    "resources": [
-      "indexPlugin.html"
-    ]
+  "action": {
+    "default_icon": "assets/images/logo.png",
+    "default_popup": "assets/window.html"
   },
 
   "options_ui": {
@@ -39,9 +29,7 @@
 
   "minimum_chrome_version": "88",
   "applications": {
-    "gecko": {
-      "strict_min_version": "54.0"
-    }
+    "gecko": {"strict_min_version": "54.0"}
   },
 
   "permissions": [

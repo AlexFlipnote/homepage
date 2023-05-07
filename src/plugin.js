@@ -1,9 +1,7 @@
 import { getWeather } from "./utils/weather.js"
-import { makeLinks } from "./utils/links.js"
 import { searchengine } from "./utils/lists.js"
 import { timeInHex } from "./utils/timeManager.js"
-import { runClock, backgroundElement } from "./_main.js"
-import { append_css_theme, theme_terminal } from "./utils/themes.js"
+import { runClock } from "./_main.js"
 
 import moment from 'moment/min/moment-with-locales'
 
@@ -13,23 +11,33 @@ chrome.storage.local.get({
   language: "",
   custombg: "",
   customfont: "",
-  themes: "default",
   customfontgoogle: false,
   engines: "google",
   wkey: "",
   w3hours: false,
-  wlang: "en",
   tempc: true,
   hexbg: false,
-  links: "",
-  googleapps: false,
   showSettings: true,
   customcss: ""
 }, function(items) {
+  let backgroundElement = document.getElementById('js-bg')
+
+  const random_bg_num = Math.floor(Math.random() * 31)
+  let new_background = `assets/images/backgrounds/background${random_bg_num}.jpg`
+
   if (items.custombg.length) {
-    var chooseranbgindex = Math.floor(Math.random() * items.custombg.length)
-    backgroundElement.src = items.custombg[chooseranbgindex]
+    new_background = items.custombg[
+      Math.floor(Math.random() * items.custombg.length)
+    ]
   }
+
+  backgroundElement.onload = () => {
+    backgroundElement.style.opacity = 1
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    backgroundElement.src = new_background
+  }, false)
 
   if (items.language) { moment.locale(items.language) }
 
@@ -40,9 +48,9 @@ chrome.storage.local.get({
   }
 
   if (items.customfont) {
-    var addFont = '"' + items.customfont + '", "Lato", sans-serif, Arial'
+    let addFont = '"' + items.customfont + '", "Lato", sans-serif, Arial'
     if (items.customfontgoogle) {
-      var gFont = document.createElement("link")
+      let gFont = document.createElement("link")
       gFont.href = "https://fonts.googleapis.com/css?family=" + items.customfont.replace(" ", "+")
       gFont.rel = "stylesheet"
       document.head.appendChild(gFont)
@@ -55,16 +63,6 @@ chrome.storage.local.get({
     timeInHex()
   }
 
-  // Theme chooser
-  switch (items.themes) {
-    case "terminal":
-      theme_terminal(items, backgroundElement)
-      append_css_theme("terminal")
-      break
-    default:
-      // Fucking nerd wants default theme, boring
-  }
-
   if (items.engines !== "google") {
     if (items.engines == "none") {
       document.getElementById('formsearch').style.display = "none"
@@ -74,30 +72,17 @@ chrome.storage.local.get({
   }
 
   if (items.customcss) {
-    var cssEl = document.createElement("style")
+    let cssEl = document.createElement("style")
     cssEl.type = "text/css"
     cssEl.innerText = items.customcss
     document.head.appendChild(cssEl)
   }
 
-  if (items.links) {
-    if (items.terminal) {
-      makeLinks(items, true)
-    } else {
-      makeLinks(items, false)
-    }
-  }
-
   if (items.showSettings) {
-    var settings = document.getElementById('settings')
+    let settings = document.getElementById('settings')
     settings.removeAttribute('style')
     settings.addEventListener('click', function () {
       chrome.runtime.openOptionsPage()
     })
-  }
-
-  if (items.googleapps) {
-    document.getElementById('googleapps').style.display = "block"
-    document.getElementById('googleapps-btn').style.display = "flex"
   }
 })
