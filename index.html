@@ -1,0 +1,72 @@
+<!--
+  Website created by AlexFlipnote
+  [ https://github.com/AlexFlipnote ]
+-->
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="theme-color" content="#2196F3">
+    <title>Homepage</title>
+
+    <meta content="https://alexflipnote.dev/homepage/assets/images/logo.png" property="og:image" />
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <meta content="Clean time/date homepage" property="og:title" />
+    <meta content="A website that gives you a clean homepage with random backgrounds!" property="og:description" />
+
+    <!-- Stylesheets -->
+    <link href="assets/css/modesta.css" type="text/css" rel="stylesheet">
+    <link href="assets/css/custom.css" type="text/css" rel="stylesheet">
+  </head>
+
+  <body id="body" class="dark-theme">
+    <section class="fullscreen noselect">
+      <img class="background" id="js-bg" alt="" draggable="false"></img>
+      <div class="center-object">
+        <section class="me">
+          <h1 class="time" id="terminal-me" style="display:none;"></h1>
+          <h1 class="time" id="js-time" style="letter-spacing: .05em;"></h1>
+          <h1 class="time" id="js-date"></h1>
+          <form method=GET action="http://www.google.com/search" autocomplete="off" class="form-box" id="formsearch">
+            <input autofocus type=text name=q size=35 maxlength=255 value="" placeholder="Search on Google..." id="forminput">
+            <input type=hidden name=hl value="en">
+          </form>
+        </section>
+      </div>
+    </section>
+
+    <!-- Weather placeholder -->
+    <div class="weather-container noselect" id="wcontainer" style="display: none;">
+      <img id="wicon" draggable="false" src="assets/images/weather/1f327.png">
+      <div class="wtext-container">
+        <p id="wname">Halden</p>
+        <div class="optional_break">
+          <p id="wdescription">Overcast clouds</p>
+          <p id="wtemp">-4 °C</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="demoButtons">
+      <p>Test some of the plugin features:</p>
+      <ul>
+        <li><a id="changebg">Change Font</a></li>
+        <li><a id="changefont">Change Background</a></li>
+        <li><a id="nosearch">Turn on/off search bar</a></li>
+        <li><a id="weather">Turn on/off weather</a></li>
+        <li>
+          <span style="color: #1eaedb;">Change language</span>
+          <select id="language">
+            <option value="">Default: Local language</option>
+          </select>
+        </li>
+      </ul>
+    </div>
+
+    <a id="install-button" target="_blank" style="display: none;">PLACEHOLDER</a>
+
+    <!-- Scripts -->
+    <script src="assets/js/demo.js"></script>
+  </body>
+</html>

@@ -1,0 +1,197 @@
+:root {
+  --font-size-global: 24px;
+  --font-family-global: Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+  --margin-text: -28px;
+  --link-prefix: "-> ";
+}
+
+body {
+  background: #000;
+  font-family: var(--font-family-global);
+  margin: .5em 1em;
+  font-weight: normal;
+}
+
+a:hover { text-decoration: underline; }
+a {
+  display: inline-block;
+}
+
+.fullscreen, .fullscreen .center-object {
+  background: transparent;
+  display: block;
+  height: auto;
+  position: relative;
+}
+
+.center-object {
+  animation: none;
+  left: inherit;
+  position: relative;
+  top: inherit;
+  align-items: inherit;
+  justify-content: inherit;
+  transform: none;
+}
+
+.fullscreen .me {
+  width: auto;
+  justify-content: none;
+}
+
+.me {
+  display: block;
+  padding: 0;
+}
+
+/* General information */
+#js-time { color: #2ecc71; }
+#js-date { color: #3498db; }
+
+#js-time::before { content: "[TIME] "; }
+#js-date::before { content: "[DATE] "; letter-spacing: 1.25px; }
+#js-time::before, #js-date::before {
+  color: #fff;
+}
+
+.time {
+  font-size: var(--font-size-global);
+  transition: none;
+}
+
+/* Weather information */
+.weather-container img { display: none; }
+#wtime-container { margin-top: 0; }
+.weather-container {
+  animation: none;
+  position: relative;
+  display: block;
+  left: inherit;
+  top: inherit;
+  margin-top: var(--font-size-global);
+}
+
+.wtext-container {
+  position: relative;
+  left: 0;
+  display: flex;
+  width: auto;
+  flex-direction: column;
+}
+
+.wtext-container .optional_break {
+  display: flex;
+  flex-direction: row;
+}
+
+.wdiff { display: block; }
+.wtext-container * {
+  font-size: var(--font-size-global);
+  margin: 0;
+  margin-right: .5em;
+}
+
+.wtext-container { margin-top: 1em; }
+
+.wtext-container #wname { color: #2ecc71; }
+
+.wtext-container #wname::before { color: #fff; content: "[WEATHER] "; }
+.wtext-container #wdescription::after { content: " |"; }
+.wtext-container #wdescription::before { color: #fff; content: "- NOW - "; }
+
+#wdescription, #wtemp,
+.wtext-container #wdescription::after { color: #29b866; }
+
+.wdiff:nth-child(1) .wdetails { color: #25a35a; }
+.wdiff:nth-child(2) .wdetails { color: #208f4f; }
+.wdiff:nth-child(3) .wdetails { color: #1c7a44; }
+.wdiff:nth-child(4) .wdetails { color: #176639; }
+
+#wtime-container .wdiff {
+  animation: none !important;
+  font-size: var(--font-size-global);
+  opacity: 1;
+  margin-bottom: 0;
+}
+
+.wdiff .text {
+  font-size: var(--font-size-global);
+  margin-left: 0;
+}
+
+
+/* Quick links */
+.quicklink.load { animation: none; }
+.quicklink-icon { display: none; }
+.quicklink {
+  background-color: transparent;
+  height: auto;
+  margin-top: var(--margin-text);
+  opacity: 1;
+  padding: 0;
+  transform: none;
+  transition: none;
+}
+
+#quicklinks {
+  display: inline-flex;
+  flex-direction: column;
+  font-family: var(--font-family-global);
+  font-size: var(--font-size-global);
+  margin-top: var(--font-size-global);
+  position: relative;
+}
+
+.quicklink-txt::before { color: #fff; content: var(--link-prefix); }
+.quicklink-txt {
+  margin-right: 0;
+  color: #fff;
+
+}
+
+#settings {
+  bottom: inherit;
+  font-family: var(--font-family-global);
+  font-size: var(--font-size-global);
+  height: auto;
+  position: relative;
+  transform: none;
+}
+
+/* Search */
+input[type="text"], input[type="text"]:not(:focus),
+input[type="text"]:focus, input[type="text"]:focus::placeholder {
+  width: auto;
+  transition: none;
+  font-family: var(--font-family-global);
+  font-size: var(--font-size-global);
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+#formsearch, #formsearch::after {
+  font-family: var(--font-family-global);
+  font-size: var(--font-size-global);
+}
+
+#formsearch {
+  padding-top: .5em;
+  margin-top: 0;
+  text-align: left;
+}
+
+#formsearch::before {
+  animation: 1s blink_term step-end infinite;
+  content: ">";
+}
+
+@keyframes blink_term {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Kill responsive */
+@media (max-width: 750px) {
+  .button { flex-flow: nowrap; }
+  .buttons .btn { display: block; text-align: left; padding: 0; height: 38px; line-height: normal; }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "alexflipnote_homepage",
+  "author": "AlexFlipnote",
+  "homepage": "https://alexflipnote.dev/homepage/",
+  "type": "module",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "dependencies": {
+    "moment": "^2.29.1"
+  },
+  "devDependencies": {
+    "jshint": "^2.10.3",
+    "archiver": "^7.0.1",
+    "esbuild": "0.25.11"
+  }
+}

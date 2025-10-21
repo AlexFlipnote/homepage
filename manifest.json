@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+
+  "name": "AlexFlipnote/Homepage",
+  "description": "A website that gives you a clean homepage with random backgrounds!",
+  "homepage_url": "https://alexflipnote.dev",
+  "version": "2.2.1",
+
+  "chrome_url_overrides": {
+    "newtab": "indexPlugin.html"
+  },
+
+  "icons": {
+    "128": "assets/images/128.png",
+    "48": "assets/images/48.png",
+    "32": "assets/images/32.png",
+    "16": "assets/images/16.png"
+  },
+
+  "action": {
+    "default_icon": "assets/images/logo.png",
+    "default_popup": "assets/window.html"
+  },
+
+  "options_ui": {
+    "page": "assets/options.html",
+    "open_in_tab": true
+  },
+
+  "minimum_chrome_version": "88",
+  "applications": {
+    "gecko": {"strict_min_version": "54.0"}
+  },
+
+  "permissions": [
+    "tabs",
+    "geolocation",
+    "storage"
+  ],
+
+  "host_permissions": [
+    "https://api.openweathermap.org/*"
+  ]
+}

@@ -1,0 +1,321 @@
+/* Import font */
+@font-face {
+  font-family: "Lato";
+  src: url('../fonts/Lato.ttf') format('truetype');
+}
+
+/* Animation */
+@keyframes enter-page {
+  from { transform: translate(0, 50%); opacity: 0; }
+  100% { transform: translate(0, 0); opacity: 1; }
+}
+
+@keyframes enter-weather {
+  from { left: -100px; opacity: 0; }
+  100% { left: 10px; opacity: 1; }
+}
+
+@keyframes enter-weather-diff {
+  from { transform: translateX(-3.5em); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+/* Global */
+* {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+  -moz-user-drag: none;
+  -webkit-user-drag: none;
+	user-select: none;
+}
+
+body {
+  font-family: "Lato", sans-serif, Arial;
+	overflow: hidden;
+}
+
+.center-object { animation: enter-page 1s ease-in-out; }
+
+/* Background */
+.dark-theme .fullscreen { background: transparent; }
+.fullscreen .center-object { position: fixed; }
+#js-bg {
+  left: 0;
+  position: fixed;
+  top: 0;
+  transition: opacity 500ms ease-out;
+  opacity: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+/* Clock */
+.time {
+  font-size: 10vmin;
+  margin: 0;
+  transition: all .5s ease;
+}
+
+/* Input Box */
+.form-box {
+  margin-top: 2em;
+  padding-top: 1.3em;
+  margin-left: auto;
+  margin-right: auto;
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+}
+
+input[type="text"], input[type="text"]:not(:focus) {
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.7);
+  color: #ddd;
+  font-size: 1.5em;
+  outline: none;
+  padding: .5em;
+  transition: all 500ms ease;
+  width: 15em;
+  border-radius: 0px;
+}
+
+input[type="text"]:focus, input[type="text"]:focus::placeholder {
+  background: transparent;
+  border-radius: 0;
+  color: #fff;
+  transition: all 500ms ease;
+  width: 20em;
+}
+
+input[type="text"]::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+  transition: all 500ms ease;
+}
+
+input[type="text"]:focus, input[type="text"]:focus::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.8);
+  transition: all 500ms ease;
+}
+
+/* Install button */
+#install-button, #install-button:hover {
+  transition: all 300ms ease;
+}
+
+a#install-button { color: #fff; }
+
+#install-button {
+  background-color: #2ecc71;
+  border-radius: 10px 0 0;
+  bottom: 0;
+  cursor: pointer;
+  font-family: "Lato", sans-serif, Arial;
+  padding-bottom: .5em;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: .5em;
+  position: absolute;
+  right: 0;
+}
+
+#install-button:hover {
+  background-color: #16a085;
+  padding-bottom: 1em;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  padding-top: 1em;
+}
+
+
+/* Weather placeholder */
+.weather-container {
+  animation: enter-weather 1s ease-in-out;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.wtext-container {
+  left: 90px;
+  position: absolute;
+  top: 0;
+  width: 400px;
+}
+
+.wtext-container * {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.wtext-container .terminal_break { margin-left: 0; }
+
+#wicon {
+  height: 72px;
+  width: 72px;
+}
+
+#wtime-container { margin-top: 1.5em; }
+#wtime-container .wdiff {
+  align-items: center;
+  display: flex;
+  flex-direction: unset;
+  margin-bottom: .3em;
+  opacity: 0;
+}
+
+#wtime-container .wdiff:nth-child(1) {
+  animation: enter-weather-diff 1s ease-in-out;
+  animation-delay: 1.0s; animation-fill-mode: forwards;
+}
+
+#wtime-container .wdiff:nth-child(2) {
+  animation: enter-weather-diff 1s ease-in-out;
+  animation-delay: 1.2s; animation-fill-mode: forwards;
+}
+
+#wtime-container .wdiff:nth-child(3) {
+  animation: enter-weather-diff 1s ease-in-out;
+  animation-delay: 1.4s; animation-fill-mode: forwards;
+}
+
+#wtime-container .wdiff:nth-child(4) {
+  animation: enter-weather-diff 1s ease-in-out;
+  animation-delay: 1.6s; animation-fill-mode: forwards;
+}
+
+#wtime-container .wdiff:nth-child(5) {
+  animation: enter-weather-diff 1s ease-in-out;
+  animation-delay: 1.8s; animation-fill-mode: forwards;
+}
+
+.wdiff .text {
+  font-size: 18px;
+  margin-bottom: 0;
+  margin-left: .4em;
+  margin-top: -2px;
+}
+
+.wdiff .icon {
+  height: 26px;
+  width: 26px;
+}
+
+/* Quick links */
+#quicklinks {
+  position: absolute;
+  top: 0;
+  right: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.quicklink {
+  display: flex;
+  opacity: .6;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  margin-top: 25px;
+  height: 42px;
+  background-color: #F5F3F1;
+  padding: 5px;
+  align-items: center;
+  transition: .4s;
+  transform: translateX(calc(100% - 50px));
+}
+
+#settings {
+  box-sizing: border-box;
+  position: fixed;
+  margin: 0;
+  right: 0;
+  bottom: 25px;
+}
+
+#quicklinks.compact .quicklink, #settings {
+  transform: translateX(calc(100% - 39px));
+  margin-top: 10px;
+  height: 30px;
+}
+
+.quicklink.load {
+  animation: quicklink-enter .8s;
+}
+
+#quicklinks.compact .quicklink.load {
+  animation: quicklink-enter-compact .8s;
+}
+
+.quicklink-icon {
+  display: block;
+  height: 32px;
+  width: 32px;
+  margin-right: 8px;
+  margin-left: 5px;
+}
+
+#quicklinks.compact .quicklink-icon, #settings .quicklink-icon {
+  height: 25px;
+  width: 25px;
+  margin-right: 5px;
+  margin-left: 3px;
+}
+
+.quicklink-txt {
+  margin-right: 10px;
+  color: #000;
+  text-decoration: none;
+}
+
+.quicklink:hover {
+  opacity: 1;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+  transform: translateX(0)!important;
+}
+
+@keyframes quicklink-enter {
+  from { transform: translateX(100%); }
+  to { transform: translateX(calc(100% - 50px)); }
+}
+
+@keyframes quicklink-enter-compact {
+  from { transform: translateX(100%); }
+  to { transform: translateX(calc(100% - 39px)); }
+}
+
+
+/* Demo CSS */
+.demoButtons {
+  background: rgba(0, 0, 0, .5);
+  left: 0;
+  padding: 1em;
+  position: absolute;
+  bottom: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+
+.demoButtons * { font-family: "Lato", sans-serif, Arial; }
+.demoButtons p { margin: 0; }
+.demoButtons ul { margin: 0; padding-left: 30px; cursor: pointer; }
+.demoButtons select {
+  align-items: center;
+  background-color: #fff;
+  border-color: initial;
+  border-image: initial;
+  border-radius: 0;
+  border-style: solid;
+  border-width: 1px;
+  box-sizing: border-box;
+  color: #000;
+  cursor: default;
+  height: auto;
+  padding: 2px;
+  white-space: pre;
+}
