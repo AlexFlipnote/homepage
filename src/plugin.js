@@ -71,8 +71,5 @@ chrome.storage.local.get({
   if (items.showSettings) {
     let settings = document.getElementById("settings")
     settings.removeAttribute("style")
-    settings.addEventListener("click", function () {
-      chrome.runtime.openOptionsPage()
-    })
   }
 })
