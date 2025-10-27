@@ -19,7 +19,7 @@ const shared = {
 
 const builds = [
   { entryPoints: ["src/plugin.js"], outfile: "assets/js/plugin.js" },
-  { entryPoints: ["src/options.js"], outfile: "assets/options.js" },
+  { entryPoints: ["src/options.js"], outfile: "assets/js/options.js" },
   { entryPoints: ["src/demo.js"], outfile: "assets/js/demo.js" },
 ]
 

@@ -1,7 +1,7 @@
 import { isChrome, isFirefox, getBrowser } from "./utils/browser.js"
 import { runClock } from "./_main.js"
 
-import moment from 'moment/min/moment-with-locales'
+import moment from "moment/min/moment-with-locales"
 
 runClock()
 
@@ -12,6 +12,16 @@ function turnSwitch(el) {
     el.style.display = "none"
   }
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+  let backgroundElement = document.getElementById("js-bg")
+  const random_bg_num = Math.floor(Math.random() * 31)
+
+  backgroundElement.src = `assets/images/backgrounds/background${random_bg_num}.jpg`
+  backgroundElement.onload = () => {
+    backgroundElement.style.opacity = 1
+  }
+})
 
 // Load all languages
 let languages = moment.locales()
@@ -24,46 +34,36 @@ for (let i = 0; i < languages.length; i++) {
 
 
 // Change background
-document.getElementById('changebg').onclick = function() {
+document.getElementById("changebg").onclick = function() {
   let font = prompt("Please enter a font", "Times New Roman")
   if (font) {
-    addFont = '"' + font + '", "Lato", sans-serif, Arial'
-    document.body.style.fontFamily = addFont
+    document.body.style.fontFamily = `"${font}", "Lato", sans-serif, Arial`
   }
 }
 
 // Change background
-document.getElementById('changefont').onclick = function() {
-  const backgroundElement = document.getElementById('js-bg')
+document.getElementById("changefont").onclick = function() {
+  const backgroundElement = document.getElementById("js-bg")
   let bg = prompt("Please enter a background URL:", "https://")
   if (bg) { backgroundElement.src = bg }
 }
 
-// Turn off search
-document.getElementById('nosearch').onclick = function() {
-  let search = document.getElementById('formsearch')
-  turnSwitch(search)
-}
-
 // Turn on/off weather
-document.getElementById('weather').onclick = function() {
-  let search = document.getElementById('wcontainer')
-  turnSwitch(search)
+document.getElementById("weather").onclick = function() {
+  turnSwitch(document.getElementById("wcontainer"))
 }
 
 // Change language
-document.getElementById('language').onchange = function(el) {
-  let getLangVal = document.getElementById('language').value
-  if (!getLangVal) {
-    getLangVal = navigator.language
-  }
+document.getElementById("language").onchange = function(el) {
+  let getLangVal = document.getElementById("language").value
+  if (!getLangVal) { getLangVal = navigator.language }
 
   moment.locale(getLangVal)
 }
 
 // Add a nice install button
 function enableButton(text, link) {
-  let addbutton = document.getElementById('install-button')
+  let addbutton = document.getElementById("install-button")
   addbutton.style.display = "block"
   addbutton.innerText = text
   addbutton.href = link

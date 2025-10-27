@@ -1,58 +1,75 @@
 import { http } from "./http.js"
 import { wicons } from "./lists.js"
 
-import moment from 'moment/min/moment-with-locales'
+import moment from "moment/min/moment-with-locales"
 
-function newWeatherTime(target, items, data) {
-  let element = document.createElement("div")
-  let wlIcon = document.createElement("img")
-  let wlText = document.createElement("p")
-  element.className = "wdiff"
-  wlText.className = "text"
-  wlIcon.className = "icon"
-
-  let getTemp
-  if (items.tempc == false) {
-    getTemp = `${Math.round(parseInt(data.main.temp) * (9 / 5) - 459.67)} °F`
-  } else {
-    getTemp = `${Math.round(parseInt(data.main.temp) - 273.15)} °C`
+export function showWeatherLanguages() {
+  return {
+    "sq": "Albanian",
+    "af": "Afrikaans",
+    "ar": "Arabic",
+    "az": "Azerbaijani",
+    "eu": "Basque",
+    "be": "Belarusian",
+    "bg": "Bulgarian",
+    "ca": "Catalan",
+    "zh_cn": "Chinese Simplified",
+    "zh_tw": "Chinese Traditional",
+    "hr": "Croatian",
+    "cz": "Czech",
+    "da": "Danish",
+    "nl": "Dutch",
+    "en": "English",
+    "fi": "Finnish",
+    "fr": "French",
+    "gl": "Galician",
+    "de": "German",
+    "el": "Greek",
+    "he": "Hebrew",
+    "hi": "Hindi",
+    "hu": "Hungarian",
+    "is": "Icelandic",
+    "id": "Indonesian",
+    "it": "Italian",
+    "ja": "Japanese",
+    "kr": "Korean",
+    "ku": "Kurmanji (Kurdish)",
+    "la": "Latvian",
+    "lt": "Lithuanian",
+    "mk": "Macedonian",
+    "no": "Norwegian",
+    "fa": "Persian (Farsi)",
+    "pl": "Polish",
+    "pt": "Portuguese",
+    "pt_br": "Português Brasil",
+    "ro": "Romanian",
+    "ru": "Russian",
+    "sr": "Serbian",
+    "sk": "Slovak",
+    "sl": "Slovenian",
+    "es": "Spanish",
+    "se": "Swedish",
+    "th": "Thai",
+    "tr": "Turkish",
+    "ua": "Ukrainian",
+    "vi": "Vietnamese",
+    "zu": "Zulu",
   }
-
-  wlIcon.src = "assets/images/weather/" + wicons[data.weather[0].icon]
-  let getTime = moment.unix(data.dt).format("LT")
-  let getDesc = data.weather[0].description.replace(/^\w/, c => c.toUpperCase())
-  wlText.innerText = `${getTime} - `
-
-  let wlTextDetail = document.createElement("span")
-  wlTextDetail.innerText = `${getDesc} | ${getTemp}`
-  wlTextDetail.classList.add("wdetails")
-  wlText.append(wlTextDetail)
-
-  element.appendChild(wlIcon)
-  element.appendChild(wlText)
-  target.appendChild(element)
 }
 
-export function getWeather(items, position) {
+export function getWeather(items, position, wkey, lang) {
   let pos = position.coords
-  http(`https://api.met.no/weatherapi/locationforecast/2.0/complete.json?lat=${pos.latitude}&lon=${pos.longitude}`, (r) => {
-    document.getElementById('wicon').src = "assets/images/weather/" + wicons[r.list[0].weather[0].icon]
-    document.getElementById('wname').innerText = r.city.name
-    document.getElementById('wdescription').innerText = r.list[0].weather[0].description.replace(/^\w/, c => c.toUpperCase())
+  let wlang = lang || "en"
+  http(`https://api.openweathermap.org/data/2.5/weather?lat=${pos.latitude}&lon=${pos.longitude}&appid=${wkey}&lang=${wlang}`, (r) => {
+    document.getElementById("wicon").src = "assets/images/weather/" + wicons[r.weather[0].icon]
+    document.getElementById("wname").innerText = r.name
+    document.getElementById("wdescription").innerText = r.weather[0].description.replace(/^\w/, c => c.toUpperCase())
     if (items.tempc == false) {
-      document.getElementById('wtemp').innerText = `${Math.round(parseInt(r.list[0].main.temp) * (9 / 5) - 459.67)} °F`
+      document.getElementById("wtemp").innerText = `${Math.round(parseInt(r.main.temp) * (9 / 5) - 459.67)} °F`
     } else {
-      document.getElementById('wtemp').innerText = `${Math.round(parseInt(r.list[0].main.temp) - 273.15)} °C`
+      document.getElementById("wtemp").innerText = `${Math.round(parseInt(r.main.temp) - 273.15)} °C`
     }
 
-    document.getElementById('wcontainer').style.display = "block"
-
-    // Make all the other time differences if enabled
-    let wLater = document.getElementById('wtime-container')
-    if (items.w3hours) {
-      for (var i = 1; i < 5; i++) {
-        newWeatherTime(wLater, items, r.list[i])
-      }
-    }
+    document.getElementById("wcontainer").style.display = "block"
   })
 }

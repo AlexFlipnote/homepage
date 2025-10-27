@@ -19,27 +19,14 @@
       </select>
       <p class="no-margin">Weather language</p>
       <select id="wlanguage">
-        <option value="en">Default: English</option>
+        <option value="">Default: English</option>
       </select>
     </div>
 
     <div class="box-container primary-bg no-border-radius">
       <h1 class="no-margin">General settings</h1>
       <label><input type="checkbox" id="no_seconds"> Remove seconds from clock</label>
-    </div>
-
-    <div class="box-container primary-bg no-border-radius">
-      <h1 class="no-margin">Search engine</h1>
-      <p>Change search engine source</p>
-      <select id="engines">
-        <option value="google">Default: Google</option>
-        <option value="none">None</option>
-        <option value="bing">Bing</option>
-        <option value="ddg">DuckDuckGo</option>
-        <option value="ecosia">Ecosia</option>
-        <option value="searx">OwO searX</option>
-        <option value="yahoo">Yahoo</option>
-      </select>
+      <label><input type="checkbox" id="show-settings"> Show settings button</label>
     </div>
 
     <div class="box-container primary-bg no-border-radius">
@@ -71,7 +58,7 @@
     <div class="box-container primary-bg no-border-radius">
       <h1 class="no-margin">24h HEX Background</h1>
       <a href="https://alexflipnote.dev/pages/hexclock/">Click here to see a live example</a>
-      <p><span class="sun-flower-text">Keep in mind</span>, checking this will disable <b>Custom background URL</b></p>
+      <p><span class="sun-flower-text">Keep in mind</span>, checking this will disable <b>Custom background</b></p>
       <label>
         <input type="checkbox" id="hexbg"> Enable
       </label>
@@ -80,21 +67,10 @@
     <div class="box-container primary-bg no-border-radius">
       <h1 class="no-margin">OpenWeather key</h1>
       <p>
-        To get your own weather key, go to <a href="https://openweathermap.org/appid" target="_blank">this</a> website to recive one.
+        To get your own weather key, go to <a href="https://openweathermap.org/" target="_blank">this</a> website to recive one.
       </p>
       <input id="wkey" class="secondary">
       <label><input type="checkbox" id="tempc"> Turn Celcius on</label>
-      <label><input type="checkbox" id="w3hours"> Turn 3-hour difference on</label>
-    </div>
-
-    <div class="box-container primary-bg no-border-radius">
-      <h1 class="no-margin">Quick links</h1>
-      <p>
-        If you want multiple links, add a new link for each line<br/>
-        <span class="sun-flower-text">NOTE:</span> You can add up to <span id='quicklink-limit' class='sun-flower-text'>666</span> links
-      </p>
-      <textarea id="links" class="secondary"></textarea>
-      <label><input type="checkbox" id="show-settings"> Show settings button</label>
     </div>
 
     <div class="box-container primary-bg no-border-radius">
@@ -113,6 +89,6 @@
     <h1>Options saved.</h1>
   </div>
 
-  <script src="options.js"></script>
+  <script src="js/options.js"></script>
 </body>
 </html>

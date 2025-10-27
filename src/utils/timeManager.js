@@ -1,4 +1,4 @@
-import moment from 'moment/min/moment-with-locales'
+import moment from "moment/min/moment-with-locales"
 
 let format
 try {
@@ -14,17 +14,17 @@ try {
 
 function getViewportDimensions () {
   return {
-    w: typeof window.innerWidth === 'number' ? window.innerWidth : document.documentElement && document.documentElement.clientWidth ? document.documentElement.clientWidth : document.body.clientWidth,
-    h: typeof window.innerHeight === 'number' ? window.innerHeight : document.documentElement && document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight
+    w: typeof window.innerWidth === "number" ? window.innerWidth : document.documentElement && document.documentElement.clientWidth ? document.documentElement.clientWidth : document.body.clientWidth,
+    h: typeof window.innerHeight === "number" ? window.innerHeight : document.documentElement && document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight
   }
 }
 
 export function updateDateAndTime() {
-  let dateString = moment().format('LL'),
+  let dateString = moment().format("LL"),
       timeString = moment().format(format)
 
-  document.getElementById('js-date').innerText = dateString
-  document.getElementById('js-time').innerText = timeString
+  document.getElementById("js-date").innerText = dateString
+  document.getElementById("js-time").innerText = timeString
 
   // Request animation frame for next update
   requestAnimationFrame(updateDateAndTime)
@@ -35,11 +35,11 @@ export function updateDateAndTime() {
 export function handleViewportResize () {
   let d = getViewportDimensions()
   if ((d.w / d.h) < (backgroundElement.width / backgroundElement.height)) {
-    backgroundElement.style.width = 'auto'
-    backgroundElement.style.height = '100%'
+    backgroundElement.style.width = "auto"
+    backgroundElement.style.height = "100%"
   } else {
-    backgroundElement.style.width = '100%'
-    backgroundElement.style.height = 'auto'
+    backgroundElement.style.width = "100%"
+    backgroundElement.style.height = "auto"
   }
 }
 
