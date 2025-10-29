@@ -7,7 +7,7 @@
   "version": "2.2.3",
 
   "chrome_url_overrides": {
-    "newtab": "indexPlugin.html"
+    "newtab": "index.html"
   },
 
   "icons": {

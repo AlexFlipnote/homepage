@@ -1,16 +1,17 @@
-import moment from "moment/min/moment-with-locales"
 import { weather_languages } from "./utils/lists.js"
+import { date_locales } from "./utils/lists.js"
 
 // Saves options to chrome.storage
 function save_options() {
   const language = document.getElementById("language").value
   const wlanguage = document.getElementById("wlanguage").value
   const customfont = document.getElementById("customfont").value
+  const fmt_time = document.getElementById("fmt_time").value
+  const fmt_date = document.getElementById("fmt_date").value
   const customfontgoogle = document.getElementById("customfontgoogle").checked
-  const no_seconds = document.getElementById("no_seconds").checked
   const hexbg = document.getElementById("hexbg").checked
   const wkey = document.getElementById("wkey").value
-  const tempc = document.getElementById("tempc").checked
+  const temp_type = document.getElementById("temp_type").value
   const showSettings = document.getElementById("show-settings").checked
   const customcss = document.getElementById("customcss").value
 
@@ -25,12 +26,13 @@ function save_options() {
     language: language,
     wlanguage: wlanguage,
     custombg: custombg,
+    fmt_time: fmt_time,
+    fmt_date: fmt_date,
     customfont: customfont,
-    no_seconds: no_seconds,
     customfontgoogle: customfontgoogle,
     wkey: wkey,
     hexbg: hexbg,
-    tempc: tempc,
+    temp_type: temp_type,
     showSettings: showSettings,
     customcss: customcss
   }, function() {
@@ -51,25 +53,27 @@ function save_options() {
 function restore_options() {
   chrome.storage.local.get({
     language: "",
+    fmt_time: "",
+    fmt_date: "",
     wlanguage: "",
     custombg: [],
     customfont: "",
-    no_seconds: false,
     customfontgoogle: false,
     wkey: "",
-    tempc: true,
+    temp_type: "celcius",
     hexbg: false,
     showSettings: true,
     customcss: ""
   }, function(items) {
     document.getElementById("language").value = items.language
     document.getElementById("wlanguage").value = items.wlanguage
+    document.getElementById("fmt_time").value = items.fmt_time
+    document.getElementById("fmt_date").value = items.fmt_date
     document.getElementById("customfont").value = items.customfont
-    document.getElementById("no_seconds").checked = items.no_seconds
     document.getElementById("customfontgoogle").checked = items.customfontgoogle
     document.getElementById("hexbg").checked = items.hexbg
     document.getElementById("wkey").value = items.wkey
-    document.getElementById("tempc").checked = items.tempc
+    document.getElementById("temp_type").value = items.temp_type
     document.getElementById("show-settings").checked = items.showSettings
     document.getElementById("customcss").value = items.customcss
 
@@ -81,13 +85,12 @@ function restore_options() {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-  // Clock languages
-  const languages = moment.locales()
-  for (var i = 0; i < languages.length; i++) {
+  const languages = document.getElementById("language")
+  for (const [k, v] of Object.entries(date_locales)) {
     const option = document.createElement("option")
-    option.text = languages[i]
-    option.value = languages[i]
-    document.getElementById("language").appendChild(option)
+    option.text = v
+    option.value = k
+    languages.appendChild(option)
   }
 
   // Weather languages

@@ -4,11 +4,11 @@
   "homepage": "https://alexflipnote.dev/homepage/",
   "type": "module",
   "scripts": {
+    "build:js": "node build.js js",
+    "build:zip": "node build.js zip",
     "build": "node build.js"
   },
-  "dependencies": {
-    "moment": "^2.29.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "jshint": "^2.10.3",
     "archiver": "^7.0.1",

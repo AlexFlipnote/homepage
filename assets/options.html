@@ -12,21 +12,30 @@
     <h1 class="emerald-text">Homepage Settings</h1>
 
     <div class="box-container primary-bg no-border-radius">
-      <h1 class="no-margin">Change language</h1>
-      <p class="no-margin">Clock language</p>
-      <select id="language">
-        <option value="">Default: Local language</option>
-      </select>
-      <p class="no-margin">Weather language</p>
-      <select id="wlanguage">
-        <option value="">Default: English</option>
-      </select>
+      <h1 class="no-margin">General settings</h1>
+      <label><input type="checkbox" id="show-settings"> Show settings button</label>
     </div>
 
     <div class="box-container primary-bg no-border-radius">
-      <h1 class="no-margin">General settings</h1>
-      <label><input type="checkbox" id="no_seconds"> Remove seconds from clock</label>
-      <label><input type="checkbox" id="show-settings"> Show settings button</label>
+      <h1 class="no-margin">Customise timestamp</h1>
+      <p>
+        You can customize the time and date format using Python strftime format.
+        Leave empty to use the default format.<br>(Scroll to the bottom for a list of supported formats)
+      </p>
+      <label>
+        Language:
+        <select id="language">
+          <option value="">Default: Local language</option>
+        </select>
+      </label>
+      <label>
+        Time format:
+        <input id="fmt_time" class="secondary" placeholder="%H:%M:%S">
+      </label>
+      <label>
+        Date format:
+        <input id="fmt_date" class="secondary" placeholder="%d. %B %Y">
+      </label>
     </div>
 
     <div class="box-container primary-bg no-border-radius">
@@ -69,8 +78,23 @@
       <p>
         To get your own weather key, go to <a href="https://openweathermap.org/" target="_blank">this</a> website to recive one.
       </p>
-      <input id="wkey" class="secondary">
-      <label><input type="checkbox" id="tempc"> Turn Celcius on</label>
+      <label>
+        API Key:
+        <input id="wkey" class="secondary">
+      </label>
+      <label>
+        Language:
+        <select id="wlanguage">
+          <option value="">Default: English</option>
+        </select>
+      </label>
+      <label>
+        Temperature type:
+        <select id="temp_type">
+          <option value="celcius">Celsius (°C)</option>
+          <option value="fahrenheit">Fahrenheit (°F)</option>
+        </select>
+      </label>
     </div>
 
     <div class="box-container primary-bg no-border-radius">
@@ -80,6 +104,124 @@
         I allow you to do <span class="emerald-text">whatever</span> you desire.
       </p>
       <textarea id="customcss" class="secondary" style="height: 15em; width: 90%;" placeholder="Write some hot CSS in here..."></textarea>
+    </div>
+
+    <div class="box-container primary-bg no-border-radius">
+      <h1 class="no-margin">strftime formats</h1>
+      <p>Here is a list of supported strftime formats that you can use in the time and date format fields:</p>
+      <table class="center">
+        <thead>
+          <tr>
+            <th>Format</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Year -->
+          <tr>
+            <td>%Y</td>
+            <td>Year with century as a decimal number (e.g., 2025).</td>
+          </tr>
+          <tr>
+            <td>%y</td>
+            <td>Year without century as a zero-padded decimal number (00–99).</td>
+          </tr>
+
+          <!-- Month -->
+          <tr>
+            <td>%m</td>
+            <td>Month as a zero-padded decimal number (01–12).</td>
+          </tr>
+          <tr>
+            <td>%B</td>
+            <td>Full month name (e.g., January, February).</td>
+          </tr>
+          <tr>
+            <td>%b</td>
+            <td>Abbreviated month name (e.g., Jan, Feb).</td>
+          </tr>
+
+          <!-- Day -->
+          <tr>
+            <td>%d</td>
+            <td>Day of the month as a zero-padded decimal number (01–31).</td>
+          </tr>
+          <tr>
+            <td>%e</td>
+            <td>Day of the month as a space-padded decimal number ( 1–31).</td>
+          </tr>
+          <tr>
+            <td>%j</td>
+            <td>Day of the year as a zero-padded decimal number (001–366).</td>
+          </tr>
+
+          <!-- Weekday -->
+          <tr>
+            <td>%A</td>
+            <td>Full weekday name (e.g., Monday, Tuesday).</td>
+          </tr>
+          <tr>
+            <td>%a</td>
+            <td>Abbreviated weekday name (e.g., Mon, Tue).</td>
+          </tr>
+          <tr>
+            <td>%w</td>
+            <td>Weekday as a decimal number, where Sunday is 0.</td>
+          </tr>
+
+          <!-- Time -->
+          <tr>
+            <td>%H</td>
+            <td>Hour (24-hour clock) as a zero-padded decimal number (00–23).</td>
+          </tr>
+          <tr>
+            <td>%I</td>
+            <td>Hour (12-hour clock) as a zero-padded decimal number (01–12).</td>
+          </tr>
+          <tr>
+            <td>%p</td>
+            <td>Locale’s equivalent of AM or PM.</td>
+          </tr>
+          <tr>
+            <td>%M</td>
+            <td>Minute as a zero-padded decimal number (00–59).</td>
+          </tr>
+          <tr>
+            <td>%S</td>
+            <td>Second as a zero-padded decimal number (00–59).</td>
+          </tr>
+          <tr>
+            <td>%f</td>
+            <td>Millisecond as a zero-padded decimal number (000–999).</td>
+          </tr>
+
+          <!-- Timezone -->
+          <tr>
+            <td>%z</td>
+            <td>UTC offset in the form ±HHMM (e.g., +0100).</td>
+          </tr>
+          <tr>
+            <td>%Z</td>
+            <td>Time zone name (e.g., CET, UTC, PST). Falls back to offset if not available.</td>
+          </tr>
+
+          <!-- Combined shortcuts -->
+          <tr>
+            <td>%F</td>
+            <td>Shortcut for <code>%Y-%m-%d</code> (ISO 8601 date format).</td>
+          </tr>
+          <tr>
+            <td>%T</td>
+            <td>Shortcut for <code>%H:%M:%S</code> (24-hour time format).</td>
+          </tr>
+
+          <!-- Literal -->
+          <tr>
+            <td>%%</td>
+            <td>A literal percent sign (%).</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <button class="save-button" id="save">Save</button>

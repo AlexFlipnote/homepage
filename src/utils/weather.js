@@ -11,7 +11,7 @@ export function getWeather(items, position, wkey, lang) {
     document.getElementById("wicon").src = `assets/images/weather/${wicons[r.weather[0].icon]}`
     document.getElementById("wname").innerText = r.name
     document.getElementById("wdescription").innerText = r.weather[0].description.replace(/^\w/, c => c.toUpperCase())
-    if (items.tempc == false) {
+    if (items.temp_type === "fahrenheit") {
       wtemp.innerText = `${Math.round(parseInt(r.main.temp) * (9 / 5) - 459.67)} °F`
     } else {
       wtemp.innerText = `${Math.round(parseInt(r.main.temp) - 273.15)} °C`
