@@ -57,11 +57,11 @@ const args = process.argv.slice(2)
 const doZip = args.includes("zip")
 const doJS = args.includes("js")
 
-if (doJS) await buildJS()
-if (doZip) await createZip()
-
 if (!args.length) {
   await buildJS()
   await createZip()
+} else {
+  if (doJS) await buildJS()
+  if (doZip) await createZip()
 }
 

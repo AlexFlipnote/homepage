@@ -1,4 +1,4 @@
-export const weather_languages = {
+export const weatherLanguages = {
   "sq": "Albanian",
   "af": "Afrikaans",
   "ar": "Arabic",
@@ -50,7 +50,7 @@ export const weather_languages = {
   "zu": "Zulu",
 }
 
-export const wicons = {
+export const weatherIcons = {
   "01d": "2600.png",
   "02d": "26c5.png",
   "03d": "2601.png",
@@ -71,7 +71,7 @@ export const wicons = {
   "50n": "1f32b.png",
 }
 
-export const date_locales = {
+export const dateLocales = {
   // English variants
   "en-US": "English (United States)",
   "en-GB": "English (United Kingdom)",

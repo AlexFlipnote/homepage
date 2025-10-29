@@ -1,5 +1,5 @@
-import { weather_languages } from "./utils/lists.js"
-import { date_locales } from "./utils/lists.js"
+import { weatherLanguages, dateLocales } from "./utils/lists.js"
+import { extensionSettings } from "./utils/settings.js"
 
 // Saves options to chrome.storage
 function save_options() {
@@ -51,20 +51,7 @@ function save_options() {
 // Restores select box and checkbox state using the preferences
 // stored in chrome.storage.
 function restore_options() {
-  chrome.storage.local.get({
-    language: "",
-    fmt_time: "",
-    fmt_date: "",
-    wlanguage: "",
-    custombg: [],
-    customfont: "",
-    customfontgoogle: false,
-    wkey: "",
-    temp_type: "celcius",
-    hexbg: false,
-    showSettings: true,
-    customcss: ""
-  }, function(items) {
+  chrome.storage.local.get({ ...extensionSettings }, function(items) {
     document.getElementById("language").value = items.language
     document.getElementById("wlanguage").value = items.wlanguage
     document.getElementById("fmt_time").value = items.fmt_time
@@ -86,7 +73,7 @@ function restore_options() {
 
 document.addEventListener("DOMContentLoaded", function() {
   const languages = document.getElementById("language")
-  for (const [k, v] of Object.entries(date_locales)) {
+  for (const [k, v] of Object.entries(dateLocales)) {
     const option = document.createElement("option")
     option.text = v
     option.value = k
@@ -95,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Weather languages
   const wlanguage = document.getElementById("wlanguage")
-  for (const [code, name] of Object.entries(weather_languages)) {
+  for (const [code, name] of Object.entries(weatherLanguages)) {
     const option = document.createElement("option")
     option.text = name
     option.value = code

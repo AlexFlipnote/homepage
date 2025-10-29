@@ -1,7 +1,7 @@
 /* Import font */
 @font-face {
   font-family: "Lato";
-  src: url('../fonts/Lato.ttf') format('truetype');
+  src: url("../fonts/Lato.ttf") format("truetype");
 }
 
 /* Animation */

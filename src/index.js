@@ -1,27 +1,21 @@
 import { isChrome, isFirefox, isExtension } from "./utils/browser"
-import { date_locales } from "./utils/lists.js"
+import { dateLocales } from "./utils/lists.js"
+import { extensionSettings } from "./utils/settings.js"
 import { getWeather } from "./utils/weather.js"
 import { timeInHex, startClock, changeLocale } from "./utils/timeManager.js"
+
+const DEFAULT = {
+  fmt_time: "%H:%M:%S",
+  fmt_date: "%d. %B %Y",
+}
 
 if (isExtension) {
   // Extension mode
   console.log("☑️ Running in extension mode")
-  chrome.storage.local.get({
-    language: "",
-    wlanguage: "",
-    custombg: [],
-    fmt_time: "",
-    fmt_date: "",
-    customfont: "",
-    customfontgoogle: false,
-    wkey: "",
-    temp_type: "celcius",
-    hexbg: false,
-    showSettings: true,
-    customcss: ""
-  }, function(items) {
-    startClock("js-time", items.fmt_time || "%H:%M:%S")
-    startClock("js-date", items.fmt_date || "%d. %B %Y")
+
+  chrome.storage.local.get({ ...extensionSettings }, function(items) {
+    startClock("js-time", items.fmt_time || DEFAULT.fmt_time)
+    startClock("js-date", items.fmt_date || DEFAULT.fmt_date)
     changeLocale(items.language)
 
     const backgroundElement = document.getElementById("js-bg")
@@ -77,8 +71,8 @@ if (isExtension) {
 } else {
   console.log("ℹ️ Running in demo mode")
   // Demo mode
-  startClock("js-time", "%H:%M:%S")
-  startClock("js-date", "%d. %B %Y")
+  startClock("js-time", DEFAULT.fmt_time)
+  startClock("js-date", DEFAULT.fmt_date)
 
   function turnSwitch(el) {
     if (el.style.display == "none") {
@@ -101,7 +95,7 @@ if (isExtension) {
   })
 
   // Load all languages
-  const languages = Object.keys(date_locales).sort()
+  const languages = Object.keys(dateLocales).sort()
   for (let i = 0; i < languages.length; i++) {
     const option = document.createElement("option")
     option.text = languages[i]
