@@ -13,5 +13,9 @@
     "jshint": "^2.10.3",
     "archiver": "^7.0.1",
     "esbuild": "0.25.11"
+  },
+  "jshintConfig": {
+    "esversion": 8,
+    "asi": true
   }
 }

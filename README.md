@@ -2,8 +2,8 @@
 ![Image](https://i.alexflipnote.dev/c6cec3.png)
 
 # Platforms
-- Website: coming soon
-- Google Chrome: Awaiting approval
+- Website: https://alexflipnote.dev/homepage
+- Google Chrome: Fighting the approval team, lol
 - [Firefox](https://addons.mozilla.org/addon/alexflipnote-homepage/)
 
 ## What is this?
