@@ -1,5 +1,5 @@
-import { isChrome, isFirefox, getBrowser } from "./utils/browser.js"
-import { runClock } from "./_main.js"
+import { isChrome, isFirefox } from "./utils/browser.js"
+import { runClock } from "./utils/timeManager.js"
 
 import moment from "moment/min/moment-with-locales"
 
@@ -14,7 +14,7 @@ function turnSwitch(el) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-  let backgroundElement = document.getElementById("js-bg")
+  const backgroundElement = document.getElementById("js-bg")
   const random_bg_num = Math.floor(Math.random() * 31)
 
   backgroundElement.src = `assets/images/backgrounds/background${random_bg_num}.jpg`
@@ -24,9 +24,9 @@ document.addEventListener("DOMContentLoaded", function() {
 })
 
 // Load all languages
-let languages = moment.locales()
+const languages = moment.locales()
 for (let i = 0; i < languages.length; i++) {
-  let option = document.createElement("option")
+  const option = document.createElement("option")
   option.text = languages[i]
   option.value = languages[i]
   document.getElementById("language").appendChild(option)
@@ -35,7 +35,7 @@ for (let i = 0; i < languages.length; i++) {
 
 // Change background
 document.getElementById("changebg").onclick = function() {
-  let font = prompt("Please enter a font", "Times New Roman")
+  const font = prompt("Please enter a font", "Times New Roman")
   if (font) {
     document.body.style.fontFamily = `"${font}", "Lato", sans-serif, Arial`
   }
@@ -44,7 +44,7 @@ document.getElementById("changebg").onclick = function() {
 // Change background
 document.getElementById("changefont").onclick = function() {
   const backgroundElement = document.getElementById("js-bg")
-  let bg = prompt("Please enter a background URL:", "https://")
+  const bg = prompt("Please enter a background URL:", "https://")
   if (bg) { backgroundElement.src = bg }
 }
 
@@ -63,7 +63,7 @@ document.getElementById("language").onchange = function(el) {
 
 // Add a nice install button
 function enableButton(text, link) {
-  let addbutton = document.getElementById("install-button")
+  const addbutton = document.getElementById("install-button")
   addbutton.style.display = "block"
   addbutton.innerText = text
   addbutton.href = link

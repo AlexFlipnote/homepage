@@ -1,8 +1,6 @@
-import { getWeather } from "./utils/weather.js"
-import { timeInHex } from "./utils/timeManager.js"
-import { runClock } from "./_main.js"
-
 import moment from "moment/min/moment-with-locales"
+import { getWeather } from "./utils/weather.js"
+import { timeInHex, runClock } from "./utils/timeManager.js"
 
 runClock()
 
@@ -18,8 +16,7 @@ chrome.storage.local.get({
   showSettings: true,
   customcss: ""
 }, function(items) {
-  let backgroundElement = document.getElementById("js-bg")
-
+  const backgroundElement = document.getElementById("js-bg")
   const random_bg_num = Math.floor(Math.random() * 31)
   let new_background = `assets/images/backgrounds/background${random_bg_num}.jpg`
 
@@ -47,7 +44,7 @@ chrome.storage.local.get({
 
   if (items.customfont) {
     if (items.customfontgoogle) {
-      let gFont = document.createElement("link")
+      const gFont = document.createElement("link")
       gFont.href = "https://fonts.googleapis.com/css?family=" + items.customfont.replace(" ", "+")
       gFont.rel = "stylesheet"
       document.head.appendChild(gFont)
@@ -61,14 +58,14 @@ chrome.storage.local.get({
   }
 
   if (items.customcss) {
-    let cssEl = document.createElement("style")
+    const cssEl = document.createElement("style")
     cssEl.type = "text/css"
     cssEl.innerText = items.customcss
     document.head.appendChild(cssEl)
   }
 
   if (items.showSettings) {
-    let settings = document.getElementById("settings")
+    const settings = document.getElementById("settings")
     settings.removeAttribute("style")
   }
 })

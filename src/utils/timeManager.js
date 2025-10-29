@@ -30,6 +30,12 @@ export function updateDateAndTime() {
   requestAnimationFrame(updateDateAndTime)
 }
 
+export function runClock() {
+  // Start updating
+  moment.locale(navigator.language)
+  updateDateAndTime()
+}
+
 
 // Update the background image height and width properties based on the ratio of the viewport and the ratio of the image.
 export function handleViewportResize () {
