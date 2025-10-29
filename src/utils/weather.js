@@ -1,61 +1,6 @@
 import { http } from "./http.js"
 import { wicons } from "./lists.js"
 
-import moment from "moment/min/moment-with-locales"
-
-export function showWeatherLanguages() {
-  return {
-    "sq": "Albanian",
-    "af": "Afrikaans",
-    "ar": "Arabic",
-    "az": "Azerbaijani",
-    "eu": "Basque",
-    "be": "Belarusian",
-    "bg": "Bulgarian",
-    "ca": "Catalan",
-    "zh_cn": "Chinese Simplified",
-    "zh_tw": "Chinese Traditional",
-    "hr": "Croatian",
-    "cz": "Czech",
-    "da": "Danish",
-    "nl": "Dutch",
-    "en": "English",
-    "fi": "Finnish",
-    "fr": "French",
-    "gl": "Galician",
-    "de": "German",
-    "el": "Greek",
-    "he": "Hebrew",
-    "hi": "Hindi",
-    "hu": "Hungarian",
-    "is": "Icelandic",
-    "id": "Indonesian",
-    "it": "Italian",
-    "ja": "Japanese",
-    "kr": "Korean",
-    "ku": "Kurmanji (Kurdish)",
-    "la": "Latvian",
-    "lt": "Lithuanian",
-    "mk": "Macedonian",
-    "no": "Norwegian",
-    "fa": "Persian (Farsi)",
-    "pl": "Polish",
-    "pt": "Portuguese",
-    "pt_br": "Português Brasil",
-    "ro": "Romanian",
-    "ru": "Russian",
-    "sr": "Serbian",
-    "sk": "Slovak",
-    "sl": "Slovenian",
-    "es": "Spanish",
-    "se": "Swedish",
-    "th": "Thai",
-    "tr": "Turkish",
-    "ua": "Ukrainian",
-    "vi": "Vietnamese",
-    "zu": "Zulu",
-  }
-}
 
 export function getWeather(items, position, wkey, lang) {
   let pos = position.coords

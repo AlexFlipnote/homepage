@@ -1,5 +1,4 @@
 import { getWeather } from "./utils/weather.js"
-import { searchengine } from "./utils/lists.js"
 import { timeInHex } from "./utils/timeManager.js"
 import { runClock } from "./_main.js"
 

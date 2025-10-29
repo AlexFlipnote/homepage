@@ -1,5 +1,5 @@
 import moment from "moment/min/moment-with-locales"
-import { showWeatherLanguages } from "./utils/weather.js"
+import { weather_languages } from "./utils/lists.js"
 
 // Saves options to chrome.storage
 function save_options() {
@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Weather languages
   const wlanguage = document.getElementById("wlanguage")
-  for (const [code, name] of Object.entries(showWeatherLanguages())) {
+  for (const [code, name] of Object.entries(weather_languages)) {
     let option = document.createElement("option")
     option.text = name
     option.value = code
