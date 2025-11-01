@@ -13,6 +13,9 @@ a { color: #1eaedb; }
   bottom: .25em;
   left: .25em;
   font-size: 18px;
+  color: #000 !important;
+  background-color: #2ecc71 !important;
+  border-color: #1d8046 !important;
 }
 
 .modal {

@@ -6,7 +6,35 @@ import { timeInHex, startClock, changeLocale } from "./utils/timeManager.js"
 
 const DEFAULT = {
   fmt_time: "%H:%M:%S",
-  fmt_date: "%d. %B %Y",
+  fmt_date: "%e. %B %Y",
+}
+
+function faviconURL(u) {
+  return chrome.runtime.getURL(
+    `/_favicon/?pageUrl=${u}&size=32`
+  )
+}
+
+function createBookmark(el, name, url, bookmarksFavicon=false, isAuto=false) {
+  const container = document.createElement("a")
+  container.href = url
+
+  if (isAuto) {
+    container.setAttribute("data-auto", "true")
+  }
+
+  if (!isFirefox && bookmarksFavicon) {
+    const bIcon = document.createElement("img")
+    bIcon.src = faviconURL(url)
+    bIcon.className = "bookmark-icon"
+    container.appendChild(bIcon)
+  }
+
+  const bName = document.createElement("span")
+  bName.textContent = name
+  container.appendChild(bName)
+
+  el.appendChild(container)
 }
 
 if (isExtension) {
@@ -38,17 +66,23 @@ if (isExtension) {
       })
     }
 
+    const bookmarksList = document.getElementById("bookmarks_list")
     if (items.bookmarks) {
       document.getElementById("bookmarks").style.display = "block"
-      const bookmarksList = document.getElementById("bookmarks_list")
       for (const [name, url] of Object.entries(items.bookmarks)) {
-        const listItem = document.createElement("li")
-        const link = document.createElement("a")
-        link.href = url
-        link.textContent = name
-        listItem.appendChild(link)
-        bookmarksList.appendChild(listItem)
+        createBookmark(bookmarksList, name, url, items.bookmarksFavicon)
       }
+    }
+
+    if (items.bookmarksTopSitesEnabled) {
+      document.getElementById("bookmarks").style.display = "block"
+      chrome.topSites.get((sites) => {
+        console.log(sites)
+        console.log(items.bookmarksTopSitesAmount)
+        for (const { title, url } of sites.slice(0, items.bookmarksTopSitesAmount)) {
+          createBookmark(bookmarksList, title, url, items.bookmarksFavicon, true)
+        }
+      })
     }
 
     if (items.customfont) {
@@ -87,6 +121,11 @@ if (isExtension) {
   startClock("js-time", DEFAULT.fmt_time)
   startClock("js-date", DEFAULT.fmt_date)
 
+  // Create some boiler plate bookmarks
+  const bookmarksList = document.getElementById("bookmarks_list")
+  createBookmark(bookmarksList, "Github", "https://github.com/AlexFlipnote/homepage")
+  createBookmark(bookmarksList, "Discord", "https://discord.gg/yqb7vATbjH")
+
   function turnSwitch(el) {
     if (el.style.display == "none") {
       el.style.display = "block"
@@ -116,13 +155,17 @@ if (isExtension) {
     document.getElementById("language").appendChild(option)
   }
 
-
   // Change background
   document.getElementById("changebg").onclick = function() {
     const font = prompt("Please enter a font", "Times New Roman")
     if (font) {
       document.body.style.fontFamily = `"${font}", "Lato", sans-serif, Arial`
     }
+  }
+
+  // Toggle bookmarks
+  document.getElementById("bookmarksToggle").onclick = function() {
+    turnSwitch(document.getElementById("bookmarks"))
   }
 
   // Change background

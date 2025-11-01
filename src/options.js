@@ -1,3 +1,4 @@
+import { isFirefox } from "./utils/browser.js"
 import { weatherLanguages, dateLocales } from "./utils/lists.js"
 import { extensionSettings } from "./utils/settings.js"
 
@@ -14,6 +15,9 @@ function save_options() {
   const temp_type = document.getElementById("temp_type").value
   const showSettings = document.getElementById("show-settings").checked
   const customcss = document.getElementById("customcss").value
+  const bookmarksTopSitesEnabled = document.getElementById("bookmarksTopSitesEnabled").checked
+  const bookmarksTopSitesAmount = parseInt(document.getElementById("bookmarksTopSitesAmount").value) || 5
+  const bookmarksFavicon = document.getElementById("bookmarksFavicon").checked
 
   const custombg = []
   const custombg_previews = document.getElementsByClassName("preview-image")
@@ -36,6 +40,9 @@ function save_options() {
     hexbg: hexbg,
     temp_type: temp_type,
     showSettings: showSettings,
+    bookmarksFavicon: bookmarksFavicon,
+    bookmarksTopSitesEnabled: bookmarksTopSitesEnabled,
+    bookmarksTopSitesAmount: bookmarksTopSitesAmount,
     customcss: customcss,
     bookmarks: bookmarks
   }, () => {
@@ -66,6 +73,13 @@ function restore_options() {
     document.getElementById("temp_type").value = items.temp_type
     document.getElementById("show-settings").checked = items.showSettings
     document.getElementById("customcss").value = items.customcss
+    document.getElementById("bookmarksTopSitesEnabled").checked = items.bookmarksTopSitesEnabled
+    document.getElementById("bookmarksTopSitesAmount").value = items.bookmarksTopSitesAmount
+    document.getElementById("bookmarksFavicon").checked = items.bookmarksFavicon
+
+    if (isFirefox) {
+      document.getElementById("bmFavFirefox").style.display = "none"
+    }
 
     for (const [bkey, burl] of Object.entries(items.bookmarks)) {
       createBookmarkElement(bkey, burl)

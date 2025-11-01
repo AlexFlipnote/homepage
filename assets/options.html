@@ -34,7 +34,7 @@
       </label>
       <label>
         Date format:
-        <input id="fmt_date" class="secondary" placeholder="%d. %B %Y">
+        <input id="fmt_date" class="secondary" placeholder="%e. %B %Y">
       </label>
 
       <details style="font-size: 1.5em">
@@ -159,10 +159,9 @@
     <div class="box-container primary-bg no-border-radius">
       <h1 class="no-margin">Custom background</h1>
       <p>
-        Upload images that you want as background!
-        <br>Supported formats: JPG, PNG, GIF<br>
-        <label><button id="custombg_prune">Delete all backgrounds</button></label>
+        Upload images that you want as background! (Supported formats: JPG, PNG, GIF)<br>
         <span class="sun-flower-text">NOTE:</span> Remember to click "save" when done.
+        <label><button id="custombg_prune">Delete all backgrounds</button></label>
       </p>
       Select images: <input type="file" id="custombg_uploader" accept="image/png,image/jpeg,image/gif">
       <div id="custombg_previews"></div>
@@ -184,7 +183,7 @@
 
     <div class="box-container primary-bg no-border-radius">
       <h1 class="no-margin">24h HEX Background</h1>
-      <a href="https://alexflipnote.dev/pages/hexclock/">Click here to see a live example</a>
+      <a href="https://alexflipnote.dev/playground/hexclock/">Click here to see a live example</a>
       <p><span class="sun-flower-text">Keep in mind</span>, checking this will disable <b>Custom background</b></p>
       <label>
         <input type="checkbox" id="hexbg"> Enable
@@ -221,6 +220,9 @@
         Add, remove and edit your bookmarks that are shown on the homepage.
         Remember to click "save" when done.
       </p>
+      <label id="bmFavFirefox">
+        <input type="checkbox" id="bookmarksFavicon"> Show favicons for bookmarks
+      </label>
       <div id="bookmarks_list"></div>
       <div class="bookmark-new">
         <label>
@@ -233,7 +235,18 @@
           <button id="add_bookmark">Add bookmark</button>
         </label>
       </div>
-      <div id="bookmarks_container"></div>
+      <h2 class="no-margin">Top Sites as bookmarks</h2>
+      <p>
+        Instead of manually adding bookmarks, you can have the extension fetch your most visited sites
+        from your browser and display them as bookmarks on the homepage.
+      </p>
+      <label>
+        <input type="checkbox" id="bookmarksTopSitesEnabled"> Enable Top Sites as bookmarks
+      </label>
+      <label>
+        Number of Top Sites to show:
+        <input type="number" id="bookmarksTopSitesAmount" class="secondary" min="1" max="10" value="5">
+      </label>
     </div>
 
     <div class="box-container primary-bg no-border-radius">
@@ -246,11 +259,21 @@
     </div>
 
     <div class="box-container primary-bg no-border-radius">
-      <h1 class="no-margin">Support</h1>
-      <p>
-        If you need help or want to just say hi, join the Discord support server at
-        <a href="https://discord.gg/yqb7vATbjH" target="_blank">discord.gg/yqb7vATbjH</a>
-      </p>
+      <h1 class="no-margin">Links</h1><br>
+      <div class="flex-grid credits-row">
+        <div class="col-xs-5"></div>
+        <div class="col-xs-1">
+          <a href="https://discord.gg/yqb7vATbjH">
+            <img src="./images/icons/discord.png" class="bookmark-icon">
+          </a>
+        </div>
+        <div class="col-xs-1">
+          <a href="https://github.com/AlexFlipnote/homepage">
+            <img src="./images/icons/github.png" class="bookmark-icon">
+          </a>
+        </div>
+        <div class="col-xs-5"></div>
+      </div>
     </div>
 
     <button class="save-button" id="save">Save</button>

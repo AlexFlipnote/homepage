@@ -2,6 +2,9 @@
 :root {
   --font-colour-primary: #fff;
   --font-colour-secondary: #ddd;
+  --highlight: #181818;
+  --primary: #282828;
+  --secondary: #303030;
 }
 
 /* Import font */
@@ -61,7 +64,6 @@ body {
 /* Bookmarks */
 #bookmarks {
   animation: enter-bookmarks 1s ease-in-out forwards;
-  animation-delay: .1s;
   opacity: 0;
   bottom: 1.5em;
   position: absolute;
@@ -69,31 +71,77 @@ body {
   width: 100%;
 }
 
-#bookmarks ul {
+#bookmarks .bookmark-row {
   display: flex;
   list-style: none;
   padding: 0;
   margin: 0 auto;
   max-width: 80%;
   flex-wrap: wrap;
+  flex-direction: row;
   justify-content: center;
   gap: .5em 1em;
 }
 
-#bookmarks li a {
+#bookmarks .bookmark-row a {
+  align-items: center;
+  background-color: rgba(24, 24, 24, .5);
+  border-radius: 10px;
   color: var(--font-colour-primary);
-  font-size: 2.5vmin;
+  display: flex;
+  flex-direction: column;
+  font-size: 2em;
+  justify-content: center;
+  overflow: hidden;
+  padding: .4em .8em;
+  position: relative;
   text-decoration: none;
-  transition: color 300ms ease;
-  white-space: nowrap;
+  backdrop-filter: blur(3px);
+  transition: filter 300ms ease,
+              color 300ms ease;
+  width: auto;
+  max-width: 3em;
 }
 
-#bookmarks li a:hover {
+#bookmarks .bookmark-row .bookmark-icon {
+  width: 32px;
+  height: 32px;
+  margin-bottom: .25em;
+  position: relative;
+  z-index: 999;
+}
+
+#bookmarks .bookmark-row a[data-auto="true"]::before {
+  content: "✨";
+  position: absolute;
+  top: .1em;
+  right: .1em;
+  font-size: 2vmin;
+}
+
+#bookmarks .bookmark-row span {
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  text-align: center;
+}
+
+#bookmarks .bookmark-row a:hover {
   color: var(--font-colour-secondary);
-  text-decoration: underline;
+  filter: brightness(.75);
 }
 
 /* Clock */
+#js-time, #js-date {
+  font-variant-numeric: tabular-nums;
+}
+
+#js-time {
+  letter-spacing: .1em;
+}
+
 .time {
   font-size: 10vmin;
   margin: 0;
@@ -129,7 +177,6 @@ a#install-button { color: #fff; }
   padding-top: 1em;
 }
 
-
 /* Weather placeholder */
 .weather-container {
   animation: enter-weather 1s ease-in-out;
@@ -150,8 +197,6 @@ a#install-button { color: #fff; }
   font-size: 20px;
   font-weight: 400;
 }
-
-.wtext-container .terminal_break { margin-left: 0; }
 
 #wicon {
   height: 72px;
@@ -182,7 +227,6 @@ a#install-button { color: #fff; }
   fill: #ddd;
   transform: rotate(45deg);
 }
-
 
 /* Demo CSS */
 .demoButtons {
