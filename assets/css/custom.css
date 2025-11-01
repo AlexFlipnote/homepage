@@ -1,3 +1,9 @@
+/* Settings */
+:root {
+  --font-colour-primary: #fff;
+  --font-colour-secondary: #ddd;
+}
+
 /* Import font */
 @font-face {
   font-family: "Lato";
@@ -13,6 +19,11 @@
 @keyframes enter-weather {
   from { left: -100px; opacity: 0; }
   100% { left: 1.5em; opacity: 1; }
+}
+
+@keyframes enter-bookmarks {
+  from { bottom: -100px; opacity: 0; }
+  100% { bottom: 1.5em; opacity: 1; }
 }
 
 /* Global */
@@ -45,6 +56,41 @@ body {
   height: 100%;
 
   object-fit: cover;
+}
+
+/* Bookmarks */
+#bookmarks {
+  animation: enter-bookmarks 1s ease-in-out forwards;
+  animation-delay: .1s;
+  opacity: 0;
+  bottom: 1.5em;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+
+#bookmarks ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 80%;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .5em 1em;
+}
+
+#bookmarks li a {
+  color: var(--font-colour-primary);
+  font-size: 2.5vmin;
+  text-decoration: none;
+  transition: color 300ms ease;
+  white-space: nowrap;
+}
+
+#bookmarks li a:hover {
+  color: var(--font-colour-secondary);
+  text-decoration: underline;
 }
 
 /* Clock */
@@ -122,11 +168,11 @@ a#install-button { color: #fff; }
   margin-top: 10px;
   height: 30px;
   text-decoration: none;
-  color: #fff;
+  color: var(--font-colour-primary);
 }
 
 #settings .settings-icon {
-  fill: #fff;
+  fill: var(--font-colour-primary);
   height: 4em;
   width: 4em;
   transition: transform 300ms ease, fill 300ms ease;

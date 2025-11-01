@@ -9,6 +9,7 @@ export const extensionSettings = {
   fmt_date: "",
   customfont: "",
   customfontgoogle: false,
+  bookmarks: {},
   wkey: "",
   temp_type: "celcius",
   hexbg: false,

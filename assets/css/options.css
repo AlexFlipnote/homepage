@@ -74,3 +74,25 @@ a { color: #1eaedb; }
   width: 250px; height: 140px;
   margin: .25em .5em;
 }
+
+.bookmark-name, .bookmark-url,
+#bookmark_name, #bookmark_url {
+  margin-bottom: 0 !important;
+  padding: .25em 0 !important;
+}
+
+.bookmark-name, #bookmark_name {
+  width: 10em !important;
+}
+
+.bookmark-url, #bookmark_url {
+  width: 20em !important;
+}
+
+.bookmark-new {
+  margin-top: 2em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}

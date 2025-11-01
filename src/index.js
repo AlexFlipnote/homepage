@@ -38,6 +38,19 @@ if (isExtension) {
       })
     }
 
+    if (items.bookmarks) {
+      document.getElementById("bookmarks").style.display = "block"
+      const bookmarksList = document.getElementById("bookmarks_list")
+      for (const [name, url] of Object.entries(items.bookmarks)) {
+        const listItem = document.createElement("li")
+        const link = document.createElement("a")
+        link.href = url
+        link.textContent = name
+        listItem.appendChild(link)
+        bookmarksList.appendChild(listItem)
+      }
+    }
+
     if (items.customfont) {
       if (items.customfontgoogle) {
         const gFont = document.createElement("link")

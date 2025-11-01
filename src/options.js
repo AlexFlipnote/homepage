@@ -18,6 +18,8 @@ function save_options() {
   const custombg = []
   const custombg_previews = document.getElementsByClassName("preview-image")
 
+  const bookmarks = fetchBookmarkInputs()
+
   for (var i = 0; i < custombg_previews.length; i++) {
     custombg.push(custombg_previews[i].src)
   }
@@ -34,8 +36,9 @@ function save_options() {
     hexbg: hexbg,
     temp_type: temp_type,
     showSettings: showSettings,
-    customcss: customcss
-  }, function() {
+    customcss: customcss,
+    bookmarks: bookmarks
+  }, () => {
     // Update status to let user know options were saved.
     const modal = document.getElementById("modal")
     const modaltarget = document.getElementsByClassName("modal")[0]
@@ -51,7 +54,7 @@ function save_options() {
 // Restores select box and checkbox state using the preferences
 // stored in chrome.storage.
 function restore_options() {
-  chrome.storage.local.get({ ...extensionSettings }, function(items) {
+  chrome.storage.local.get({ ...extensionSettings }, (items) => {
     document.getElementById("language").value = items.language
     document.getElementById("wlanguage").value = items.wlanguage
     document.getElementById("fmt_time").value = items.fmt_time
@@ -64,6 +67,10 @@ function restore_options() {
     document.getElementById("show-settings").checked = items.showSettings
     document.getElementById("customcss").value = items.customcss
 
+    for (const [bkey, burl] of Object.entries(items.bookmarks)) {
+      createBookmarkElement(bkey, burl)
+    }
+
     const all_previews = document.getElementById("custombg_previews")
     for (var i = 0; i < items.custombg.length; i++) {
       createPreview(items.custombg[i], all_previews)
@@ -71,7 +78,7 @@ function restore_options() {
   })
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", () => {
   const languages = document.getElementById("language")
   for (const [k, v] of Object.entries(dateLocales)) {
     const option = document.createElement("option")
@@ -91,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function() {
 })
 
 // CustomBG Appender
-document.getElementById("custombg_uploader").onchange = function() {
+document.getElementById("custombg_uploader").onchange  = () => {
   const all_previews = document.getElementById("custombg_previews")
   const file = document.querySelector("input[type=file]").files[0]
   const reader = new FileReader()
@@ -101,6 +108,15 @@ document.getElementById("custombg_uploader").onchange = function() {
   }, false)
 
   if (file) { reader.readAsDataURL(file) }
+}
+
+document.getElementById("add_bookmark").onclick = () => {
+  createBookmarkElement(
+    document.getElementById("bookmark_name").value || "New Bookmark",
+    document.getElementById("bookmark_url").value || "#"
+  )
+  document.getElementById("bookmark_name").value = ""
+  document.getElementById("bookmark_url").value = ""
 }
 
 // CustomBG Remover
@@ -127,6 +143,46 @@ function createPreview(image, target) {
 
   container.append(preview) // div -> img
   target.append(container) // div
+}
+
+function createBookmarkElement(bkey, burl) {
+  const bookmarks_list = document.getElementById("bookmarks_list")
+  const container = document.createElement("div")
+  container.classList.add("bookmark-item")
+
+  const nameInput = document.createElement("input")
+  const urlInput = document.createElement("input")
+  const removeButton = document.createElement("button")
+  nameInput.type = "text"
+  nameInput.value = bkey
+  nameInput.classList.add("bookmark-name")
+  urlInput.type = "text"
+  urlInput.value = burl
+  urlInput.classList.add("bookmark-url")
+  removeButton.textContent = "Remove"
+  removeButton.onclick = function() {
+    container.remove()
+  }
+  container.appendChild(nameInput)
+  container.appendChild(urlInput)
+  container.appendChild(removeButton)
+
+  bookmarks_list.appendChild(container)
+}
+
+function fetchBookmarkInputs() {
+  const bookmarks_list = document.getElementById("bookmarks_list")
+  const bookmarkItems = bookmarks_list.getElementsByClassName("bookmark-item")
+  const bookmarks = {}
+
+  for (var i = 0; i < bookmarkItems.length; i++) {
+    const bm_el = bookmarkItems[i]
+    const name = bm_el.getElementsByClassName("bookmark-name")[0].value
+    const url = bm_el.getElementsByClassName("bookmark-url")[0].value || "#"
+    bookmarks[name] = url
+  }
+
+  return bookmarks
 }
 
 document.addEventListener("DOMContentLoaded", restore_options)
