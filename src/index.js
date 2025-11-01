@@ -144,7 +144,7 @@ if (isExtension) {
   if (isFirefox) {
     downloadButton("Add to Firefox", "https://addons.mozilla.org/addon/alexflipnote-homepage/")
   } else if (isChrome) {
-    downloadButton("Add to Chrome (Awaiting approval)", "#")
+    downloadButton("Add to Chrome", "https://chromewebstore.google.com/detail/alexflipnotehomepage/npagigfpfilcemncemkphndcaigegcbk")
   }
 
 }

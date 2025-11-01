@@ -148,6 +148,7 @@ a#install-button { color: #fff; }
   z-index: 100;
   display: flex;
   flex-direction: column;
+  border-top-right-radius: 1em;
 }
 
 .demoButtons a {
