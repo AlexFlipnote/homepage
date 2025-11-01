@@ -2,7 +2,7 @@
   "manifest_version": 3,
 
   "name": "AlexFlipnote/Homepage",
-  "description": "A website that gives you a clean homepage with random backgrounds!",
+  "description": "A website that gives you a clean homepage.",
   "homepage_url": "https://alexflipnote.dev",
   "version": "2.2.5",
 
