@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+
+  "name": "AlexFlipnote/Homepage",
+  "description": "A website that gives you a clean homepage.",
+  "homepage_url": "https://alexflipnote.dev",
+  "version": "2.2.8",
+
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+
+  "icons": {
+    "128": "images/128.png",
+    "48": "images/48.png",
+    "32": "images/32.png",
+    "16": "images/16.png"
+  },
+
+  "action": {
+    "default_icon": "images/logo.png",
+    "default_popup": "window.html"
+  },
+
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+
+  "minimum_chrome_version": "88",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{0eb078c8-76a6-4be0-acef-259ed616a5b0}",
+      "strict_min_version": "58.0"
+    }
+  },
+
+  "permissions": [
+    "geolocation",
+    "storage",
+    "topSites",
+    "favicon"
+  ],
+
+  "host_permissions": [
+    "https://api.openweathermap.org/*"
+  ]
+}
