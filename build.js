@@ -9,21 +9,6 @@ import { fileURLToPath } from "url"
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-const shared = {
-  bundle: true,
-  format: "iife",
-  minify: true,
-  sourcemap: false,
-  target: ["es2017"]
-}
-
-const builds = [
-  { entryPoints: ["src/js/index.js"], outfile: "out/js/index.js" },
-  { entryPoints: ["src/js/options.js"], outfile: "out/js/options.js" },
-]
-
-const extras = ["index.html", "manifest.json"]
-
 async function cleanUp() {
   console.log("🧹 Cleaning up build files...")
   const foldersDelete = ["out", "dist"]
@@ -59,7 +44,22 @@ async function copyAssets() {
 
 async function buildJS() {
   console.log("📦 Building JavaScript files...")
-  await Promise.all(builds.map(cfg => esbuild.build({ ...shared, ...cfg })))
+
+  const builds = [
+    { entryPoints: ["src/js/index.js"], outfile: "out/js/index.js" },
+    { entryPoints: ["src/js/options.js"], outfile: "out/js/options.js" },
+  ]
+
+  await Promise.all(
+    builds.map(cfg => esbuild.build({
+      bundle: true,
+      format: "iife",
+      minify: true,
+      sourcemap: false,
+      target: ["es2017"],
+      ...cfg
+    }))
+  )
   console.log("📦 JS build complete")
 }
 
@@ -76,17 +76,31 @@ async function createZip() {
   console.log("🗜️ Creating ZIP archive...")
 
   const timestamp = Math.floor(Date.now() / 1000)
-  const zipName = `plugin_${timestamp}.zip`
-  const zipPath = path.join(`${__dirname}/dist`, zipName)
-  const output = createWriteStream(zipPath)
+  const zipPublic = `plugin_${timestamp}.zip`
+  const zipSource = `source_${timestamp}.zip`
 
-  const archive = archiver("zip", { zlib: { level: 9 } })
-  archive.pipe(output)
-  archive.directory(path.join(__dirname, "out/"), false)
+  const zipPath = path.join(`${__dirname}/dist`, zipPublic)
+  const outputPublic = createWriteStream(zipPath)
+  const archiveOut = archiver("zip", { zlib: { level: 9 } })
+  archiveOut.pipe(outputPublic)
+  archiveOut.directory(path.join(__dirname, "out/"), false)
+  await archiveOut.finalize()
 
-  await archive.finalize()
+  // Firefox wants source if minified, so include source files too
+  const zipSourcePath = path.join(`${__dirname}/dist`, zipSource)
+  const outputSource = createWriteStream(zipSourcePath)
+  const archiveSource = archiver("zip", { zlib: { level: 9 } })
+  archiveSource.pipe(outputSource)
+  archiveSource.directory(path.join(__dirname, "src/"), false)
 
-  console.log(`🗜️ Created ${zipName}`)
+  const extraFiles = ["build.js", "package.json"]
+  extraFiles.forEach(file => {
+    archiveSource.file(path.join(__dirname, file), { name: file })
+  })
+
+  await archiveSource.finalize()
+
+  console.log(`🗜️ Created ${zipPublic} and ${zipSource}`)
 }
 
 // Run with node build.js [zip] [js]
