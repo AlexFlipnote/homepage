@@ -160,7 +160,7 @@ function createPreview(image, target) {
 }
 
 function createBookmarkElement(bkey, burl) {
-  const bookmarks_list = document.getElementById("bookmarks_list")
+  const blist = document.getElementById("blist")
   const container = document.createElement("div")
   container.classList.add("bookmark-item")
 
@@ -181,12 +181,12 @@ function createBookmarkElement(bkey, burl) {
   container.appendChild(urlInput)
   container.appendChild(removeButton)
 
-  bookmarks_list.appendChild(container)
+  blist.appendChild(container)
 }
 
 function fetchBookmarkInputs() {
-  const bookmarks_list = document.getElementById("bookmarks_list")
-  const bookmarkItems = bookmarks_list.getElementsByClassName("bookmark-item")
+  const blist = document.getElementById("blist")
+  const bookmarkItems = blist.getElementsByClassName("bookmark-item")
   const bookmarks = {}
 
   for (var i = 0; i < bookmarkItems.length; i++) {

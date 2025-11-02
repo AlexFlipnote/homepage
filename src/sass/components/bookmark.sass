@@ -1,0 +1,62 @@
+#bookmarks
+  animation: enter-bottom 1s ease-in-out forwards
+  bottom: 1.5em
+  opacity: 0
+  position: absolute
+  text-align: center
+  width: 100%
+
+  #blist
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+    gap: .5em 1em
+    justify-content: center
+    list-style: none
+    margin: 0 auto
+    max-width: 80%
+    padding: 0
+
+    a
+      align-items: center
+      backdrop-filter: var(--blur-normal)
+      background-color: var(--highlight-alpha)
+      border-radius: 10px
+      color: var(--font-colour-primary)
+      display: flex
+      flex-direction: column
+      font-size: 2em
+      justify-content: center
+      max-width: 3em
+      overflow: hidden
+      padding: .4em .8em
+      position: relative
+      text-decoration: none
+      transition: filter 300ms ease, color 300ms ease
+      width: auto
+
+      &:hover
+        color: var(--font-colour-secondary)
+        filter: brightness(.6)
+
+      &[data-auto="true"]:before
+        content: "✨"
+        font-size: 2vmin
+        position: absolute
+        right: .1em
+        top: .1em
+
+    .bookmark-icon
+      height: 32px
+      margin-bottom: .25em
+      position: relative
+      width: 32px
+      z-index: 999
+
+    span
+      font-size: 16px
+      overflow: hidden
+      text-align: center
+      text-overflow: ellipsis
+      white-space: nowrap
+      width: 100%

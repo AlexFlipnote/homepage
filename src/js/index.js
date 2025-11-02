@@ -42,11 +42,11 @@ if (isExtension) {
   console.log("☑️ Running in extension mode")
 
   chrome.storage.local.get({ ...extensionSettings }, function(items) {
-    startClock("js-time", items.fmt_time || DEFAULT.fmt_time)
-    startClock("js-date", items.fmt_date || DEFAULT.fmt_date)
+    startClock("time", items.fmt_time || DEFAULT.fmt_time)
+    startClock("date", items.fmt_date || DEFAULT.fmt_date)
     changeLocale(items.language)
 
-    const backgroundElement = document.getElementById("js-bg")
+    const backgroundElement = document.getElementById("background")
     const random_bg_num = Math.floor(Math.random() * 31)
     let new_background = `assets/images/backgrounds/background${random_bg_num}.jpg`
 
@@ -66,7 +66,7 @@ if (isExtension) {
       })
     }
 
-    const bookmarksList = document.getElementById("bookmarks_list")
+    const bookmarksList = document.getElementById("blist")
     if (items.bookmarks) {
       document.getElementById("bookmarks").style.display = "block"
       for (const [name, url] of Object.entries(items.bookmarks)) {
@@ -118,26 +118,26 @@ if (isExtension) {
 } else {
   console.log("ℹ️ Running in demo mode")
   // Demo mode
-  startClock("js-time", DEFAULT.fmt_time)
-  startClock("js-date", DEFAULT.fmt_date)
+  startClock("time", DEFAULT.fmt_time)
+  startClock("date", DEFAULT.fmt_date)
 
   // Create some boiler plate bookmarks
-  const bookmarksList = document.getElementById("bookmarks_list")
+  const bookmarksList = document.getElementById("blist")
   createBookmark(bookmarksList, "Github", "https://github.com/AlexFlipnote/homepage")
   createBookmark(bookmarksList, "Discord", "https://discord.gg/yqb7vATbjH")
 
-  function turnSwitch(el) {
+  function turnSwitch(el, display="block") {
     if (el.style.display == "none") {
-      el.style.display = "block"
+      el.style.display = display
     } else {
       el.style.display = "none"
     }
   }
 
-  turnSwitch(document.getElementById("demoButtons"))
+  turnSwitch(document.getElementById("demo-buttons"))
 
   document.addEventListener("DOMContentLoaded", function() {
-    const backgroundElement = document.getElementById("js-bg")
+    const backgroundElement = document.getElementById("background")
     const random_bg_num = Math.floor(Math.random() * 31)
 
     backgroundElement.src = `assets/images/backgrounds/background${random_bg_num}.jpg`
@@ -170,14 +170,14 @@ if (isExtension) {
 
   // Change background
   document.getElementById("changefont").onclick = function() {
-    const backgroundElement = document.getElementById("js-bg")
+    const backgroundElement = document.getElementById("background")
     const bg = prompt("Please enter a background URL:", "https://")
     if (bg) { backgroundElement.src = bg }
   }
 
   // Turn on/off weather
   document.getElementById("weather").onclick = function() {
-    turnSwitch(document.getElementById("wcontainer"))
+    turnSwitch(document.getElementById("weather-container"), "flex")
   }
 
   // Change language

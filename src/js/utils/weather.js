@@ -17,6 +17,6 @@ export function getWeather(items, position, wkey, lang) {
       wtemp.innerText = `${Math.round(parseInt(r.main.temp) - 273.15)} °C`
     }
 
-    document.getElementById("wcontainer").style.display = "block"
+    document.getElementById("weather-container").style.display = "flex"
   })
 }

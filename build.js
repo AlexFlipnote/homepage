@@ -2,6 +2,7 @@ import archiver from "archiver"
 import esbuild from "esbuild"
 import fs from "fs"
 import path from "path"
+import * as sass from "sass"
 import { createWriteStream } from "fs"
 import { fileURLToPath } from "url"
 
@@ -17,8 +18,8 @@ const shared = {
 }
 
 const builds = [
-  { entryPoints: ["src/index.js"], outfile: "assets/js/index.js" },
-  { entryPoints: ["src/options.js"], outfile: "assets/js/options.js" },
+  { entryPoints: ["src/js/index.js"], outfile: "assets/js/index.js" },
+  { entryPoints: ["src/js/options.js"], outfile: "assets/js/options.js" },
 ]
 
 const extras = ["index.html", "manifest.json"]
@@ -27,6 +28,15 @@ async function buildJS() {
   console.log("📦 Building JavaScript files...")
   await Promise.all(builds.map(cfg => esbuild.build({ ...shared, ...cfg })))
   console.log("📦 JS build complete")
+}
+
+async function buildSASS() {
+  console.log("🎨 Building SASS files...")
+  const result = sass.compile(path.join(__dirname, "src/sass/index.sass"), { style: "compressed" })
+  const outputFile = path.join(__dirname, "assets/css", "index.css");
+  fs.mkdirSync(path.dirname(outputFile), { recursive: true })
+  fs.writeFileSync(outputFile, result.css)
+  console.log("🎨 SASS build complete")
 }
 
 async function createZip() {
@@ -56,12 +66,15 @@ async function createZip() {
 const args = process.argv.slice(2)
 const doZip = args.includes("zip")
 const doJS = args.includes("js")
+const doSASS = args.includes("css")
 
 if (!args.length) {
   await buildJS()
+  await buildSASS()
   await createZip()
 } else {
   if (doJS) await buildJS()
   if (doZip) await createZip()
+  if (doSASS) await buildSASS()
 }
 
