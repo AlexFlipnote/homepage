@@ -15,7 +15,14 @@ function faviconURL(u) {
   )
 }
 
-function createBookmark(el, name, url, bookmarksFavicon=false, isAuto=false) {
+function createBookmark(
+  el, name, url,
+  {
+    bookmarksFavicon = false,
+    isAuto = false,
+    localFavicon = ""
+  } = {}
+) {
   const container = document.createElement("a")
   container.href = url
 
@@ -26,6 +33,13 @@ function createBookmark(el, name, url, bookmarksFavicon=false, isAuto=false) {
   if (!isFirefox && bookmarksFavicon) {
     const bIcon = document.createElement("img")
     bIcon.src = faviconURL(url)
+    bIcon.className = "bookmark-icon"
+    container.appendChild(bIcon)
+  }
+
+  if (localFavicon.length > 0) {
+    const bIcon = document.createElement("img")
+    bIcon.src = localFavicon
     bIcon.className = "bookmark-icon"
     container.appendChild(bIcon)
   }
@@ -66,21 +80,27 @@ if (isExtension) {
       })
     }
 
-    const bookmarksList = document.getElementById("blist")
+    const bookmarks = document.getElementById("bookmarks")
+
     if (items.bookmarks) {
-      document.getElementById("bookmarks").style.display = "block"
+      bookmarks.style.display = "flex"
       items.bookmarks.forEach(({ name, url }) => {
-        createBookmark(bookmarksList, name, url, items.bookmarksFavicon)
+        createBookmark(bookmarks, name, url, {
+          bookmarksFavicon: items.bookmarksFavicon
+        })
       })
     }
 
     if (items.bookmarksTopSitesEnabled) {
-      document.getElementById("bookmarks").style.display = "block"
+      bookmarks.style.display = "flex"
       chrome.topSites.get((sites) => {
         console.log(sites)
         console.log(items.bookmarksTopSitesAmount)
         for (const { title, url } of sites.slice(0, items.bookmarksTopSitesAmount)) {
-          createBookmark(bookmarksList, title, url, items.bookmarksFavicon, true)
+          createBookmark(bookmarks, title, url, {
+            bookmarksFavicon: items.bookmarksFavicon,
+            isAuto: true
+          })
         }
       })
     }
@@ -122,9 +142,13 @@ if (isExtension) {
   startClock("date", DEFAULT.fmt_date)
 
   // Create some boiler plate bookmarks
-  const bookmarksList = document.getElementById("blist")
-  createBookmark(bookmarksList, "Github", "https://github.com/AlexFlipnote/homepage")
-  createBookmark(bookmarksList, "Discord", "https://discord.gg/yqb7vATbjH")
+  const bookmarksList = document.getElementById("bookmarks")
+  createBookmark(bookmarksList, "Github", "https://github.com/AlexFlipnote/homepage", {
+    localFavicon: "images/icons/github.png"
+  })
+  createBookmark(bookmarksList, "Discord", "https://discord.gg/yqb7vATbjH", {
+    localFavicon: "images/icons/discord.png"
+  })
 
   function turnSwitch(el, display="block") {
     if (el.style.display == "none") {
@@ -165,7 +189,7 @@ if (isExtension) {
 
   // Toggle bookmarks
   document.getElementById("bookmarksToggle").onclick = function() {
-    turnSwitch(document.getElementById("bookmarks"))
+    turnSwitch(document.getElementById("bookmarks"), "flex")
   }
 
   // Change background
