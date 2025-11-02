@@ -18,11 +18,44 @@ const shared = {
 }
 
 const builds = [
-  { entryPoints: ["src/js/index.js"], outfile: "assets/js/index.js" },
-  { entryPoints: ["src/js/options.js"], outfile: "assets/js/options.js" },
+  { entryPoints: ["src/js/index.js"], outfile: "out/js/index.js" },
+  { entryPoints: ["src/js/options.js"], outfile: "out/js/options.js" },
 ]
 
 const extras = ["index.html", "manifest.json"]
+
+async function cleanUp() {
+  console.log("🧹 Cleaning up build files...")
+  const foldersDelete = ["out", "dist"]
+  foldersDelete.forEach(folder => {
+    fs.rmdir(path.join(__dirname, folder), { recursive: true }, (err) => {
+      if (err) {
+        // Ignore errors
+      }
+    })
+  })
+  console.log("🧹 Cleanup complete")
+}
+
+async function copyAssets() {
+  console.log("📋 Copying asset files...")
+
+  const files = fs.readdirSync(path.join(__dirname, "src"), { withFileTypes: true })
+  files.forEach(file => {
+    if (file.isFile() && (file.name.endsWith(".html") || file.name.endsWith(".json"))) {
+      fs.copyFileSync(
+        path.join(__dirname, "src", file.name),
+        path.join(__dirname, "out", file.name)
+      )
+    }
+  })
+
+  const srcImages = path.join(__dirname, "src", "images")
+  const outImages = path.join(__dirname, "out", "images")
+
+  fs.cpSync(srcImages, outImages, { recursive: true })
+  console.log("📋 Asset copy complete")
+}
 
 async function buildJS() {
   console.log("📦 Building JavaScript files...")
@@ -33,7 +66,7 @@ async function buildJS() {
 async function buildSASS() {
   console.log("🎨 Building SASS files...")
   const result = sass.compile(path.join(__dirname, "src/sass/index.sass"), { style: "compressed" })
-  const outputFile = path.join(__dirname, "assets/css", "index.css");
+  const outputFile = path.join(__dirname, "out/css", "index.css");
   fs.mkdirSync(path.dirname(outputFile), { recursive: true })
   fs.writeFileSync(outputFile, result.css)
   console.log("🎨 SASS build complete")
@@ -41,10 +74,6 @@ async function buildSASS() {
 
 async function createZip() {
   console.log("🗜️ Creating ZIP archive...")
-  // Time to ZIP yes!
-  if (!fs.existsSync(path.join(__dirname, "dist"))) {
-    fs.mkdirSync(path.join(__dirname, "dist"))
-  }
 
   const timestamp = Math.floor(Date.now() / 1000)
   const zipName = `plugin_${timestamp}.zip`
@@ -53,8 +82,7 @@ async function createZip() {
 
   const archive = archiver("zip", { zlib: { level: 9 } })
   archive.pipe(output)
-  archive.directory("assets/")
-  extras.forEach(f => { if (fs.existsSync(f)) archive.file(f, { name: f }) })
+  archive.directory(path.join(__dirname, "out/"), false)
 
   await archive.finalize()
 
@@ -67,14 +95,30 @@ const args = process.argv.slice(2)
 const doZip = args.includes("zip")
 const doJS = args.includes("js")
 const doSASS = args.includes("css")
+const assets = args.includes("assets")
+const clean = args.includes("clean")
+
+if (clean) {
+  await cleanUp()
+}
+
+const build_folders = ["dist", "out"]
+
+build_folders.forEach(folder => {
+  if (!fs.existsSync(path.join(__dirname, folder))) {
+    fs.mkdirSync(path.join(__dirname, folder), { recursive: true })
+  }
+})
 
 if (!args.length) {
+  await copyAssets()
   await buildJS()
   await buildSASS()
   await createZip()
 } else {
   if (doJS) await buildJS()
-  if (doZip) await createZip()
   if (doSASS) await buildSASS()
+  if (doZip) await createZip()
+  if (assets) await copyAssets()
 }
 

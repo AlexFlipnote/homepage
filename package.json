@@ -4,9 +4,11 @@
   "homepage": "https://alexflipnote.dev/homepage/",
   "type": "module",
   "scripts": {
+    "clean": "node build.js clean",
+    "build:assets": "node build.js assets",
+    "build:css": "node build.js css",
     "build:js": "node build.js js",
     "build:zip": "node build.js zip",
-    "build:css": "node build.js css",
     "build": "node build.js"
   },
   "devDependencies": {

@@ -9,7 +9,7 @@ export const extensionSettings = {
   fmt_date: "",
   customfont: "",
   customfontgoogle: false,
-  bookmarks: {},
+  bookmarks: [],
   bookmarksFavicon: false,
   bookmarksTopSitesEnabled: false,
   bookmarksTopSitesAmount: 5,

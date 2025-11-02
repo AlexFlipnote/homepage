@@ -20,6 +20,28 @@
       transform: rotate(45deg)
 
 // options.html / Everything else
+.box-container
+  margin-bottom: 2.5em
+  padding: 1em
+  position: relative
+  background-color: var(--primary)
+
+.container
+  box-sizing: border-box
+  margin: 0 auto
+  max-width: 1100px
+  padding: 0 2em
+  padding-top: 1.5em
+  position: relative
+  width: 100%
+
+.links-container
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+  justify-content: center
+  gap: 2em
+
 .save-button
   background-color: #2ecc71 !important
   border-color: #1d8046 !important
@@ -33,6 +55,27 @@
     bottom: .15em
     position: fixed
     top: inherit
+
+#notification
+  position: fixed
+  bottom: 0
+  right: 0
+  overflow: hidden
+  width: auto
+  height: auto
+
+  .alert
+    animation: enter-notify-right 3s ease forwards
+    border-radius: .5em
+    padding: .5em 1em
+    font-size: 1.5em
+    backdrop-filter: var(--blur-normal)
+    background-color: var(--highlight-alpha)
+    border: .05em solid #2ecc71
+    color: #fff
+    height: auto
+    margin-right: 1em
+    margin-bottom: 1em
 
 .modal
   align-items: center

@@ -48,7 +48,7 @@ if (isExtension) {
 
     const backgroundElement = document.getElementById("background")
     const random_bg_num = Math.floor(Math.random() * 31)
-    let new_background = `assets/images/backgrounds/background${random_bg_num}.jpg`
+    let new_background = `images/backgrounds/background${random_bg_num}.jpg`
 
     if (items.custombg.length > 0) {
       new_background = items.custombg[
@@ -69,9 +69,9 @@ if (isExtension) {
     const bookmarksList = document.getElementById("blist")
     if (items.bookmarks) {
       document.getElementById("bookmarks").style.display = "block"
-      for (const [name, url] of Object.entries(items.bookmarks)) {
+      items.bookmarks.forEach(({ name, url }) => {
         createBookmark(bookmarksList, name, url, items.bookmarksFavicon)
-      }
+      })
     }
 
     if (items.bookmarksTopSitesEnabled) {
@@ -140,7 +140,7 @@ if (isExtension) {
     const backgroundElement = document.getElementById("background")
     const random_bg_num = Math.floor(Math.random() * 31)
 
-    backgroundElement.src = `assets/images/backgrounds/background${random_bg_num}.jpg`
+    backgroundElement.src = `images/backgrounds/background${random_bg_num}.jpg`
     backgroundElement.onload = () => {
       backgroundElement.style.opacity = 1
     }

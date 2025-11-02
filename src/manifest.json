@@ -4,26 +4,26 @@
   "name": "AlexFlipnote/Homepage",
   "description": "A website that gives you a clean homepage.",
   "homepage_url": "https://alexflipnote.dev",
-  "version": "2.2.7",
+  "version": "2.2.8",
 
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
 
   "icons": {
-    "128": "assets/images/128.png",
-    "48": "assets/images/48.png",
-    "32": "assets/images/32.png",
-    "16": "assets/images/16.png"
+    "128": "images/128.png",
+    "48": "images/48.png",
+    "32": "images/32.png",
+    "16": "images/16.png"
   },
 
   "action": {
-    "default_icon": "assets/images/logo.png",
-    "default_popup": "assets/window.html"
+    "default_icon": "images/logo.png",
+    "default_popup": "window.html"
   },
 
   "options_ui": {
-    "page": "assets/options.html",
+    "page": "options.html",
     "open_in_tab": true
   },
 
