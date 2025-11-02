@@ -166,8 +166,9 @@ export function timeInHex() {
     let hour = pad(now.getHours())
     let minute = pad(now.getMinutes())
     let second = pad(now.getSeconds())
-    return hour.toString() + minute.toString() + second.toString()
+    return `${hour}${minute}${second}`
   }
-  document.body.style.backgroundColor = "#" + getHexTime("hex")
+
+  document.body.style.backgroundColor = `#${getHexTime()}`
   setTimeout(timeInHex, 50) // Repeat every 0.1 seconds
 }

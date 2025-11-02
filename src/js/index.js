@@ -88,11 +88,11 @@ if (isExtension) {
     if (items.customfont) {
       if (items.customfontgoogle) {
         const gFont = document.createElement("link")
-        gFont.href = "https://fonts.googleapis.com/css?family=" + items.customfont.replace(" ", "+")
+        gFont.href = `https://fonts.googleapis.com/css?family=${items.customfont.replace(" ", "+")}`
         gFont.rel = "stylesheet"
         document.head.appendChild(gFont)
       }
-      document.body.style.fontFamily = `"${items.customfont}", "Lato", sans-serif, Arial`
+      document.body.style.fontFamily = `"${items.customfont}"`
     }
 
     if (items.hexbg) {
