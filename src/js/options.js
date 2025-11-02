@@ -1,6 +1,12 @@
 import { isFirefox } from "./utils/browser.js"
 import { weatherLanguages, dateLocales } from "./utils/lists.js"
 import { extensionSettings } from "./utils/settings.js"
+import * as manifest from "../manifest.json"
+
+const findVersion = document.getElementById("version")
+if (findVersion) {
+  findVersion.textContent = manifest.version
+}
 
 // Saves options to chrome.storage
 function save_options(message) {
