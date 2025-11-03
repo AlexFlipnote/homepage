@@ -31,16 +31,17 @@
     padding: .6rem 1.2rem
     position: relative
     text-decoration: none
-    transition: filter 300ms ease, color 300ms ease
+    transition: transform 300ms ease, color 300ms ease, box-shadow 300ms ease
     width: auto
 
     &:hover
       color: var(--font-secondary)
-      filter: brightness(.6)
+      box-shadow: var(--box-shadow)
+      transform: translateY(-.25rem)
 
     &[data-auto="true"]:before
       content: "✨"
-      font-size: 2vmin
+      font-size: .75rem
       position: absolute
       right: .1rem
       top: .1rem

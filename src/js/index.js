@@ -8,6 +8,10 @@ import * as manifest from "../manifest.json"
 const DEFAULT = {
   fmt_time: "%H:%M:%S",
   fmt_date: "%e. %B %Y",
+  background_images: Array.from(
+    { length: 31 },  // Amount of default background images
+    (_, i) => `images/backgrounds/background${i + 1}.jpg`
+  )
 }
 
 function faviconURL(u) {
@@ -69,7 +73,7 @@ if (isExtension) {
     changeLocale(items.language)
 
     const backgroundElement = document.getElementById("background")
-    const random_bg_num = Math.floor(Math.random() * 31)
+    const random_bg_num = Math.floor(Math.random() * DEFAULT.background_images.length)
     let new_background = `images/backgrounds/background${random_bg_num}.jpg`
 
     if (items.custombg.length > 0) {

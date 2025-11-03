@@ -1,7 +1,8 @@
+import * as manifest from "../manifest.json"
+import Sortable from "sortablejs"
+import { extensionSettings } from "./utils/settings.js"
 import { isFirefox } from "./utils/browser.js"
 import { weatherLanguages, dateLocales } from "./utils/lists.js"
-import { extensionSettings } from "./utils/settings.js"
-import * as manifest from "../manifest.json"
 
 const findVersion = document.getElementById("version")
 if (findVersion) {
@@ -160,6 +161,15 @@ document.addEventListener("DOMContentLoaded", () => {
     option.value = code
     wlanguage.appendChild(option)
   }
+
+  new Sortable(document.getElementById("blist"), {
+    animation: 150,
+    ghostClass: "sortable-ghost",
+    handle: ".drag",
+    onEnd: () => {
+      save_options("Reordered bookmarks", "change")
+    }
+  })
 })
 
 // CustomBG Appender
@@ -233,20 +243,29 @@ function createBookmarkElement(bkey, burl) {
   const container = document.createElement("div")
   container.classList.add("bookmark-item")
 
+  const dragIcon = document.createElement("img")
+  dragIcon.src = "images/icons/drag.png"
+  dragIcon.classList.add("drag")
+
   const nameInput = document.createElement("input")
-  const urlInput = document.createElement("input")
-  const removeButton = document.createElement("button")
   nameInput.type = "text"
   nameInput.value = bkey
   nameInput.classList.add("bookmark-name")
+
+  const urlInput = document.createElement("input")
   urlInput.type = "text"
   urlInput.value = burl
   urlInput.classList.add("bookmark-url")
-  removeButton.textContent = "Remove"
+
+  const removeButton = document.createElement("img")
+  removeButton.src = "images/icons/delete.png"
+  removeButton.classList.add("remove")
   removeButton.onclick = function() {
     container.remove()
     save_options("Removed bookmark", "remove")
   }
+
+  container.appendChild(dragIcon)
   container.appendChild(nameInput)
   container.appendChild(urlInput)
   container.appendChild(removeButton)

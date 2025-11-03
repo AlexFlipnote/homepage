@@ -8,7 +8,7 @@
 <body>
 
   <div class="text-center container" style="padding: 3rem 0;">
-    <h1 class="emerald-text">Homepage Settings (v<span id="version"></span>)</h1>
+    <h1>Homepage Settings (v<span id="version"></span>)</h1>
 
     <div class="box-container">
       <h1 class="no-margin">General settings</h1>
@@ -160,9 +160,7 @@
       <h1 class="no-margin">Custom background</h1>
       <p>
         Upload images that you want as background! (Supported formats: JPG, PNG, GIF)<br>
-        <label>
-          <button id="custombg_prune">Delete all backgrounds</button>
-        </label>
+        <button id="custombg_prune">Delete all backgrounds</button>
       </p>
       <div id="custombg_previews">
         <div class="file-container">
@@ -180,7 +178,9 @@
         You <i>need</i> both <b>Internet</b> and <b>From Google Fonts?</b> enabled in order for this to work on the homepage.
         Without any of those two requirements, it will fall back to the default font instead. Unless you've installed the font locally.
       </p>
-      <label><input class="secondary" id="customfont"></label>
+      <label>
+        <input class="secondary" id="customfont" placeholder="Type custom font here...">
+      </label>
       <label>
         <input type="checkbox" id="customfontgoogle"> From Google Fonts?
       </label>
@@ -228,18 +228,15 @@
       <label id="bmFavFirefox">
         <input type="checkbox" id="bookmarksFavicon"> Show favicons for bookmarks
       </label>
-      <div id="blist"></div>
-      <div class="bookmark-new">
-        <label>
+      <div id="blist" class="bookmark-container"></div>
+      <div class="bookmark-container">
+        <div class="bookmark-item">
           <input id="bookmark_name" class="secondary" placeholder="Bookmark name">
-        </label>
-        <label>
           <input id="bookmark_url" class="secondary" placeholder="https://example.com">
-        </label>
-        <label>
-          <button id="add_bookmark">Add bookmark</button>
-        </label>
+          <img id="add_bookmark" src="images/icons/add.png" alt="Add bookmark">
+        </div>
       </div>
+      <br>
       <h2 class="no-margin">Top Sites as bookmarks</h2>
       <p>
         Instead of manually adding bookmarks, you can have the extension fetch your most visited sites

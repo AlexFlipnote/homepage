@@ -11,6 +11,9 @@
     "build:zip": "node build.js zip",
     "build": "node build.js"
   },
+  "dependencies": {
+    "sortablejs": "^1.15.6"
+  },
   "devDependencies": {
     "archiver": "^7.0.1",
     "esbuild": "0.25.11",

@@ -24,10 +24,14 @@ $settings-icon-size: 3rem
 
 // options.html / Everything else
 .box-container
+  align-items: center
+  background-color: var(--primary)
+  display: flex
+  flex-direction: column
+  justify-content: center
   margin-bottom: 2.5rem
   padding: 1rem
   position: relative
-  background-color: var(--primary)
 
 .container
   box-sizing: border-box
@@ -164,36 +168,51 @@ $settings-icon-size: 3rem
     pointer-events: none
 
 
-.bookmark-item
+.bookmark-container
   align-items: center
   display: flex
-  flex-direction: row
+  flex-direction: column
   justify-content: center
+  $bookmark-icon-sizes: 1.5rem
 
-  .bookmark-name, .bookmark-url
-    margin: 0 !important
-    padding: .25rem !important
+  .bookmark-item
+    background: var(--secondary)
+    border-radius: .5rem
+    display: flex
+    flex-direction: row
+    justify-content: center
+    align-items: center
+    margin: .25rem 0
+    padding: .5rem 1rem
+    position: relative
 
-  .bookmark-url
-    width: 20rem !important
+    .drag
+      height: $bookmark-icon-sizes
+      width: $bookmark-icon-sizes
+      margin-right: .5rem
+      cursor: grab
 
-  .bookmark-name
-    width: 10rem !important
+    .remove
+      filter: brightness(0) saturate(100%) invert(46%) sepia(46%) saturate(3229%) hue-rotate(333deg) brightness(89%) contrast(103%)
+      height: $bookmark-icon-sizes
+      width: $bookmark-icon-sizes
+      padding-left: .5rem
+      cursor: pointer
 
-.bookmark-new
-  align-items: center
-  display: flex
-  flex-direction: row
-  justify-content: center
-  margin-top: 2rem
+    #add_bookmark
+      height: $bookmark-icon-sizes
+      width: $bookmark-icon-sizes
+      cursor: pointer
 
-  #bookmark_name, #bookmark_url
-    margin: 0 !important
-    padding: .25rem !important
+    .bookmark-name, .bookmark-url,
+    #bookmark_name, #bookmark_url
+      margin: 0 !important
+      padding: .25rem !important
+      background-color: transparent !important
 
-  #bookmark_url
-    width: 20rem !important
+    .bookmark-url, #bookmark_url
+      width: 20rem !important
 
-  #bookmark_name
-    width: 10rem !important
+    .bookmark-name, #bookmark_name
+      width: 10rem !important
 
