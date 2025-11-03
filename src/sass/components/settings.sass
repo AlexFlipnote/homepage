@@ -1,19 +1,22 @@
+// Variables
+$settings-icon-size: 3rem
+
 // index.html / Settings cog
 #settings
-  bottom: 1.5em
-  color: var(--font-colour-primary)
-  height: 4em
+  bottom: 1.5rem
+  color: var(--font-primary)
+  height: $settings-icon-size
   margin-top: 10px
   margin: 0
   position: absolute
-  right: 1.5em
+  right: 1.5rem
   text-decoration: none
 
   .settings-icon
-    fill: var(--font-colour-primary)
-    height: 4em
+    fill: var(--font-primary)
+    height: $settings-icon-size
     transition: transform 300ms ease, fill 300ms ease
-    width: 4em
+    width: $settings-icon-size
 
     &:hover
       fill: #ddd
@@ -21,8 +24,8 @@
 
 // options.html / Everything else
 .box-container
-  margin-bottom: 2.5em
-  padding: 1em
+  margin-bottom: 2.5rem
+  padding: 1rem
   position: relative
   background-color: var(--primary)
 
@@ -30,8 +33,8 @@
   box-sizing: border-box
   margin: 0 auto
   max-width: 1100px
-  padding: 0 2em
-  padding-top: 1.5em
+  padding: 0 2rem
+  padding-top: 1.5rem
   position: relative
   width: 100%
 
@@ -40,42 +43,31 @@
   flex-direction: row
   flex-wrap: wrap
   justify-content: center
-  gap: 2em
-
-.save-button
-  background-color: #2ecc71 !important
-  border-color: #1d8046 !important
-  bottom: .25em
-  color: #000 !important
-  font-size: 18px
-  left: .25em
-  position: fixed
-
-  &:active
-    bottom: .15em
-    position: fixed
-    top: inherit
+  gap: 2rem
 
 #notification
   position: fixed
   bottom: 0
   right: 0
   overflow: hidden
-  width: auto
   height: auto
+  display: flex
+  flex-direction: column
+  align-items: flex-end
 
   .alert
     animation: enter-notify-right 3s ease forwards
-    border-radius: .5em
-    padding: .5em 1em
-    font-size: 1.5em
+    border-radius: .5rem
+    padding: .5rem 1rem
+    font-size: 1rem
     backdrop-filter: var(--blur-normal)
     background-color: var(--highlight-alpha)
-    border: .05em solid #2ecc71
+    border: .05rem solid #2ecc71
     color: #fff
+    width: auto
     height: auto
-    margin-right: 1em
-    margin-bottom: 1em
+    margin-right: 1rem
+    margin-bottom: 1rem
 
 .modal
   align-items: center
@@ -90,7 +82,7 @@
   width: 100%
 
   h1
-    font-size: 4em
+    font-size: 4rem
 
   &.modal--close
     background: transparent
@@ -124,7 +116,7 @@
 
 #custombg_previews .preview-image
   height: 140px
-  margin: .25em .5em
+  margin: .25rem .5rem
   width: 250px
 
 
@@ -136,28 +128,28 @@
 
   .bookmark-name, .bookmark-url
     margin: 0 !important
-    padding: .25em !important
+    padding: .25rem !important
 
   .bookmark-url
-    width: 20em !important
+    width: 20rem !important
 
   .bookmark-name
-    width: 10em !important
+    width: 10rem !important
 
 .bookmark-new
   align-items: center
   display: flex
   flex-direction: row
   justify-content: center
-  margin-top: 2em
+  margin-top: 2rem
 
   #bookmark_name, #bookmark_url
     margin: 0 !important
-    padding: .25em !important
+    padding: .25rem !important
 
   #bookmark_url
-    width: 20em !important
+    width: 20rem !important
 
   #bookmark_name
-    width: 10em !important
+    width: 10rem !important
 

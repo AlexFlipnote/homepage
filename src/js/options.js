@@ -24,6 +24,7 @@ function save_options(message) {
   const bookmarksTopSitesEnabled = document.getElementById("bookmarksTopSitesEnabled").checked
   const bookmarksTopSitesAmount = parseInt(document.getElementById("bookmarksTopSitesAmount").value) || 5
   const bookmarksFavicon = document.getElementById("bookmarksFavicon").checked
+  const searchbar = document.getElementById("searchbar").checked
 
   const custombg = []
   const custombg_previews = document.getElementsByClassName("preview-image")
@@ -39,6 +40,7 @@ function save_options(message) {
     wlanguage: wlanguage,
     custombg: custombg,
     fmt_time: fmt_time,
+    searchbar: searchbar,
     fmt_date: fmt_date,
     customfont: customfont,
     customfontgoogle: customfontgoogle,
@@ -68,6 +70,10 @@ function restore_options() {
     const language = document.getElementById("language")
     language.value = items.language
     language.onchange = () => { save_options(`Language set: ${language.value || "default"}`) }
+
+    const searchbar = document.getElementById("searchbar")
+    searchbar.checked = items.searchbar
+    searchbar.onchange = () => { save_options(`Search bar set: ${searchbar.checked}`) }
 
     const wlanguage = document.getElementById("wlanguage")
     wlanguage.value = items.wlanguage

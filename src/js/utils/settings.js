@@ -4,6 +4,7 @@
 export const extensionSettings = {
   language: "",
   wlanguage: "",
+  searchbar: false,
   custombg: [],
   fmt_time: "",
   fmt_date: "",

@@ -1,10 +1,10 @@
 #bookmarks
   animation: enter-bottom 1s ease-in-out forwards
-  bottom: 1.5em
+  bottom: 1.5rem
   display: flex
   flex-direction: row
   flex-wrap: wrap
-  gap: .5em 1em
+  gap: .5rem 1rem
   justify-content: center
   left: 50%
   list-style: none
@@ -21,33 +21,33 @@
     backdrop-filter: var(--blur-normal)
     background-color: var(--highlight-alpha)
     border-radius: 10px
-    color: var(--font-colour-primary)
+    color: var(--font-primary)
     display: flex
     flex-direction: column
-    font-size: 2em
+    font-size: 2rem
     justify-content: center
-    max-width: 5em
+    max-width: 5rem
     overflow: hidden
-    padding: .4em .8em
+    padding: .6rem 1.2rem
     position: relative
     text-decoration: none
     transition: filter 300ms ease, color 300ms ease
     width: auto
 
     &:hover
-      color: var(--font-colour-secondary)
+      color: var(--font-secondary)
       filter: brightness(.6)
 
     &[data-auto="true"]:before
       content: "✨"
       font-size: 2vmin
       position: absolute
-      right: .1em
-      top: .1em
+      right: .1rem
+      top: .1rem
 
   .bookmark-icon
     height: 32px
-    margin-bottom: .25em
+    margin-bottom: .25rem
     position: relative
     width: 32px
     z-index: 999

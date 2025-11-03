@@ -3,6 +3,7 @@ import { dateLocales } from "./utils/lists.js"
 import { extensionSettings } from "./utils/settings.js"
 import { getWeather } from "./utils/weather.js"
 import { timeInHex, startClock, changeLocale } from "./utils/timeManager.js"
+import * as manifest from "../manifest.json"
 
 const DEFAULT = {
   fmt_time: "%H:%M:%S",
@@ -53,7 +54,14 @@ function createBookmark(
 
 if (isExtension) {
   // Extension mode
-  console.log("☑️ Running in extension mode")
+  console.log(`☑️ Running in extension mode (v${manifest.version})`)
+
+  document.getElementById("search-form").onsubmit = (e) => {
+    e.preventDefault()
+    chrome.search.query({
+      text: document.getElementById("search-input").value
+    })
+  }
 
   chrome.storage.local.get({ ...extensionSettings }, function(items) {
     startClock("time", items.fmt_time || DEFAULT.fmt_time)
@@ -89,6 +97,11 @@ if (isExtension) {
           bookmarksFavicon: items.bookmarksFavicon
         })
       })
+    }
+
+    if (items.searchbar) {
+      const searchForm = document.getElementById("search-form")
+      searchForm.style.display = "block"
     }
 
     if (items.bookmarksTopSitesEnabled) {
@@ -190,6 +203,16 @@ if (isExtension) {
   // Toggle bookmarks
   document.getElementById("bookmarksToggle").onclick = function() {
     turnSwitch(document.getElementById("bookmarks"), "flex")
+  }
+
+  // Toggle search bar
+  document.getElementById("searchToggle").onclick = function() {
+    turnSwitch(document.getElementById("search-form"), "block")
+  }
+
+  document.getElementById("search-form").onsubmit = (e) => {
+    e.preventDefault()
+    alert(`This would then search using the browser's default search engine`)
   }
 
   // Change background
