@@ -160,11 +160,16 @@
       <h1 class="no-margin">Custom background</h1>
       <p>
         Upload images that you want as background! (Supported formats: JPG, PNG, GIF)<br>
-        <span class="sun-flower-text">NOTE:</span> Remember to click "save" when done.
-        <label><button id="custombg_prune">Delete all backgrounds</button></label>
+        <label>
+          <button id="custombg_prune">Delete all backgrounds</button>
+        </label>
       </p>
-      Select images: <input type="file" id="custombg_uploader" accept="image/png,image/jpeg,image/gif">
-      <div id="custombg_previews"></div>
+      <div id="custombg_previews">
+        <div class="file-container">
+          <span class="message">Drop file here or click...</span>
+          <input type="file" id="custombg_uploader" accept="image/png,image/jpeg,image/gif" multiple>
+        </div>
+      </div>
     </div>
 
     <div class="box-container">

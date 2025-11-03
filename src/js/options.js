@@ -9,7 +9,7 @@ if (findVersion) {
 }
 
 // Saves options to chrome.storage
-function save_options(message) {
+function save_options(message, css="") {
   const language = document.getElementById("language").value
   const wlanguage = document.getElementById("wlanguage").value
   const customfont = document.getElementById("customfont").value
@@ -57,6 +57,7 @@ function save_options(message) {
     const notification = document.getElementById("notification")
     const alert = document.createElement("div")
     alert.classList.add("alert")
+    if (css) { alert.classList.add(css) }
     alert.textContent = message || "Options saved"
     notification.appendChild(alert)
     setTimeout(() => { alert.remove() }, 3000)
@@ -69,47 +70,47 @@ function restore_options() {
   chrome.storage.local.get({ ...extensionSettings }, (items) => {
     const language = document.getElementById("language")
     language.value = items.language
-    language.onchange = () => { save_options(`Language set: ${language.value || "default"}`) }
+    language.onchange = () => { save_options(`Language changed: ${language.value || "default"}`, "change") }
 
     const searchbar = document.getElementById("searchbar")
     searchbar.checked = items.searchbar
-    searchbar.onchange = () => { save_options(`Search bar set: ${searchbar.checked}`) }
+    searchbar.onchange = () => { save_options(`Search bar set: ${searchbar.checked}`, searchbar.checked ? "add" : "remove") }
 
     const wlanguage = document.getElementById("wlanguage")
     wlanguage.value = items.wlanguage
-    wlanguage.onchange = () => { save_options(`Weather language set: ${wlanguage.value || "default"}`) }
+    wlanguage.onchange = () => { save_options(`Weather language set: ${wlanguage.value || "default"}`, wlanguage.value ? "change" : "remove") }
 
     const fmt_time = document.getElementById("fmt_time")
     fmt_time.value = items.fmt_time
-    fmt_time.onchange = () => { save_options(`Time format set: ${fmt_time.value || "default"}`) }
+    fmt_time.onchange = () => { save_options(`Time format set: ${fmt_time.value || "default"}`, fmt_time.value ? "change" : "remove") }
 
     const fmt_date = document.getElementById("fmt_date")
     fmt_date.value = items.fmt_date
-    fmt_date.onchange = () => { save_options(`Date format set: ${fmt_date.value || "default"}`) }
+    fmt_date.onchange = () => { save_options(`Date format set: ${fmt_date.value || "default"}`, fmt_date.value ? "change" : "remove") }
 
     const customfont = document.getElementById("customfont")
     customfont.value = items.customfont
-    customfont.onchange = () => { save_options(`Custom font set: ${customfont.value || "default"}`) }
+    customfont.onchange = () => { save_options(`Custom font set: ${customfont.value || "default"}`, customfont.value ? "change" : "remove") }
 
     const customfontgoogle = document.getElementById("customfontgoogle")
     customfontgoogle.checked = items.customfontgoogle
-    customfontgoogle.onchange = () => { save_options(`Google font set: ${customfontgoogle.checked}`) }
+    customfontgoogle.onchange = () => { save_options(`Google font set: ${customfontgoogle.checked}`, customfontgoogle.checked ? "add" : "remove") }
 
     const hexbg = document.getElementById("hexbg")
     hexbg.checked = items.hexbg
-    hexbg.onchange = () => { save_options(`HEX background set: ${hexbg.checked}`) }
+    hexbg.onchange = () => { save_options(`HEX background set: ${hexbg.checked}`, hexbg.checked ? "add" : "remove") }
 
     const wkey = document.getElementById("wkey")
     wkey.value = items.wkey
-    wkey.onchange = () => { save_options("Saved OpenWeatherMap API key") }
+    wkey.onchange = () => { save_options("Saved OpenWeatherMap API key", wkey.value.length ? "add" : "remove") }
 
     const temp_type = document.getElementById("temp_type")
     temp_type.value = items.temp_type
-    temp_type.onchange = () => { save_options(`Weather temperature type set: ${temp_type.value}`) }
+    temp_type.onchange = () => { save_options(`Weather temperature type changed: ${temp_type.value}`, "change") }
 
     const showSettings = document.getElementById("show-settings")
     showSettings.checked = items.showSettings
-    showSettings.onchange = () => { save_options(`Show settings button set: ${showSettings.checked}`) }
+    showSettings.onchange = () => { save_options(`Show settings button set: ${showSettings.checked}`, showSettings.checked ? "add" : "remove") }
 
     const customcss = document.getElementById("customcss")
     customcss.value = items.customcss
@@ -117,15 +118,15 @@ function restore_options() {
 
     const bookmarksTopSitesEnabled = document.getElementById("bookmarksTopSitesEnabled")
     bookmarksTopSitesEnabled.checked = items.bookmarksTopSitesEnabled
-    bookmarksTopSitesEnabled.onchange = () => { save_options(`Bookmarks top sites set: ${bookmarksTopSitesEnabled.checked}`) }
+    bookmarksTopSitesEnabled.onchange = () => { save_options(`Bookmarks top sites set: ${bookmarksTopSitesEnabled.checked}`, bookmarksTopSitesEnabled.checked ? "add" : "remove") }
 
     const bookmarksTopSitesAmount = document.getElementById("bookmarksTopSitesAmount")
     bookmarksTopSitesAmount.value = items.bookmarksTopSitesAmount
-    bookmarksTopSitesAmount.onchange = () => { save_options(`Bookmarks top sites amount set: ${bookmarksTopSitesAmount.value}`) }
+    bookmarksTopSitesAmount.onchange = () => { save_options(`Bookmarks top sites amount set: ${bookmarksTopSitesAmount.value}`, "change") }
 
     const bookmarksFavicon = document.getElementById("bookmarksFavicon")
     bookmarksFavicon.checked = items.bookmarksFavicon
-    bookmarksFavicon.onchange = () => { save_options(`Bookmarks favicon set: ${bookmarksFavicon.checked}`) }
+    bookmarksFavicon.onchange = () => { save_options(`Bookmarks favicon set: ${bookmarksFavicon.checked}`, bookmarksFavicon.checked ? "add" : "remove") }
 
     if (isFirefox) {
       document.getElementById("bmFavFirefox").style.display = "none"
@@ -162,17 +163,25 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 // CustomBG Appender
-document.getElementById("custombg_uploader").onchange  = () => {
+document.getElementById("custombg_uploader").onchange = () => {
   const all_previews = document.getElementById("custombg_previews")
-  const file = document.querySelector("input[type=file]").files[0]
-  const reader = new FileReader()
 
-  reader.addEventListener("load", function () {
-    createPreview(reader.result, all_previews)
-    save_options("Added new background image")
-  }, false)
+  const files = document.getElementById("custombg_uploader").files
 
-  if (file) { reader.readAsDataURL(file) }
+  if (!files.length) { return }
+
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+
+    const reader = new FileReader();
+
+    reader.addEventListener("load", function () {
+      createPreview(reader.result, all_previews)
+      save_options(`Added background ${i+1}/${files.length}`, "add")
+    }, false)
+
+    reader.readAsDataURL(file)
+  }
 }
 
 document.getElementById("add_bookmark").onclick = () => {
@@ -189,15 +198,20 @@ document.getElementById("add_bookmark").onclick = () => {
 document.body.onclick = function (ev) {
   if (ev.target.getAttribute("class") == "preview-image") {
     ev.target.remove()
-    save_options("Removed background image")
+    save_options("Removed background image", "remove")
   }
 }
 
 function custombg_prune() {
   const custombg_previews = document.getElementById("custombg_previews")
-  while (custombg_previews.firstChild) {
-    custombg_previews.removeChild(custombg_previews.firstChild);
+  const find_custom_bg = custombg_previews.getElementsByClassName("preview-container")
+  if (find_custom_bg.length == 0) { return }
+
+  while (find_custom_bg.length > 0) {
+    find_custom_bg[0].remove()
   }
+
+  save_options("Deleted all background images", "remove")
 }
 
 function createPreview(image, target) {
@@ -209,7 +223,9 @@ function createPreview(image, target) {
   preview.src = image
 
   container.append(preview) // div -> img
-  target.append(container) // div
+
+  const fileContainer = target.querySelector(".file-container")
+  fileContainer.before(container)
 }
 
 function createBookmarkElement(bkey, burl) {
@@ -229,14 +245,14 @@ function createBookmarkElement(bkey, burl) {
   removeButton.textContent = "Remove"
   removeButton.onclick = function() {
     container.remove()
-    save_options("Removed bookmark")
+    save_options("Removed bookmark", "remove")
   }
   container.appendChild(nameInput)
   container.appendChild(urlInput)
   container.appendChild(removeButton)
 
-  nameInput.onchange = () => { save_options("Changed bookmark name") }
-  urlInput.onchange = () => { save_options("Changed bookmark URL") }
+  nameInput.onchange = () => { save_options("Changed bookmark name", "change") }
+  urlInput.onchange = () => { save_options("Changed bookmark URL", "change") }
 
   blist.appendChild(container)
 }
