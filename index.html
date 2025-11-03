@@ -20,6 +20,18 @@
       <div class="time-container">
         <h1 id="time"></h1>
         <h1 id="date"></h1>
+        <!-- Search engine -->
+        <form id="search-form" role="search" spellcheck="false" novalidate style="display: none;">
+          <input
+            id="search-input"
+            type="text"
+            name="q"
+            placeholder="Search the web..."
+            autocapitalize="off"
+            autocorrect="off"
+            autocomplete="off"
+          />
+        </form>
       </div>
     </section>
 
@@ -52,6 +64,7 @@
         <li><a id="changefont">Change Background</a></li>
         <li><a id="weather">Turn on/off weather</a></li>
         <li><a id="bookmarksToggle">Turn on/off bookmarks</a></li>
+        <li><a id="searchToggle">Turn on/off search bar</a></li>
         <li>
           <span>Change language</span>
           <select id="language">
