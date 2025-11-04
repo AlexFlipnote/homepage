@@ -175,7 +175,7 @@ if (isExtension) {
     }
   }
 
-  turnSwitch(document.getElementById("demo-buttons"))
+  turnSwitch(document.getElementById("demo-buttons"), "flex")
 
   document.addEventListener("DOMContentLoaded", function() {
     const backgroundElement = document.getElementById("background")
@@ -197,10 +197,13 @@ if (isExtension) {
   }
 
   // Change background
-  document.getElementById("changebg").onclick = function() {
-    const font = prompt("Please enter a font", "Times New Roman")
-    if (font) {
-      document.body.style.fontFamily = `"${font}", "Lato", sans-serif, Arial`
+  document.getElementById("changebg").onchange = (el) => {
+    const backgroundElement = document.getElementById("background")
+    if (el.target.value) {
+      backgroundElement.src = el.target.value
+    }
+    else {
+      backgroundElement.src = null
     }
   }
 
@@ -220,10 +223,13 @@ if (isExtension) {
   }
 
   // Change background
-  document.getElementById("changefont").onclick = function() {
-    const backgroundElement = document.getElementById("background")
-    const bg = prompt("Please enter a background URL:", "https://")
-    if (bg) { backgroundElement.src = bg }
+  document.getElementById("changefont").onchange = (el) => {
+    const font = el.target.value
+    if (font) {
+      document.body.style.fontFamily = `"${font}"`
+    } else {
+      document.body.style.fontFamily = ""
+    }
   }
 
   // Turn on/off weather

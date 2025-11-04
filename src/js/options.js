@@ -2,6 +2,7 @@ import * as manifest from "../manifest.json"
 import Sortable from "sortablejs"
 import { extensionSettings } from "./utils/settings.js"
 import { isFirefox } from "./utils/browser.js"
+import { startHexClock } from "./utils/timeManager.js"
 import { weatherLanguages, dateLocales } from "./utils/lists.js"
 
 const findVersion = document.getElementById("version")
@@ -9,59 +10,42 @@ if (findVersion) {
   findVersion.textContent = manifest.version
 }
 
-// Saves options to chrome.storage
-function save_options(message, css="") {
-  const language = document.getElementById("language").value
-  const wlanguage = document.getElementById("wlanguage").value
-  const customfont = document.getElementById("customfont").value
-  const fmt_time = document.getElementById("fmt_time").value
-  const fmt_date = document.getElementById("fmt_date").value
-  const customfontgoogle = document.getElementById("customfontgoogle").checked
-  const hexbg = document.getElementById("hexbg").checked
-  const wkey = document.getElementById("wkey").value
-  const temp_type = document.getElementById("temp_type").value
-  const showSettings = document.getElementById("show-settings").checked
-  const customcss = document.getElementById("customcss").value
-  const bookmarksTopSitesEnabled = document.getElementById("bookmarksTopSitesEnabled").checked
-  const bookmarksTopSitesAmount = parseInt(document.getElementById("bookmarksTopSitesAmount").value) || 5
-  const bookmarksFavicon = document.getElementById("bookmarksFavicon").checked
-  const searchbar = document.getElementById("searchbar").checked
-
-  const custombg = []
-  const custombg_previews = document.getElementsByClassName("preview-image")
-
-  const bookmarks = fetchBookmarkInputs()
-
-  for (var i = 0; i < custombg_previews.length; i++) {
-    custombg.push(custombg_previews[i].src)
-  }
-
-  chrome.storage.local.set({
-    language: language,
-    wlanguage: wlanguage,
-    custombg: custombg,
-    fmt_time: fmt_time,
-    searchbar: searchbar,
-    fmt_date: fmt_date,
-    customfont: customfont,
-    customfontgoogle: customfontgoogle,
-    wkey: wkey,
-    hexbg: hexbg,
-    temp_type: temp_type,
-    showSettings: showSettings,
-    bookmarksFavicon: bookmarksFavicon,
-    bookmarksTopSitesEnabled: bookmarksTopSitesEnabled,
-    bookmarksTopSitesAmount: bookmarksTopSitesAmount,
-    customcss: customcss,
-    bookmarks: bookmarks
-  }, () => {
-    const notification = document.getElementById("notification")
+function createAlert(message, css="") {
+  const notification = document.getElementById("notification")
     const alert = document.createElement("div")
     alert.classList.add("alert")
     if (css) { alert.classList.add(css) }
     alert.textContent = message || "Options saved"
     notification.appendChild(alert)
     setTimeout(() => { alert.remove() }, 3000)
+}
+
+// Saves options to chrome.storage
+function save_options(message, css="") {
+  const custombg = []
+  const custombg_previews = document.getElementsByClassName("preview-image")
+  for (var i = 0; i < custombg_previews.length; i++) { custombg.push(custombg_previews[i].src) }
+
+  chrome.storage.local.set({
+    language: document.getElementById("language").value,
+    wlanguage: document.getElementById("wlanguage").value,
+    custombg: custombg,
+    fmt_time: document.getElementById("fmt_time").value,
+    searchbar: document.getElementById("searchbar").checked,
+    fmt_date: document.getElementById("fmt_date").value,
+    customfont: document.getElementById("customfont").value,
+    customfontgoogle: document.getElementById("customfontgoogle").checked,
+    wkey: document.getElementById("wkey").value,
+    hexbg: document.getElementById("hexbg").checked,
+    temp_type: document.getElementById("temp_type").value,
+    showSettings: document.getElementById("show-settings").checked,
+    bookmarksFavicon: document.getElementById("bookmarksFavicon").checked,
+    bookmarksTopSitesEnabled: document.getElementById("bookmarksTopSitesEnabled").checked,
+    bookmarksTopSitesAmount: parseInt(document.getElementById("bookmarksTopSitesAmount").value) || 5,
+    customcss: document.getElementById("customcss").value,
+    bookmarks: fetchBookmarkInputs()
+  }, () => {
+    createAlert(message, css)
   })
 }
 
@@ -153,6 +137,10 @@ document.addEventListener("DOMContentLoaded", () => {
     languages.appendChild(option)
   }
 
+  // Show live demo
+  startHexClock(document.getElementById("hexbgdemobg"), {background:true})
+  startHexClock(document.getElementById("hexbgdemotext"), {text:true})
+
   // Weather languages
   const wlanguage = document.getElementById("wlanguage")
   for (const [code, name] of Object.entries(weatherLanguages)) {
@@ -181,17 +169,25 @@ document.getElementById("custombg_uploader").onchange = () => {
   if (!files.length) { return }
 
   for (let i = 0; i < files.length; i++) {
-    const file = files[i];
+    const file = files[i]
+    const reader = new FileReader()
 
-    const reader = new FileReader();
-
-    reader.addEventListener("load", function () {
-      createPreview(reader.result, all_previews)
-      save_options(`Added background ${i+1}/${files.length}`, "add")
+    reader.addEventListener("load", () => {
+      const mbLimit = 1.5
+      const imageSizeMB = (reader.result.length * (3/4)) / (1024 * 1024)
+      if (imageSizeMB > mbLimit) {
+        createAlert(`Image is larger than ${mbLimit}MB and will not be uploaded.`, "remove")
+    } else {
+        createPreview(reader.result, all_previews)
+        save_options("Added background image", "add")
+      }
     }, false)
 
     reader.readAsDataURL(file)
   }
+
+  // When done, reset the input so the same file can be uploaded again if wanted
+  document.getElementById("custombg_uploader").value = ""
 }
 
 document.getElementById("add_bookmark").onclick = () => {

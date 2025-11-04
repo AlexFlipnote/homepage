@@ -13,3 +13,20 @@ Goal is to make it as lightweight as possible, meaning no unnecessary bloat or d
 
 ## Preview
 ![Image](.github/preview1.png)
+
+## Development
+In order to set up the development environment, you need to have [NodeJS](https://nodejs.org/) installed on your machine. After that, you can clone the repository and install the dependencies using npm or yarn.
+```bash
+git clone https://github.com/AlexFlipnote/homepage
+cd homepage
+npm install
+```
+
+To build the project, you can use the following command:
+```bash
+npm run build
+```
+
+## Credits
+- Icons: https://fonts.google.com/icons
+- CSS filter generator: https://angel-rs.github.io/css-color-filter-generator/

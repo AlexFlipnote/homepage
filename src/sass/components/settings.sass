@@ -1,12 +1,14 @@
 // Variables
 $settings-icon-size: 3rem
 
+$preview-image-width: 15rem
+$preview-image-height: 8.75rem
+
 // index.html / Settings cog
 #settings
   bottom: 1.5rem
   color: var(--font-primary)
   height: $settings-icon-size
-  margin-top: 10px
   margin: 0
   position: absolute
   right: 1.5rem
@@ -19,7 +21,7 @@ $settings-icon-size: 3rem
     width: $settings-icon-size
 
     &:hover
-      fill: #ddd
+      fill: var(--font-secondary)
       transform: rotate(45deg)
 
 // options.html / Everything else
@@ -37,10 +39,23 @@ $settings-icon-size: 3rem
   box-sizing: border-box
   margin: 0 auto
   max-width: 1100px
-  padding: 0 2rem
-  padding-top: 1.5rem
+  padding: 1.5rem 2rem
   position: relative
   width: 100%
+
+.header-container
+  display: flex
+  flex-direction: row
+  align-items: center
+  gap: 1rem
+  justify-content: center
+
+  img
+    height: auto
+    width: 2rem
+
+  h1
+    font-size: 2rem
 
 .links-container
   display: flex
@@ -48,6 +63,13 @@ $settings-icon-size: 3rem
   flex-wrap: wrap
   justify-content: center
   gap: 2rem
+
+@keyframes alert-bar
+  0%
+    width: 0%
+  100%
+    width: 100%
+
 
 #notification
   position: fixed
@@ -59,25 +81,46 @@ $settings-icon-size: 3rem
   flex-direction: column
   align-items: flex-end
 
+  $alert-border-size: .1rem
+
   .alert
     animation: enter-notify-right 3s ease forwards
-    border-radius: .5rem
-    padding: .5rem 1rem
+    background-color: var(--secondary)
+    border: $alert-border-size solid var(--success)
+    border-bottom: none
+    color: var(--font-primary)
     font-size: 1rem
-    backdrop-filter: var(--blur-normal)
-    background-color: var(--highlight-alpha)
-    border: .05rem solid var(--success)
-    color: #fff
-    width: auto
     height: auto
-    margin-right: 1rem
     margin-bottom: 1rem
+    margin-right: 1rem
+    padding: .5rem 1rem .5rem .75rem
+    position: relative
+    width: auto
+
+    &:before
+      animation: alert-bar 3s ease forwards
+      border-bottom-color: var(--success)
+      border-bottom-style: solid
+      border-bottom-width: $alert-border-size
+      bottom: 0
+      content: ""
+      height: 100%
+      left: 0
+      position: absolute
+      width: 0
+
+    &.test
+      animation: none
 
     &.change
       border-color: var(--warning)
+      &:before
+        border-color: var(--warning)
 
     &.remove
       border-color: var(--error)
+      &:before
+        border-color: var(--error)
 
 .modal
   align-items: center
@@ -112,24 +155,28 @@ $settings-icon-size: 3rem
 
   .preview-image
     border-radius: 1rem
-    height: 140px
+    height: $preview-image-height
     margin: .25rem .5rem
-    width: 250px
+    width: $preview-image-width
+    transition: opacity .2s ease-in-out
 
   &:hover
     .preview-image
       cursor: pointer
-      opacity: .4
+      opacity: .25
 
     &:before
       align-items: center
-      color: #fff
-      content: "Remove?"
+      background-image: url("../images/icons/delete.png")
+      background-position: center
+      background-repeat: no-repeat
+      background-size: 3rem 3rem
+      content: ""
       display: flex
-      font-family: monospace
-      font-size: 32px
+      filter: brightness(0) saturate(100%) invert(34%) sepia(76%) saturate(1861%) hue-rotate(341deg) brightness(96%) contrast(88%)
       height: 100%
       justify-content: center
+      margin-bottom: .25rem
       position: absolute
       width: 100%
 
@@ -137,23 +184,29 @@ $settings-icon-size: 3rem
   align-items: center
   background-color: transparent
   border-radius: 1rem
-  border: .25rem dashed #ccc
+  border: .25rem dashed var(--grey)
   box-sizing: border-box
-  color: #888
+  color: var(--font-secondary)
   cursor: pointer
   display: flex
+  flex-direction: column
   font-size: 1.1rem
-  height: 140px
+  height: $preview-image-height
   justify-content: center
   margin: .25rem .5rem
   position: relative
   text-align: center
   transition: background-color .2s ease-in-out, border-color .2s ease-in-out
-  width: 250px
+  width: $preview-image-width
+
+  .icon
+    height: 3rem
+    width: 3rem
+    filter: brightness(0) saturate(100%) invert(99%) sepia(1%) saturate(6187%) hue-rotate(177deg) brightness(88%) contrast(74%)
 
   &:hover
     background-color: rgba(0, 0, 0, .25)
-    border-color: #aaa
+    border-color: var(--font-secondary)
 
   #custombg_uploader
     position: absolute
@@ -200,9 +253,10 @@ $settings-icon-size: 3rem
       cursor: pointer
 
     #add_bookmark
+      cursor: pointer
+      filter: brightness(0) saturate(100%) invert(89%) sepia(100%) saturate(1180%) hue-rotate(65deg) brightness(86%) contrast(83%)
       height: $bookmark-icon-sizes
       width: $bookmark-icon-sizes
-      cursor: pointer
 
     .bookmark-name, .bookmark-url,
     #bookmark_name, #bookmark_url

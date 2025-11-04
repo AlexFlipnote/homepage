@@ -65,20 +65,33 @@
 
     <!-- Demo Buttons -->
     <div id="demo-buttons" style="display: none;">
-      <p>Test some of the plugin features:</p>
-      <ul>
-        <li><a id="changebg">Change Font</a></li>
-        <li><a id="changefont">Change Background</a></li>
-        <li><a id="weather">Turn on/off weather</a></li>
-        <li><a id="bookmarksToggle">Turn on/off bookmarks</a></li>
-        <li><a id="searchToggle">Turn on/off search bar</a></li>
-        <li>
-          <span>Change language</span>
-          <select id="language">
-            <option value="">Default: Local language</option>
-          </select>
-        </li>
-      </ul>
+      <h2 class="no-margin text-center">Demo settings</h2>
+      <label class="default">
+        Change language
+        <select id="language">
+          <option value="">Default: Local language</option>
+        </select>
+      </label>
+      <label class="default">
+        Change background
+        <input type="text" id="changebg" placeholder="https://">
+      </label>
+      <label class="default">
+        Change font
+        <input type="text" id="changefont" placeholder="Times New Roman">
+      </label>
+      <label class="default">
+        <input type="checkbox" id="searchToggle">
+        Toggle search bar
+      </label>
+      <label class="default">
+        <input type="checkbox" id="weather">
+        Toggle weather
+      </label>
+      <label class="default">
+        <input type="checkbox" id="bookmarksToggle">
+        Toggle bookmarks
+      </label>
     </div>
 
     <a id="install-button" target="_blank" style="display: none;">PLACEHOLDER</a>

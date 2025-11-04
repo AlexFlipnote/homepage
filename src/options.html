@@ -7,8 +7,11 @@
 </head>
 <body>
 
-  <div class="text-center container" style="padding: 3rem 0;">
-    <h1>Homepage Settings (v<span id="version"></span>)</h1>
+  <div class="text-center container">
+    <div class="header-container">
+      <img src="images/logo.png" alt="Homepage Logo">
+      <h1>Homepage settings <i>(v<span id="version"></span>)</i></h1>
+    </div>
 
     <div class="box-container">
       <h1 class="no-margin">General settings</h1>
@@ -19,25 +22,25 @@
     <div class="box-container">
       <h1 class="no-margin">Customise timestamp</h1>
       <p>
-        You can customize the time and date format using Python strftime format.
+        You can customize the time and date format using Python strftime format.<br>
         Leave empty to use the default format.
       </p>
-      <label>
+      <label class="column secondary-bg">
         Language:
         <select id="language">
           <option value="">Default: Local language</option>
         </select>
       </label>
-      <label>
+      <label class="column secondary-bg">
         Time format:
         <input id="fmt_time" class="secondary" placeholder="%H:%M:%S">
       </label>
-      <label>
+      <label class="column secondary-bg">
         Date format:
         <input id="fmt_date" class="secondary" placeholder="%e. %B %Y">
       </label>
-
-      <details style="font-size: 1.5rem">
+      <br>
+      <details style="font-size: 1rem">
         <summary>Format reference</summary>
         <table>
           <thead>
@@ -160,37 +163,43 @@
       <h1 class="no-margin">Custom background</h1>
       <p>
         Upload images that you want as background! (Supported formats: JPG, PNG, GIF)<br>
-        <button id="custombg_prune">Delete all backgrounds</button>
       </p>
       <div id="custombg_previews">
         <div class="file-container">
+          <img src="images/icons/upload_image.png" class="icon">
           <span class="message">Drop files here or click...</span>
           <input type="file" id="custombg_uploader" accept="image/png,image/jpeg,image/gif" multiple>
         </div>
       </div>
+      <label>
+        <button id="custombg_prune" class="danger">Delete all backgrounds</button>
+      </label>
     </div>
 
     <div class="box-container">
       <h1 class="no-margin">Custom Font</h1>
       <p>
-        You can have any fonts that you've installed to your local machine, just keep in mind that this is case sensitive.
-        This does also support any fonts from <a href="https://fonts.google.com/" target="_blank">Google Fonts</a>.
-        You <i>need</i> both <b>Internet</b> and <b>From Google Fonts?</b> enabled in order for this to work on the homepage.
-        Without any of those two requirements, it will fall back to the default font instead. Unless you've installed the font locally.
+        You can have any fonts that you've installed to your local machine, just keep in mind that this is case sensitive.<br>
+        This does also support any fonts from <a href="https://fonts.google.com/" target="_blank">Google Fonts</a>,
+        however that <i>requires</i> both <b>Internet</b> and <b>From Google Fonts?</b> enabled in order for this to work on the homepage.
       </p>
-      <label>
-        <input class="secondary" id="customfont" placeholder="Type custom font here...">
+      <label class="column secondary-bg">
+        Font name:
+        <input type="text" id="customfont" placeholder="Type custom font here...">
       </label>
       <label>
         <input type="checkbox" id="customfontgoogle"> From Google Fonts?
       </label>
     </div>
 
-    <div class="box-container">
+    <div class="box-container" id="hexbgdemobg">
       <h1 class="no-margin">24h HEX Background</h1>
-      <a href="https://alexflipnote.dev/playground/hexclock/">Click here to see a live example</a>
-      <p><span class="sun-flower-text">Keep in mind</span>, checking this will disable <b>Custom background</b></p>
-      <label>
+      <p>
+        Just to showcase how it would look, this box background changes colour as a demonstration.<br>
+        <b>Keep in mind</b>, checking this will disable <b>Custom background</b><br><br>
+        <i>Current: <span id="hexbgdemotext"></span></i>
+      </p>
+      <label class="secondary-bg">
         <input type="checkbox" id="hexbg"> Enable
       </label>
     </div>
@@ -200,17 +209,17 @@
       <p>
         To get your own weather key, go to <a href="https://openweathermap.org/" target="_blank">this</a> website to recive one.
       </p>
-      <label>
+      <label class="column secondary-bg">
         API Key:
         <input id="wkey" class="secondary">
       </label>
-      <label>
+      <label class="column secondary-bg">
         Language:
         <select id="wlanguage">
           <option value="">Default: English</option>
         </select>
       </label>
-      <label>
+      <label class="column secondary-bg">
         Temperature type:
         <select id="temp_type">
           <option value="celcius">Celsius (°C)</option>
@@ -223,7 +232,6 @@
       <h1 class="no-margin">Bookmarks</h1>
       <p>
         Add, remove and edit your bookmarks that are shown on the homepage.
-        Remember to click "save" when done.
       </p>
       <label id="bmFavFirefox">
         <input type="checkbox" id="bookmarksFavicon"> Show favicons for bookmarks
@@ -233,20 +241,20 @@
         <div class="bookmark-item">
           <input id="bookmark_name" class="secondary" placeholder="Bookmark name">
           <input id="bookmark_url" class="secondary" placeholder="https://example.com">
-          <img id="add_bookmark" src="images/icons/add.png" alt="Add bookmark">
+          <img id="add_bookmark" src="images/icons/bookmark_add.png" alt="Add bookmark">
         </div>
       </div>
       <br>
       <h2 class="no-margin">Top Sites as bookmarks</h2>
       <p>
-        Instead of manually adding bookmarks, you can have the extension fetch your most visited sites
-        from your browser and display them as bookmarks on the homepage.
+        Instead (or additionally) of manually adding bookmarks, you can have the extension fetch your most visited sites.<br>
+        This is based on your browser history and will update as you visit more sites.
       </p>
       <label>
         <input type="checkbox" id="bookmarksTopSitesEnabled"> Enable Top Sites as bookmarks
       </label>
-      <label>
-        Number of Top Sites to show:
+      <label class="column secondary-bg">
+        Number of top sites to show:
         <input type="number" id="bookmarksTopSitesAmount" class="secondary" min="1" max="10" value="5">
       </label>
     </div>
@@ -277,8 +285,8 @@
   <section id="notification">
     <!--
       <div class="alert test">Testing the notification</div>
-      <div class="alert test">Testing size</div>
-      <div class="alert test">Testing the notification but longer</div>
+      <div class="alert test change">Testing size</div>
+      <div class="alert test remove">Testing the notification but longer</div>
     -->
   </section>
 

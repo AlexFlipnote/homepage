@@ -152,23 +152,25 @@ export function changeLocale(newLocale) {
   clockLocale = newLocale || navigator.language || "en-US"
 }
 
+// HEX Time
+export function timeInHex() {
+  function pad(n) { return ("0" + n).slice(-2) }
+  let now = new Date()
+  let hour = pad(now.getHours())
+  let minute = pad(now.getMinutes())
+  let second = pad(now.getSeconds())
+  return `${hour}${minute}${second}`
+}
+
 export function startClock(docId, format) {
   const fmt = compileStrftime(format)
   document.getElementById(docId).textContent = fmt(new Date())
   requestAnimationFrame(() => startClock(docId, format))
 }
 
-// HEX Time
-export function timeInHex() {
-  function pad(n) { return ("0" + n).slice(-2) }
-  function getHexTime() {
-    let now = new Date()
-    let hour = pad(now.getHours())
-    let minute = pad(now.getMinutes())
-    let second = pad(now.getSeconds())
-    return `${hour}${minute}${second}`
-  }
-
-  document.body.style.backgroundColor = `#${getHexTime()}`
-  setTimeout(timeInHex, 50) // Repeat every 0.1 seconds
+export function startHexClock(el, {background=false, color=false, text=false}={}) {
+  if (background) el.style.backgroundColor = `#${timeInHex()}`
+  if (color) el.style.color = `#${timeInHex()}`
+  if (text) el.textContent = `#${timeInHex()}`
+  requestAnimationFrame(() => startHexClock(el, {background, color, text}))
 }
