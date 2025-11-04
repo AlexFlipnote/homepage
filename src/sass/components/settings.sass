@@ -236,20 +236,19 @@ $preview-image-height: 8.75rem
     justify-content: center
     align-items: center
     margin: .25rem 0
-    padding: .5rem 1rem
     position: relative
 
     .drag
       height: $bookmark-icon-sizes
       width: $bookmark-icon-sizes
-      margin-right: .5rem
+      padding: .5rem
       cursor: grab
 
     .remove
       filter: brightness(0) saturate(100%) invert(46%) sepia(46%) saturate(3229%) hue-rotate(333deg) brightness(89%) contrast(103%)
       height: $bookmark-icon-sizes
       width: $bookmark-icon-sizes
-      padding-left: .5rem
+      padding: .5rem
       cursor: pointer
 
     #add_bookmark
@@ -257,12 +256,13 @@ $preview-image-height: 8.75rem
       filter: brightness(0) saturate(100%) invert(89%) sepia(100%) saturate(1180%) hue-rotate(65deg) brightness(86%) contrast(83%)
       height: $bookmark-icon-sizes
       width: $bookmark-icon-sizes
+      padding: .5rem
 
     .bookmark-name, .bookmark-url,
     #bookmark_name, #bookmark_url
       margin: 0 !important
-      padding: .25rem !important
       background-color: transparent !important
+      height: 100% !important
 
     .bookmark-url, #bookmark_url
       width: 20rem !important

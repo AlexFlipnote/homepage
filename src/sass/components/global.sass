@@ -8,7 +8,7 @@
   --secondary: #303030
   --link: #1eaedb
 
-  --box-shadow: 0 0 1rem var(--highlight-alpha)
+  --box-shadow: 0 0 .75rem var(--highlight-alpha)
 
   --success: #2ecc71
   --warning: #f1c40f
@@ -70,9 +70,21 @@ summary
     transition: transform 0.2s ease-in-out
     transform: rotate(90deg)
 
-textarea
+textarea, input, select
+  appearance: none
+  background-color: transparent
+  border-radius: .1rem
+  border: none
   color: var(--font-primary)
-  background-color: var(--secondary)
+  outline: none
+  transition: border-color .2s ease-in-out, box-shadow .2s ease-in-out
+
+  &:hover, &:focus
+    box-shadow: var(--box-shadow)
+
+textarea
+  border-radius: .1rem
+  height: 7rem
 
 table
   border-collapse: collapse
@@ -150,32 +162,21 @@ label
     input:not([type="checkbox"]), select, option
       height: auto
       width: auto
+      padding: .25rem .5rem
 
 input
-  appearance: none
-  background-color: transparent
-  border-radius: .1rem
-  border: none
-  color: var(--font-primary)
   margin-top: .1rem
-  outline: none
-  transition: border-color .2s ease-in-out, box-shadow .2s ease-in-out
   width: 20rem
+  padding: 0.75rem 0.875rem
 
   &:placeholder
     color: var(--font-secondary)
     font-style: italic
 
-  &:focus
-    border-color: var(--info)
-    box-shadow: 0 0 0 3px rgba(0, 122, 255, .1)
-
 input[type="checkbox"]
-  appearance: none
   background-color: var(--grey)
   border-radius: 1rem
   height: 1.5rem
-  outline: none
   position: relative
   transition: background-color .2s ease-in-out
   width: 2.75rem
@@ -202,34 +203,20 @@ input[type="checkbox"]
       transform: translateX(1.25rem)
 
 select
-  appearance: none
-  background-color: transparent
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23888' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E")
   background-position: right 0.75rem center
   background-repeat: no-repeat
   background-size: 1rem 1rem
-  border-radius: 0
-  border: none
-  color: var(--font-primary)
   cursor: pointer
   font-size: 1rem
   margin-top: 0.375rem
-  outline: none
   padding: 0.75rem 2.125rem 0.75rem 0.875rem
-  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out
   width: 20rem
-
-  &:focus
-    border-color: var(--info)
-    box-shadow: 0 0 0 3px rgba(0, 122, 255, .1)
 
   option
     font-size: 1rem
     color: var(--font-primary)
     background-color: var(--secondary)
-
-textarea
-  height: 7rem
 
 a
   color: var(--link)
