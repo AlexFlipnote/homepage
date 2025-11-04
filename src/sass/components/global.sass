@@ -94,28 +94,34 @@ table
   tr
     border-top: .1rem solid #353535
 
-button
+.btn
+  backface-visibility: hidden
+  box-sizing: border-box
+  display: inline-block
+  text-align: center
+  text-decoration: none
+  white-space: nowrap
+  line-height: 1rem
+
+button, .btn
   appearance: none
-  border: none
-  outline: none
   background-color: var(--secondary)
-  color: var(--font-primary)
-  font-size: 1rem
-  font-weight: 500
-  padding: 0.75rem 1.25rem
   border-radius: .5rem
+  border: none
+  color: var(--font-primary)
   cursor: pointer
+  font-size: 1rem
+  outline: none
+  padding: 0.75rem 1.25rem
   transition: background-color .2s ease-in-out, transform .1s ease-in-out, box-shadow .2s ease-in-out
 
-  &.danger
-    background-color: var(--error)
-
   &:hover
-    box-shadow: 0 4px 12px var(--highlight)
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .25)
 
   &:active
     filter: brightness(0.75)
     transform: translateY(.1rem)
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .75)
 
 label
   align-items: center
@@ -257,11 +263,32 @@ body
 .bold-text
   font-weight: bold !important
 
-.highlight-text
-  color: var(--highlight) !important
+.white-text
+  color: #fff !important
+
+.black-text
+  color: #000 !important
+
+.highlight-bg
+  background-color: var(--highlight) !important
 
 .primary-bg
   background-color: var(--primary) !important
 
 .secondary-bg
   background-color: var(--secondary) !important
+
+.success-bg
+  background-color: var(--success) !important
+
+.info-bg
+  background-color: var(--info) !important
+
+.warning-bg
+  background-color: var(--warning) !important
+
+.error-bg
+  background-color: var(--error) !important
+
+.grey-bg
+  background-color: var(--grey) !important
