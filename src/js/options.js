@@ -30,6 +30,8 @@ function save_options(message, css="") {
     language: document.getElementById("language").value,
     wlanguage: document.getElementById("wlanguage").value,
     custombg: custombg,
+    show_time: document.getElementById("show_time").checked,
+    show_date: document.getElementById("show_date").checked,
     fmt_time: document.getElementById("fmt_time").value,
     searchbar: document.getElementById("searchbar").checked,
     fmt_date: document.getElementById("fmt_date").value,
@@ -56,6 +58,14 @@ function restore_options() {
     const language = document.getElementById("language")
     language.value = items.language
     language.onchange = () => { save_options(`Language changed: ${language.value || "default"}`, "change") }
+
+    const show_time = document.getElementById("show_time")
+    show_time.checked = items.show_time
+    show_time.onchange = () => { save_options(`Show time set: ${show_time.checked}`, show_time.checked ? "add" : "remove") }
+
+    const show_date = document.getElementById("show_date")
+    show_date.checked = items.show_date
+    show_date.onchange = () => { save_options(`Show date set: ${show_date.checked}`, show_date.checked ? "add" : "remove") }
 
     const searchbar = document.getElementById("searchbar")
     searchbar.checked = items.searchbar

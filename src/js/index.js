@@ -2,16 +2,13 @@ import { isChrome, isFirefox, isExtension } from "./utils/browser"
 import { dateLocales } from "./utils/lists.js"
 import { extensionSettings } from "./utils/settings.js"
 import { getWeather } from "./utils/weather.js"
-import { timeInHex, startClock, changeLocale } from "./utils/timeManager.js"
+import { startHexClock, startClock, changeLocale } from "./utils/timeManager.js"
 import * as manifest from "../manifest.json"
 
 const DEFAULT = {
   fmt_time: "%H:%M:%S",
   fmt_date: "%e. %B %Y",
-  background_images: Array.from(
-    { length: 31 },  // Amount of default background images
-    (_, i) => `images/backgrounds/background${i + 1}.jpg`
-  )
+  background_images_count: 31
 }
 
 function faviconURL(u) {
@@ -68,12 +65,18 @@ if (isExtension) {
   }
 
   chrome.storage.local.get({ ...extensionSettings }, function(items) {
-    startClock("time", items.fmt_time || DEFAULT.fmt_time)
-    startClock("date", items.fmt_date || DEFAULT.fmt_date)
+    if (items.show_time) {
+      startClock("time", items.fmt_time || DEFAULT.fmt_time)
+    }
+
+    if (items.show_date) {
+      startClock("date", items.fmt_date || DEFAULT.fmt_date)
+    }
+
     changeLocale(items.language)
 
     const backgroundElement = document.getElementById("background")
-    const random_bg_num = Math.floor(Math.random() * DEFAULT.background_images.length)
+    const random_bg_num = Math.floor(Math.random() * DEFAULT.background_images_count)
     let new_background = `images/backgrounds/background${random_bg_num}.jpg`
 
     if (items.custombg.length > 0) {
@@ -134,7 +137,7 @@ if (isExtension) {
 
     if (items.hexbg) {
       backgroundElement.src = ""
-      timeInHex()
+      startHexClock(document.body, {background: true})
     } else {
       backgroundElement.src = new_background
     }
@@ -179,7 +182,7 @@ if (isExtension) {
 
   document.addEventListener("DOMContentLoaded", function() {
     const backgroundElement = document.getElementById("background")
-    const random_bg_num = Math.floor(Math.random() * 31)
+    const random_bg_num = Math.floor(Math.random() * DEFAULT.background_images_count)
 
     backgroundElement.src = `images/backgrounds/background${random_bg_num}.jpg`
     backgroundElement.onload = () => {
@@ -194,6 +197,16 @@ if (isExtension) {
     option.text = languages[i]
     option.value = languages[i]
     document.getElementById("language").appendChild(option)
+  }
+
+  // Toggle time
+  document.getElementById("timeToggle").onclick = () => {
+    turnSwitch(document.getElementById("time"), "block")
+  }
+
+  // Toggle date
+  document.getElementById("dateToggle").onclick = () => {
+    turnSwitch(document.getElementById("date"), "block")
   }
 
   // Change background

@@ -27,19 +27,19 @@
       <div class="time-container">
         <h1 id="time"></h1>
         <h1 id="date"></h1>
-        <!-- Search engine -->
-        <form id="search-form" role="search" spellcheck="false" novalidate style="display: none;">
-          <input
-            id="search-input"
-            type="text"
-            name="q"
-            placeholder="Search the web..."
-            autocapitalize="off"
-            autocorrect="off"
-            autocomplete="off"
-          />
-        </form>
       </div>
+      <!-- Search engine -->
+      <form id="search-form" role="search" spellcheck="false" novalidate style="display: none;">
+        <input
+          id="search-input"
+          type="text"
+          name="q"
+          placeholder="Search the web..."
+          autocapitalize="off"
+          autocorrect="off"
+          autocomplete="off"
+        />
+      </form>
     </section>
 
     <!-- Weather placeholder -->
@@ -79,6 +79,14 @@
       <label class="default">
         Change font
         <input type="text" id="changefont" placeholder="Times New Roman">
+      </label>
+      <label class="default">
+        <input type="checkbox" id="timeToggle" checked>
+        Toggle time
+      </label>
+      <label class="default">
+        <input type="checkbox" id="dateToggle" checked>
+        Toggle date
       </label>
       <label class="default">
         <input type="checkbox" id="searchToggle">

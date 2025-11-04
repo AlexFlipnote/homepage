@@ -6,6 +6,8 @@ export const extensionSettings = {
   wlanguage: "",
   searchbar: false,
   custombg: [],
+  show_time: true,
+  show_date: true,
   fmt_time: "",
   fmt_date: "",
   customfont: "",
