@@ -1,8 +1,10 @@
 .btn
   backface-visibility: hidden
   background-color: transparent
+  background-color: var(--secondary)
   border: 0
   box-sizing: border-box
+  color: var(--font-primary)
   cursor: pointer
   display: inline-block
   font-size: 1rem
@@ -12,11 +14,13 @@
   padding: 0 1.5rem
   text-align: center
   text-decoration: none
-  transition: filter .2s ease
+  transition: background-color .2s ease-in-out, transform .1s ease-in-out, box-shadow .2s ease-in-out
   white-space: nowrap
-  color: var(--font-primary)
-  background-color: var(--secondary)
 
   &:hover
-    filter: brightness(65%)
+    filter: brightness(90%)
+
+  &:active
+    filter: brightness(75%)
+    transform: translateY(.1rem)
 
