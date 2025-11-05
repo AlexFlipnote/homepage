@@ -1,303 +1,304 @@
+<!DOCTYPE html>
 <html>
-<head>
-  <title>Homepage - Settings</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-  <link href="css/index.css" type="text/css" rel="stylesheet">
-</head>
-<body>
+  <head>
+    <title>Homepage - Settings</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+    <link href="css/index.css" type="text/css" rel="stylesheet">
+  </head>
+  <body>
 
-  <div class="text-center container">
-    <div class="header-container">
-      <img src="images/logo.png" alt="Homepage Logo">
-      <h1>Homepage settings <i>(v<span id="version"></span>)</i></h1>
-    </div>
+    <div class="text-center container">
+      <div class="header-container">
+        <img src="images/logo.png" alt="Homepage Logo">
+        <h1>Homepage settings <i>(v<span id="version"></span>)</i></h1>
+      </div>
 
-    <div class="box-container">
-      <h1 class="no-margin">General settings</h1>
-      <label><input type="checkbox" id="show-settings"> Show settings button</label>
-      <label><input type="checkbox" id="searchbar"> Show search bar</label>
-      <label><input type="checkbox" id="show_time"> Show time</label>
-      <label><input type="checkbox" id="show_date"> Show date</label>
-    </div>
+      <div class="box-container">
+        <h1 class="no-margin">General settings</h1>
+        <label><input type="checkbox" id="show-settings"> Show settings button</label>
+        <label><input type="checkbox" id="searchbar"> Show search bar</label>
+        <label><input type="checkbox" id="show_time"> Show time</label>
+        <label><input type="checkbox" id="show_date"> Show date</label>
+      </div>
 
-    <div class="box-container">
-      <h1 class="no-margin">Customise timestamp</h1>
-      <p>
-        You can customize the time and date format using Python strftime format.<br>
-        Leave empty to use the default format.
-      </p>
-      <label class="column secondary-bg">
-        Language:
-        <select id="language">
-          <option value="">Default: Local language</option>
-        </select>
-      </label>
-      <label class="column secondary-bg">
-        Time format:
-        <input id="fmt_time" class="secondary" placeholder="%H:%M:%S">
+      <div class="box-container">
+        <h1 class="no-margin">Customise timestamp</h1>
+        <p>
+          You can customize the time and date format using Python strftime format.<br>
+          Leave empty to use the default format.
+        </p>
+        <label class="column secondary-bg">
+          Language:
+          <select id="language">
+            <option value="">Default: Local language</option>
+          </select>
+        </label>
+        <label class="column secondary-bg">
+          Time format:
+          <input id="fmt_time" class="secondary" placeholder="%H:%M:%S">
 
-      </label>
-      <label class="column secondary-bg">
-        Date format:
-        <input id="fmt_date" class="secondary" placeholder="%e. %B %Y">
-      </label>
-      <br>
-      <details style="font-size: 1rem">
-        <summary>Format reference</summary>
-        <table>
-          <thead>
-            <tr>
-              <th>Format</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Year -->
-            <tr>
-              <td>%Y</td>
-              <td>Year with century as a decimal number (e.g., 2025).</td>
-            </tr>
-            <tr>
-              <td>%y</td>
-              <td>Year without century as a zero-padded decimal number (00–99).</td>
-            </tr>
+        </label>
+        <label class="column secondary-bg">
+          Date format:
+          <input id="fmt_date" class="secondary" placeholder="%e. %B %Y">
+        </label>
+        <br>
+        <details style="font-size: 1rem">
+          <summary>Format reference</summary>
+          <table>
+            <thead>
+              <tr>
+                <th>Format</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Year -->
+              <tr>
+                <td>%Y</td>
+                <td>Year with century as a decimal number (e.g., 2025).</td>
+              </tr>
+              <tr>
+                <td>%y</td>
+                <td>Year without century as a zero-padded decimal number (00–99).</td>
+              </tr>
 
-            <!-- Month -->
-            <tr>
-              <td>%m</td>
-              <td>Month as a zero-padded decimal number (01–12).</td>
-            </tr>
-            <tr>
-              <td>%B</td>
-              <td>Full month name (e.g., January, February).</td>
-            </tr>
-            <tr>
-              <td>%b</td>
-              <td>Abbreviated month name (e.g., Jan, Feb).</td>
-            </tr>
+              <!-- Month -->
+              <tr>
+                <td>%m</td>
+                <td>Month as a zero-padded decimal number (01–12).</td>
+              </tr>
+              <tr>
+                <td>%B</td>
+                <td>Full month name (e.g., January, February).</td>
+              </tr>
+              <tr>
+                <td>%b</td>
+                <td>Abbreviated month name (e.g., Jan, Feb).</td>
+              </tr>
 
-            <!-- Day -->
-            <tr>
-              <td>%d</td>
-              <td>Day of the month as a zero-padded decimal number (01–31).</td>
-            </tr>
-            <tr>
-              <td>%e</td>
-              <td>Day of the month as a space-padded decimal number ( 1–31).</td>
-            </tr>
-            <tr>
-              <td>%j</td>
-              <td>Day of the year as a zero-padded decimal number (001–366).</td>
-            </tr>
+              <!-- Day -->
+              <tr>
+                <td>%d</td>
+                <td>Day of the month as a zero-padded decimal number (01–31).</td>
+              </tr>
+              <tr>
+                <td>%e</td>
+                <td>Day of the month as a space-padded decimal number ( 1–31).</td>
+              </tr>
+              <tr>
+                <td>%j</td>
+                <td>Day of the year as a zero-padded decimal number (001–366).</td>
+              </tr>
 
-            <!-- Weekday -->
-            <tr>
-              <td>%A</td>
-              <td>Full weekday name (e.g., Monday, Tuesday).</td>
-            </tr>
-            <tr>
-              <td>%a</td>
-              <td>Abbreviated weekday name (e.g., Mon, Tue).</td>
-            </tr>
-            <tr>
-              <td>%w</td>
-              <td>Weekday as a decimal number, where Sunday is 0.</td>
-            </tr>
+              <!-- Weekday -->
+              <tr>
+                <td>%A</td>
+                <td>Full weekday name (e.g., Monday, Tuesday).</td>
+              </tr>
+              <tr>
+                <td>%a</td>
+                <td>Abbreviated weekday name (e.g., Mon, Tue).</td>
+              </tr>
+              <tr>
+                <td>%w</td>
+                <td>Weekday as a decimal number, where Sunday is 0.</td>
+              </tr>
 
-            <!-- Time -->
-            <tr>
-              <td>%H</td>
-              <td>Hour (24-hour clock) as a zero-padded decimal number (00–23).</td>
-            </tr>
-            <tr>
-              <td>%I</td>
-              <td>Hour (12-hour clock) as a zero-padded decimal number (01–12).</td>
-            </tr>
-            <tr>
-              <td>%p</td>
-              <td>Locale’s equivalent of AM or PM.</td>
-            </tr>
-            <tr>
-              <td>%M</td>
-              <td>Minute as a zero-padded decimal number (00–59).</td>
-            </tr>
-            <tr>
-              <td>%S</td>
-              <td>Second as a zero-padded decimal number (00–59).</td>
-            </tr>
-            <tr>
-              <td>%f</td>
-              <td>Millisecond as a zero-padded decimal number (000–999).</td>
-            </tr>
+              <!-- Time -->
+              <tr>
+                <td>%H</td>
+                <td>Hour (24-hour clock) as a zero-padded decimal number (00–23).</td>
+              </tr>
+              <tr>
+                <td>%I</td>
+                <td>Hour (12-hour clock) as a zero-padded decimal number (01–12).</td>
+              </tr>
+              <tr>
+                <td>%p</td>
+                <td>Locale’s equivalent of AM or PM.</td>
+              </tr>
+              <tr>
+                <td>%M</td>
+                <td>Minute as a zero-padded decimal number (00–59).</td>
+              </tr>
+              <tr>
+                <td>%S</td>
+                <td>Second as a zero-padded decimal number (00–59).</td>
+              </tr>
+              <tr>
+                <td>%f</td>
+                <td>Millisecond as a zero-padded decimal number (000–999).</td>
+              </tr>
 
-            <!-- Timezone -->
-            <tr>
-              <td>%z</td>
-              <td>UTC offset in the form ±HHMM (e.g., +0100).</td>
-            </tr>
-            <tr>
-              <td>%Z</td>
-              <td>Time zone name (e.g., CET, UTC, PST). Falls back to offset if not available.</td>
-            </tr>
+              <!-- Timezone -->
+              <tr>
+                <td>%z</td>
+                <td>UTC offset in the form ±HHMM (e.g., +0100).</td>
+              </tr>
+              <tr>
+                <td>%Z</td>
+                <td>Time zone name (e.g., CET, UTC, PST). Falls back to offset if not available.</td>
+              </tr>
 
-            <!-- Combined shortcuts -->
-            <tr>
-              <td>%F</td>
-              <td>Shortcut for <code>%Y-%m-%d</code> (ISO 8601 date format).</td>
-            </tr>
-            <tr>
-              <td>%T</td>
-              <td>Shortcut for <code>%H:%M:%S</code> (24-hour time format).</td>
-            </tr>
+              <!-- Combined shortcuts -->
+              <tr>
+                <td>%F</td>
+                <td>Shortcut for <code>%Y-%m-%d</code> (ISO 8601 date format).</td>
+              </tr>
+              <tr>
+                <td>%T</td>
+                <td>Shortcut for <code>%H:%M:%S</code> (24-hour time format).</td>
+              </tr>
 
-            <!-- Literal -->
-            <tr>
-              <td>%%</td>
-              <td>A literal percent sign (%).</td>
-            </tr>
-          </tbody>
-        </table>
-      </details>
+              <!-- Literal -->
+              <tr>
+                <td>%%</td>
+                <td>A literal percent sign (%).</td>
+              </tr>
+            </tbody>
+          </table>
+        </details>
 
-    </div>
+      </div>
 
-    <div class="box-container">
-      <h1 class="no-margin">Custom background</h1>
-      <p>
-        Upload images that you want as background! (Supported formats: JPG, PNG, GIF)<br>
-      </p>
-      <div id="custombg_previews">
-        <div class="file-container">
-          <img src="images/icons/upload_image.png" class="icon">
-          <span class="message">Drop files here or click...</span>
-          <input type="file" id="custombg_uploader" accept="image/png,image/jpeg,image/gif" multiple>
+      <div class="box-container">
+        <h1 class="no-margin">Custom background</h1>
+        <p>
+          Upload images that you want as background! (Supported formats: JPG, PNG, GIF)<br>
+        </p>
+        <div id="custombg_previews">
+          <div class="file-container">
+            <img src="images/icons/upload_image.png" class="icon">
+            <span class="message">Drop files here or click...</span>
+            <input type="file" id="custombg_uploader" accept="image/png,image/jpeg,image/gif" multiple>
+          </div>
+        </div>
+        <label>
+          <button id="custombg_prune" class="error-bg">Delete all backgrounds</button>
+        </label>
+      </div>
+
+      <div class="box-container">
+        <h1 class="no-margin">Custom Font</h1>
+        <p>
+          You can have any fonts that you've installed to your local machine, just keep in mind that this is case sensitive.<br>
+          This does also support any fonts from <a href="https://fonts.google.com/" target="_blank">Google Fonts</a>,
+          however that <i>requires</i> both <b>Internet</b> and <b>From Google Fonts?</b> enabled in order for this to work on the homepage.
+        </p>
+        <label class="column secondary-bg">
+          Font name:
+          <input type="text" id="customfont" placeholder="Type custom font here...">
+        </label>
+        <label>
+          <input type="checkbox" id="customfontgoogle"> From Google Fonts?
+        </label>
+      </div>
+
+      <div class="box-container" id="hexbgdemobg">
+        <h1 class="no-margin">24h HEX Background</h1>
+        <p>
+          Just to showcase how it would look, this box background changes colour as a demonstration.<br>
+          <b>Keep in mind</b>, checking this will disable <b>Custom background</b><br><br>
+          <i>Current: <span id="hexbgdemotext"></span></i>
+        </p>
+        <label class="secondary-bg">
+          <input type="checkbox" id="hexbg"> Enable
+        </label>
+      </div>
+
+      <div class="box-container">
+        <h1 class="no-margin">OpenWeather key</h1>
+        <p>
+          To get your own weather key, go to <a href="https://home.openweathermap.org/api_keys" target="_blank">https://home.openweathermap.org/api_keys</a> to recive one.
+        </p>
+        <label class="column secondary-bg">
+          API Key:
+          <input id="wkey" class="secondary">
+        </label>
+        <label class="column secondary-bg">
+          Language:
+          <select id="wlanguage">
+            <option value="">Default: English</option>
+          </select>
+        </label>
+        <label class="column secondary-bg">
+          Temperature type:
+          <select id="temp_type">
+            <option value="celcius">Celsius (°C)</option>
+            <option value="fahrenheit">Fahrenheit (°F)</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="box-container">
+        <h1 class="no-margin">Bookmarks</h1>
+        <p>
+          Add, remove and edit your bookmarks that are shown on the homepage.
+        </p>
+        <label id="bmFavFirefox">
+          <input type="checkbox" id="bookmarksFavicon"> Show favicons for bookmarks
+        </label>
+        <div id="blist" class="bookmark-container"></div>
+        <div class="bookmark-container">
+          <div class="bookmark-item">
+            <input id="bookmark_name" class="secondary" placeholder="Bookmark name">
+            <input id="bookmark_url" class="secondary" placeholder="https://example.com">
+            <img id="add_bookmark" src="images/icons/bookmark_add.png" alt="Add bookmark">
+          </div>
+        </div>
+        <br>
+        <h2 class="no-margin">Top Sites as bookmarks</h2>
+        <p>
+          Instead (or additionally) of manually adding bookmarks, you can have the extension fetch your most visited sites.<br>
+          This is based on your browser history and will update as you visit more sites.
+        </p>
+        <label>
+          <input type="checkbox" id="bookmarksTopSitesEnabled"> Enable Top Sites as bookmarks
+        </label>
+        <label class="column secondary-bg">
+          Number of top sites to show:
+          <input type="number" id="bookmarksTopSitesAmount" class="secondary" min="1" max="10" value="5">
+        </label>
+      </div>
+
+      <div class="box-container">
+        <h1 class="no-margin">Custom CSS</h1>
+        <p>
+          Go <span class="emerald-text">wild</span>, make the homepage <b class="sun-flower-text">more personal</b>.
+          I allow you to do <span class="emerald-text">whatever</span> you desire.
+        </p>
+        <textarea
+          id="customcss"
+          class="secondary-bg"
+          style="height: 15rem; width: 90%;"
+          placeholder="Write some hot CSS in here...">
+        </textarea>
+      </div>
+
+      <div class="box-container">
+        <h1 class="no-margin">Links</h1><br>
+        <div class="links-container">
+          <a href="https://discord.gg/yqb7vATbjH">
+            <img src="./images/icons/discord.png" class="bookmark-icon">
+          </a>
+          <a href="https://github.com/AlexFlipnote/homepage">
+            <img src="./images/icons/github.png" class="bookmark-icon">
+          </a>
         </div>
       </div>
-      <label>
-        <button id="custombg_prune" class="error-bg">Delete all backgrounds</button>
-      </label>
+
     </div>
 
-    <div class="box-container">
-      <h1 class="no-margin">Custom Font</h1>
-      <p>
-        You can have any fonts that you've installed to your local machine, just keep in mind that this is case sensitive.<br>
-        This does also support any fonts from <a href="https://fonts.google.com/" target="_blank">Google Fonts</a>,
-        however that <i>requires</i> both <b>Internet</b> and <b>From Google Fonts?</b> enabled in order for this to work on the homepage.
-      </p>
-      <label class="column secondary-bg">
-        Font name:
-        <input type="text" id="customfont" placeholder="Type custom font here...">
-      </label>
-      <label>
-        <input type="checkbox" id="customfontgoogle"> From Google Fonts?
-      </label>
-    </div>
+    <section id="notification">
+      <!--
+        <div class="alert test">Testing the notification</div>
+        <div class="alert test change">Testing size</div>
+        <div class="alert test remove">Testing the notification but longer</div>
+      -->
+    </section>
 
-    <div class="box-container" id="hexbgdemobg">
-      <h1 class="no-margin">24h HEX Background</h1>
-      <p>
-        Just to showcase how it would look, this box background changes colour as a demonstration.<br>
-        <b>Keep in mind</b>, checking this will disable <b>Custom background</b><br><br>
-        <i>Current: <span id="hexbgdemotext"></span></i>
-      </p>
-      <label class="secondary-bg">
-        <input type="checkbox" id="hexbg"> Enable
-      </label>
-    </div>
-
-    <div class="box-container">
-      <h1 class="no-margin">OpenWeather key</h1>
-      <p>
-        To get your own weather key, go to <a href="https://openweathermap.org/" target="_blank">this</a> website to recive one.
-      </p>
-      <label class="column secondary-bg">
-        API Key:
-        <input id="wkey" class="secondary">
-      </label>
-      <label class="column secondary-bg">
-        Language:
-        <select id="wlanguage">
-          <option value="">Default: English</option>
-        </select>
-      </label>
-      <label class="column secondary-bg">
-        Temperature type:
-        <select id="temp_type">
-          <option value="celcius">Celsius (°C)</option>
-          <option value="fahrenheit">Fahrenheit (°F)</option>
-        </select>
-      </label>
-    </div>
-
-    <div class="box-container">
-      <h1 class="no-margin">Bookmarks</h1>
-      <p>
-        Add, remove and edit your bookmarks that are shown on the homepage.
-      </p>
-      <label id="bmFavFirefox">
-        <input type="checkbox" id="bookmarksFavicon"> Show favicons for bookmarks
-      </label>
-      <div id="blist" class="bookmark-container"></div>
-      <div class="bookmark-container">
-        <div class="bookmark-item">
-          <input id="bookmark_name" class="secondary" placeholder="Bookmark name">
-          <input id="bookmark_url" class="secondary" placeholder="https://example.com">
-          <img id="add_bookmark" src="images/icons/bookmark_add.png" alt="Add bookmark">
-        </div>
-      </div>
-      <br>
-      <h2 class="no-margin">Top Sites as bookmarks</h2>
-      <p>
-        Instead (or additionally) of manually adding bookmarks, you can have the extension fetch your most visited sites.<br>
-        This is based on your browser history and will update as you visit more sites.
-      </p>
-      <label>
-        <input type="checkbox" id="bookmarksTopSitesEnabled"> Enable Top Sites as bookmarks
-      </label>
-      <label class="column secondary-bg">
-        Number of top sites to show:
-        <input type="number" id="bookmarksTopSitesAmount" class="secondary" min="1" max="10" value="5">
-      </label>
-    </div>
-
-    <div class="box-container">
-      <h1 class="no-margin">Custom CSS</h1>
-      <p>
-        Go <span class="emerald-text">wild</span>, make the homepage <b class="sun-flower-text">more personal</b>.
-        I allow you to do <span class="emerald-text">whatever</span> you desire.
-      </p>
-      <textarea
-        id="customcss"
-        class="secondary-bg"
-        style="height: 15rem; width: 90%;"
-        placeholder="Write some hot CSS in here...">
-      </textarea>
-    </div>
-
-    <div class="box-container">
-      <h1 class="no-margin">Links</h1><br>
-      <div class="links-container">
-        <a href="https://discord.gg/yqb7vATbjH">
-          <img src="./images/icons/discord.png" class="bookmark-icon">
-        </a>
-        <a href="https://github.com/AlexFlipnote/homepage">
-          <img src="./images/icons/github.png" class="bookmark-icon">
-        </a>
-      </div>
-    </div>
-
-  </div>
-
-  <section id="notification">
-    <!--
-      <div class="alert test">Testing the notification</div>
-      <div class="alert test change">Testing size</div>
-      <div class="alert test remove">Testing the notification but longer</div>
-    -->
-  </section>
-
-  <script src="js/options.js"></script>
-</body>
+    <script src="js/options.js"></script>
+  </body>
 </html>
