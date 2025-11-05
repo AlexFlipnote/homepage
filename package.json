@@ -17,11 +17,7 @@
   "devDependencies": {
     "archiver": "^7.0.1",
     "esbuild": "0.25.11",
-    "jshint": "^2.10.3",
+    "eslint": "^9.39.1",
     "sass": "^1.93.3"
-  },
-  "jshintConfig": {
-    "esversion": 8,
-    "asi": true
   }
 }

@@ -47,7 +47,7 @@ export const weatherLanguages = {
   "tr": "Turkish",
   "ua": "Ukrainian",
   "vi": "Vietnamese",
-  "zu": "Zulu",
+  "zu": "Zulu"
 }
 
 export const weatherIcons = {
@@ -68,7 +68,7 @@ export const weatherIcons = {
   "10n": "1f326.png",
   "11n": "26c8.png",
   "13n": "1f328.png",
-  "50n": "1f32b.png",
+  "50n": "1f32b.png"
 }
 
 export const dateLocales = {
@@ -130,5 +130,5 @@ export const dateLocales = {
   "id-ID": "Indonesian (Indonesia)",
   "ms-MY": "Malay (Malaysia)",
   "vi-VN": "Vietnamese (Vietnam)",
-  "ta-IN": "Tamil (India)",
+  "ta-IN": "Tamil (India)"
 }

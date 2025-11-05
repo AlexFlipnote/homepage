@@ -1,6 +1,5 @@
 // TODO: Create a more modular settings management system,
 // For now, default get definitions is enough.
-
 export const extensionSettings = {
   language: "",
   wlanguage: "",
@@ -20,5 +19,5 @@ export const extensionSettings = {
   temp_type: "celcius",
   hexbg: false,
   showSettings: true,
-  customcss: "",
+  customcss: ""
 }

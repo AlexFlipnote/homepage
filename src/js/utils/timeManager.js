@@ -48,75 +48,75 @@ export function compileStrftime(fmt) {
 
   function tokenFactory(token, localeKey) {
     switch (token) {
-      case "%Y": return d => String(d.getFullYear())
-      case "%y": return d => pad2(d.getFullYear() % 100)
+    case "%Y": return d => String(d.getFullYear())
+    case "%y": return d => pad2(d.getFullYear() % 100)
 
-      case "%m": return d => pad2(d.getMonth() + 1)
-      case "%B": {
-        const getMonth = fmtPartsForMonth(localeKey || undefined, { length: "long" })
-        return d => getMonth(d.getMonth())
-      }
-      case "%b": {
-        const getMonth = fmtPartsForMonth(localeKey || undefined, { length: "short" })
-        return d => getMonth(d.getMonth())
-      }
+    case "%m": return d => pad2(d.getMonth() + 1)
+    case "%B": {
+      const getMonth = fmtPartsForMonth(localeKey || undefined, { length: "long" })
+      return d => getMonth(d.getMonth())
+    }
+    case "%b": {
+      const getMonth = fmtPartsForMonth(localeKey || undefined, { length: "short" })
+      return d => getMonth(d.getMonth())
+    }
 
-      case "%d": return d => pad2(d.getDate())
-      case "%e": return d => padSpace2(d.getDate())
-      case "%j": return d => {
-        const start = new Date(d.getFullYear(), 0, 1)
-        const diff = d - start
-        return pad3(Math.floor(diff / 86400000) + 1)
-      }
+    case "%d": return d => pad2(d.getDate())
+    case "%e": return d => padSpace2(d.getDate())
+    case "%j": return d => {
+      const start = new Date(d.getFullYear(), 0, 1)
+      const diff = d - start
+      return pad3(Math.floor(diff / 86400000) + 1)
+    }
 
-      case "%A": {
-        const getDay = fmtPartsForWeekday(localeKey || undefined, { length: "long" })
-        return d => getDay(d.getDay())
-      }
-      case "%a": {
-        const getDay = fmtPartsForWeekday(localeKey || undefined, { length: "short" })
-        return d => getDay(d.getDay())
-      }
-      case "%w": return d => String(d.getDay())
+    case "%A": {
+      const getDay = fmtPartsForWeekday(localeKey || undefined, { length: "long" })
+      return d => getDay(d.getDay())
+    }
+    case "%a": {
+      const getDay = fmtPartsForWeekday(localeKey || undefined, { length: "short" })
+      return d => getDay(d.getDay())
+    }
+    case "%w": return d => String(d.getDay())
 
-      case "%H": return d => pad2(d.getHours())
-      case "%I": return d => {
-        const h = d.getHours() % 12
-        return pad2(h === 0 ? 12 : h)
-      }
-      case "%p": {
-        const getPeriod = fmtDayPeriod(localeKey || undefined)
-        return d => getPeriod(d.getHours())
-      }
+    case "%H": return d => pad2(d.getHours())
+    case "%I": return d => {
+      const h = d.getHours() % 12
+      return pad2(h === 0 ? 12 : h)
+    }
+    case "%p": {
+      const getPeriod = fmtDayPeriod(localeKey || undefined)
+      return d => getPeriod(d.getHours())
+    }
 
-      case "%M": return d => pad2(d.getMinutes())
-      case "%S": return d => pad2(d.getSeconds())
-      case "%f": return d => String(d.getMilliseconds()).padStart(3, "0")
+    case "%M": return d => pad2(d.getMinutes())
+    case "%S": return d => pad2(d.getSeconds())
+    case "%f": return d => String(d.getMilliseconds()).padStart(3, "0")
 
-      case "%z": return d => {
-        const off = -d.getTimezoneOffset()
-        const sign = off >= 0 ? "+" : "-"
-        const abs = Math.abs(off)
-        const hh = pad2(Math.floor(abs / 60))
-        const mm = pad2(abs % 60)
-        return sign + hh + mm
+    case "%z": return d => {
+      const off = -d.getTimezoneOffset()
+      const sign = off >= 0 ? "+" : "-"
+      const abs = Math.abs(off)
+      const hh = pad2(Math.floor(abs / 60))
+      const mm = pad2(abs % 60)
+      return sign + hh + mm
+    }
+    case "%Z": return d => {
+      try {
+        const parts = new Intl.DateTimeFormat(localeKey || undefined, { timeZoneName: "short" }).formatToParts(d)
+        const t = parts.find(p => p.type === "timeZoneName")
+        return t ? t.value : tokenFactory("%z")(d)
+      } catch {
+        return tokenFactory("%z")(d)
       }
-      case "%Z": return d => {
-        try {
-          const parts = new Intl.DateTimeFormat(localeKey || undefined, { timeZoneName: "short" }).formatToParts(d)
-          const t = parts.find(p => p.type === "timeZoneName")
-          return t ? t.value : tokenFactory("%z")(d)
-        } catch {
-          return tokenFactory("%z")(d)
-        }
-      }
+    }
 
-      case "%F": return d => `${tokenFactory('%Y')(d)}-${tokenFactory('%m')(d)}-${tokenFactory('%d')(d)}`
-      case "%T": return d => `${tokenFactory('%H')(d)}:${tokenFactory('%M')(d)}:${tokenFactory('%S')(d)}`
-      case "%%": return () => "%"
+    case "%F": return d => `${tokenFactory("%Y")(d)}-${tokenFactory("%m")(d)}-${tokenFactory("%d")(d)}`
+    case "%T": return d => `${tokenFactory("%H")(d)}:${tokenFactory("%M")(d)}:${tokenFactory("%S")(d)}`
+    case "%%": return () => "%"
 
-      default:
-        return () => token
+    default:
+      return () => token
     }
   }
 
@@ -152,25 +152,58 @@ export function changeLocale(newLocale) {
   clockLocale = newLocale || navigator.language || "en-US"
 }
 
-// HEX Time
-export function timeInHex() {
-  function pad(n) { return ("0" + n).slice(-2) }
-  let now = new Date()
-  let hour = pad(now.getHours())
-  let minute = pad(now.getMinutes())
-  let second = pad(now.getSeconds())
-  return `${hour}${minute}${second}`
+export class Clock {
+  constructor(el, format) {
+    this.el = typeof el === "string" ? document.getElementById(el) : el
+    this.format = format
+    this.animationFrameId = null
+  }
+
+  changeFormat(newFormat) {
+    this.format = newFormat
+  }
+
+  getTime() {
+    const fmt = compileStrftime(this.format)
+    return fmt(new Date())
+  }
+
+  start() {
+    this.el.textContent = this.getTime()
+    this.animationFrameId = requestAnimationFrame(() => this.start())
+  }
+
+  stop() {
+    cancelAnimationFrame(this.animationFrameId)
+  }
 }
 
-export function startClock(docId, format) {
-  const fmt = compileStrftime(format)
-  document.getElementById(docId).textContent = fmt(new Date())
-  requestAnimationFrame(() => startClock(docId, format))
-}
+export class HexClock {
+  constructor(el, {background=false, color=false, text=false}={}) {
+    this.el = typeof el === "string" ? document.getElementById(el) : el
+    this.background = background
+    this.color = color
+    this.text = text
+    this.animationFrameId = null
+  }
 
-export function startHexClock(el, {background=false, color=false, text=false}={}) {
-  if (background) el.style.backgroundColor = `#${timeInHex()}`
-  if (color) el.style.color = `#${timeInHex()}`
-  if (text) el.textContent = `#${timeInHex()}`
-  requestAnimationFrame(() => startHexClock(el, {background, color, text}))
+  _timeInHex() {
+    function pad(n) { return ("0" + n).slice(-2) }
+    let now = new Date()
+    let hour = pad(now.getHours())
+    let minute = pad(now.getMinutes())
+    let second = pad(now.getSeconds())
+    return `${hour}${minute}${second}`
+  }
+
+  start() {
+    if (this.background) this.el.style.backgroundColor = `#${this._timeInHex()}`
+    if (this.color) this.el.style.color = `#${this._timeInHex()}`
+    if (this.text) this.el.textContent = `#${this._timeInHex()}`
+    this.animationFrameId = requestAnimationFrame(() => this.start())
+  }
+
+  stop() {
+    cancelAnimationFrame(this.animationFrameId)
+  }
 }

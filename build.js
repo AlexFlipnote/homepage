@@ -47,7 +47,7 @@ async function buildJS() {
 
   const builds = [
     { entryPoints: ["src/js/index.js"], outfile: "out/js/index.js" },
-    { entryPoints: ["src/js/options.js"], outfile: "out/js/options.js" },
+    { entryPoints: ["src/js/options.js"], outfile: "out/js/options.js" }
   ]
 
   await Promise.all(
@@ -66,7 +66,7 @@ async function buildJS() {
 async function buildSASS() {
   console.log("🎨 Building SASS files...")
   const result = sass.compile(path.join(__dirname, "src/sass/index.sass"), { style: "compressed" })
-  const outputFile = path.join(__dirname, "out/css", "index.css");
+  const outputFile = path.join(__dirname, "out/css", "index.css")
   fs.mkdirSync(path.dirname(outputFile), { recursive: true })
   fs.writeFileSync(outputFile, result.css)
   console.log("🎨 SASS build complete")
@@ -116,9 +116,9 @@ if (clean) {
   await cleanUp()
 }
 
-const build_folders = ["dist", "out"]
+const buildFolders = ["dist", "out"]
 
-build_folders.forEach(folder => {
+buildFolders.forEach(folder => {
   if (!fs.existsSync(path.join(__dirname, folder))) {
     fs.mkdirSync(path.join(__dirname, folder), { recursive: true })
   }

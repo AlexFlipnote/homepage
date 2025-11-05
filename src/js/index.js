@@ -2,13 +2,13 @@ import { isChrome, isFirefox, isExtension } from "./utils/browser"
 import { dateLocales } from "./utils/lists.js"
 import { extensionSettings } from "./utils/settings.js"
 import { getWeather } from "./utils/weather.js"
-import { startHexClock, startClock, changeLocale } from "./utils/timeManager.js"
+import { HexClock, changeLocale, Clock } from "./utils/timeManager.js"
 import * as manifest from "../manifest.json"
 
 const DEFAULT = {
   fmt_time: "%H:%M:%S",
   fmt_date: "%e. %B %Y",
-  background_images_count: 31
+  backgroundImagesCount: 31
 }
 
 function faviconURL(u) {
@@ -66,21 +66,21 @@ if (isExtension) {
 
   chrome.storage.local.get({ ...extensionSettings }, function(items) {
     if (items.show_time) {
-      startClock("time", items.fmt_time || DEFAULT.fmt_time)
+      new Clock("time", items.fmt_time || DEFAULT.fmt_time).start()
     }
 
     if (items.show_date) {
-      startClock("date", items.fmt_date || DEFAULT.fmt_date)
+      new Clock("date", items.fmt_date || DEFAULT.fmt_date).start()
     }
 
     changeLocale(items.language)
 
     const backgroundElement = document.getElementById("background")
-    const random_bg_num = Math.floor(Math.random() * DEFAULT.background_images_count)
-    let new_background = `images/backgrounds/background${random_bg_num}.jpg`
+    const randomBgNum = Math.floor(Math.random() * DEFAULT.backgroundImagesCount)
+    let newBackground = `images/backgrounds/background${randomBgNum}.jpg`
 
     if (items.custombg.length > 0) {
-      new_background = items.custombg[
+      newBackground = items.custombg[
         Math.floor(Math.random() * items.custombg.length)
       ]
     }
@@ -137,9 +137,9 @@ if (isExtension) {
 
     if (items.hexbg) {
       backgroundElement.src = ""
-      startHexClock(document.body, {background: true})
+      new HexClock(document.body, {background: true}).start()
     } else {
-      backgroundElement.src = new_background
+      backgroundElement.src = newBackground
     }
 
     if (items.customcss) {
@@ -158,8 +158,12 @@ if (isExtension) {
 } else {
   console.log("ℹ️ Running in demo mode")
   // Demo mode
-  startClock("time", DEFAULT.fmt_time)
-  startClock("date", DEFAULT.fmt_date)
+
+  const timeClock = new Clock("time", DEFAULT.fmt_time)
+  timeClock.start()
+
+  const dateClock = new Clock("date", DEFAULT.fmt_date)
+  dateClock.start()
 
   // Create some boiler plate bookmarks
   const bookmarksList = document.getElementById("bookmarks")
@@ -182,9 +186,9 @@ if (isExtension) {
 
   document.addEventListener("DOMContentLoaded", function() {
     const backgroundElement = document.getElementById("background")
-    const random_bg_num = Math.floor(Math.random() * DEFAULT.background_images_count)
+    const randomBgNum = Math.floor(Math.random() * DEFAULT.backgroundImagesCount)
 
-    backgroundElement.src = `images/backgrounds/background${random_bg_num}.jpg`
+    backgroundElement.src = `images/backgrounds/background${randomBgNum}.jpg`
     backgroundElement.onload = () => {
       backgroundElement.style.opacity = 1
     }
@@ -232,7 +236,7 @@ if (isExtension) {
 
   document.getElementById("search-form").onsubmit = (e) => {
     e.preventDefault()
-    alert(`This would then search using the browser's default search engine`)
+    alert("This would then search using the browser's default search engine")
   }
 
   // Change background
@@ -245,13 +249,33 @@ if (isExtension) {
     }
   }
 
+  // Change clock format
+  document.getElementById("changeClock").onchange = (el) => {
+    const format = el.target.value
+    if (format) {
+      timeClock.changeFormat(format)
+    } else {
+      timeClock.changeFormat(DEFAULT.fmt_time)
+    }
+  }
+
+  // Change date format
+  document.getElementById("changeDate").onchange = (el) => {
+    const format = el.target.value
+    if (format) {
+      dateClock.changeFormat(format)
+    } else {
+      dateClock.changeFormat(DEFAULT.fmt_date)
+    }
+  }
+
   // Turn on/off weather
-  document.getElementById("weather").onclick = function() {
+  document.getElementById("weather").onclick = () => {
     turnSwitch(document.getElementById("weather-container"), "flex")
   }
 
   // Change language
-  document.getElementById("language").onchange = function(el) {
+  document.getElementById("language").onchange = () => {
     let getLangVal = document.getElementById("language").value
     if (!getLangVal) { getLangVal = navigator.language }
 

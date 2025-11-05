@@ -1,7 +1,6 @@
 import { http } from "./http.js"
 import { weatherIcons } from "./lists.js"
 
-
 export function getWeather(items, position, wkey, lang) {
   const pos = position.coords
   const wlang = lang || "en"
