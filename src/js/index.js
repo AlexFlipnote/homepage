@@ -17,6 +17,15 @@ function faviconURL(u) {
   )
 }
 
+class ManualPosition {
+  constructor(lat, lon) {
+    this.coords = {
+      latitude: lat,
+      longitude: lon
+    }
+  }
+}
+
 function createBookmark(
   el, name, url,
   {
@@ -90,9 +99,14 @@ if (isExtension) {
     }
 
     if (items.wkey) {
-      navigator.geolocation.getCurrentPosition(function(position) {
+      if (items.wManualLocation) {
+        const position = new ManualPosition(items.wlat, items.wlon)
         getWeather(items, position, items.wkey, items.wlanguage)
-      })
+      } else {
+        navigator.geolocation.getCurrentPosition((position) => {
+          getWeather(items, position, items.wkey, items.wlanguage)
+        })
+      }
     }
 
     const bookmarks = document.getElementById("bookmarks")

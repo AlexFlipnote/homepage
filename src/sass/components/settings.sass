@@ -71,6 +71,32 @@ $preview-image-height: 8.75rem
     width: 100%
 
 
+#map
+  display: none
+  height: 20rem
+  width: 80%
+  margin-top: 1rem
+  border-radius: 1rem
+  box-shadow: 0 0 10px rgba(0, 0, 0, .5)
+  transition: box-shadow .3s ease-in-out
+  position: relative
+
+  .map-coords
+    background-color: rgba(0, 0, 0, .5)
+    border-radius: .5rem
+    color: var(--font-primary)
+    font-size: 0.9rem
+    backdrop-filter: blur(3px)
+    padding: .5rem 1rem
+    position: absolute
+    right: .6rem
+    top: .6rem
+    z-index: 99999
+
+  &:hover
+    box-shadow: 0 0 15px rgba(0, 0, 0, .7)
+
+
 #notification
   position: fixed
   bottom: 0

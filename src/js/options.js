@@ -1,7 +1,9 @@
 import * as manifest from "../manifest.json"
 import Sortable from "sortablejs"
+
 import { extensionSettings } from "./utils/settings.js"
 import { isFirefox } from "./utils/browser.js"
+import { WorldMap } from "./utils/map.js"
 import { HexClock } from "./utils/timeManager.js"
 import { weatherLanguages, dateLocales } from "./utils/lists.js"
 
@@ -9,6 +11,8 @@ const findVersion = document.getElementById("version")
 if (findVersion) {
   findVersion.textContent = manifest.version
 }
+
+const userMap = new WorldMap()
 
 function createAlert(message, css="") {
   const notification = document.getElementById("notification")
@@ -38,6 +42,9 @@ function saveOptions(message, css="") {
     customfont: document.getElementById("customfont").value,
     customfontgoogle: document.getElementById("customfontgoogle").checked,
     wkey: document.getElementById("wkey").value,
+    wlat: userMap.marker ? userMap.marker.getLatLng().lat : 0,
+    wlon: userMap.marker ? userMap.marker.getLatLng().lng : 0,
+    wManualLocation: document.getElementById("wManualLocation").checked,
     hexbg: document.getElementById("hexbg").checked,
     temp_type: document.getElementById("temp_type").value,
     showSettings: document.getElementById("show-settings").checked,
@@ -48,6 +55,27 @@ function saveOptions(message, css="") {
     bookmarks: fetchBookmarkInputs()
   }, () => {
     createAlert(message, css)
+  })
+}
+
+function createMapInit(items) {
+  const getMap = document.getElementById("map")
+  getMap.style.display = "block"
+
+  try {
+    userMap.createMap("map", items.wlat, items.wlon)
+  } catch {
+    return // Ignore error
+  }
+
+  userMap.map.on("click", (e) => {
+    const { lat, lng } = e.latlng
+    userMap.setMarker(lat, lng)
+    const wlat = document.getElementById("wlat")
+    const wlon = document.getElementById("wlon")
+    wlat.textContent = lat.toFixed(4)
+    wlon.textContent = lng.toFixed(4)
+    saveOptions(`Weather location set: Lat ${lat.toFixed(4)}, Lon ${lng.toFixed(4)}`, "change")
   })
 }
 
@@ -74,6 +102,27 @@ function restoreOptions() {
     const wlanguage = document.getElementById("wlanguage")
     wlanguage.value = items.wlanguage
     wlanguage.onchange = () => { saveOptions(`Weather language set: ${wlanguage.value || "default"}`, wlanguage.value ? "change" : "remove") }
+
+    const wManualLocation = document.getElementById("wManualLocation")
+    wManualLocation.checked = items.wManualLocation
+    wManualLocation.onchange = () => {
+      saveOptions(`Weather manual location set: ${wManualLocation.checked}`, wManualLocation.checked ? "add" : "remove")
+
+      if (wManualLocation.checked) {
+        createMapInit(items)
+      } else {
+        document.getElementById("map").style.display = "none"
+      }
+    }
+
+    if (items.wManualLocation) {
+      createMapInit(items)
+    }
+
+    const wlat = document.getElementById("wlat")
+    const wlon = document.getElementById("wlon")
+    wlat.textContent = items.wlat.toFixed(4) || "0.0000"
+    wlon.textContent = items.wlon.toFixed(4) || "0.0000"
 
     const fmtTime = document.getElementById("fmt_time")
     fmtTime.value = items.fmt_time

@@ -209,7 +209,7 @@
       </div>
 
       <div class="box-container">
-        <h1 class="no-margin">OpenWeather key</h1>
+        <h1 class="no-margin">Weather (From OpenWeatherMap)</h1>
         <p>
           To get your own weather key, go to <a href="https://home.openweathermap.org/api_keys" target="_blank">https://home.openweathermap.org/api_keys</a> to recive one.
         </p>
@@ -230,6 +230,14 @@
             <option value="fahrenheit">Fahrenheit (°F)</option>
           </select>
         </label>
+        <label>
+          <input type="checkbox" id="wManualLocation"> Pick a location manually instead
+        </label>
+        <div id="map">
+          <div class="map-coords">
+            <span id="wlat"></span>, <span id="wlon"></span>
+          </div>
+        </div>
       </div>
 
       <div class="box-container">

@@ -12,6 +12,7 @@
     "build": "node build.js"
   },
   "dependencies": {
+    "leaflet": "^1.9.4",
     "sortablejs": "^1.15.6"
   },
   "devDependencies": {
