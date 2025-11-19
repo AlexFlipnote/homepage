@@ -4,7 +4,7 @@
   "name": "AlexFlipnote/Homepage",
   "description": "A website that gives you a clean homepage.",
   "homepage_url": "https://alexflipnote.dev/homepage/",
-  "version": "2.3.0",
+  "version": "2.3.1",
 
   "chrome_url_overrides": {
     "newtab": "index.html"
@@ -44,6 +44,7 @@
   ],
 
   "host_permissions": [
-    "https://api.openweathermap.org/*"
+    "https://api.openweathermap.org/*",
+    "https://*.tile.openstreetmap.org/*"
   ]
 }
