@@ -2,7 +2,6 @@
 // For now, default get definitions is enough.
 export const extensionSettings = {
   language: "",
-  wlanguage: "",
   searchbar: false,
   custombg: [],
   show_time: true,
@@ -15,7 +14,8 @@ export const extensionSettings = {
   bookmarksFavicon: false,
   bookmarksTopSitesEnabled: false,
   bookmarksTopSitesAmount: 5,
-  wkey: "",
+  wEnable: false,
+  wlanguage: "",
   wlat: 0,
   wlon: 0,
   wManualLocation: false,

@@ -1,8 +1,7 @@
 import { isChrome, isFirefox, isExtension } from "./utils/browser"
-import { dateLocales } from "./utils/lists.js"
 import { extensionSettings } from "./utils/settings.js"
 import { getWeather } from "./utils/weather.js"
-import { HexClock, changeLocale, Clock } from "./utils/timeManager.js"
+import { HexClock, changeLocale, Clock, languages as dateLocales } from "./utils/timeManager.js"
 import * as manifest from "../manifest.json"
 
 const DEFAULT = {
@@ -98,13 +97,13 @@ if (isExtension) {
       backgroundElement.style.opacity = 1
     }
 
-    if (items.wkey) {
+    if (items.wEnable) {
       if (items.wManualLocation) {
         const position = new ManualPosition(items.wlat, items.wlon)
-        getWeather(items, position, items.wkey, items.wlanguage)
+        getWeather(items, position, items.wlanguage)
       } else {
         navigator.geolocation.getCurrentPosition((position) => {
-          getWeather(items, position, items.wkey, items.wlanguage)
+          getWeather(items, position, items.wlanguage)
         })
       }
     }
@@ -128,8 +127,6 @@ if (isExtension) {
     if (items.bookmarksTopSitesEnabled) {
       bookmarks.style.display = "flex"
       chrome.topSites.get((sites) => {
-        console.log(sites)
-        console.log(items.bookmarksTopSitesAmount)
         for (const { title, url } of sites.slice(0, items.bookmarksTopSitesAmount)) {
           createBookmark(bookmarks, title, url, {
             bookmarksFavicon: items.bookmarksFavicon,

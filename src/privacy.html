@@ -18,19 +18,20 @@
   <body id="body" class="dark-theme">
     <section class="container">
       <h1>Privacy Policy for AlexFlipnote/Homepage</h1>
-      <i>Last updated: 3. November 2025</i>
-      <p class="no-margin">
-        AlexFlipnote/Homepage respects your privacy. This extension does not collect, store, or transmit any personal data.
+      <i>Last updated: 21. November 2025</i>
+      <p>
+        AlexFlipnote/Homepage respects your privacy.<br>
+        This extension does not collect, store, or transmit any personal data.<br>
         All data and settings are stored locally on your device and are never sent to any external server.
       </p>
-      <h2>Permissions Used</h2>
+      <h2 class="no-margin">Permissions Used</h2>
       <ul class="no-margin">
         <li><b>storage</b>: Used to save your custom backgrounds, preferences, and other local settings.</li>
         <li>
-          <b>geolocation</b>: Used only to show weather information when the weather feature is enabled.
+          <b>geolocation</b>: Used only to show weather and location information when the weather feature is enabled.
           Your location data is never stored, it's used temporarily by your browser to fetch the
-          weather from <a href="https://openweathermap.org/" class="emerald-text">OpenWeatherMap</a> with an API key
-          and your coordinates are not transmitted to any other party.
+          weather from <a href="https://api.met.no" target="_blank">MET Norway</a> and
+          the location data from <a href="https://openstreetmap.org" target="_blank">OpenStreetMap</a> with your coordinates.
           If weather is turned off or you have enabled manual location, geolocation is not used.
         </li>
         <li><b>topSites</b>: Used to fetch your most visited sites for displaying bookmarks if you enable that feature. If disabled, this permission is not used.</li>
@@ -38,7 +39,24 @@
         <li><b>search</b>: Used to perform searches using the browser's default search engine.</li>
       </ul>
       <br>
-      <h2>Data Collection</h2>
+      <h2 class="no-margin">Host Permissions</h2>
+      <p class="no-margin">This extension requests the following host permissions:</p>
+      <table>
+        <tr>
+          <th>Host</th>
+          <th>Purpose</th>
+        </tr>
+        <tr>
+          <td>https://api.met.no/*</td>
+          <td>To fetch weather data when the weather feature is enabled.</td>
+        </tr>
+        <tr>
+          <td>https://*.openstreetmap.org/*</td>
+          <td>Fetch location data when weather is enabled and show map chunks when using the map feature.</td>
+        </tr>
+      </table>
+      <br>
+      <h2 class="no-margin">Data Collection</h2>
       <p class="no-margin">This extension does <b>not</b>:</p>
       <ul class="no-margin">
         <li>Collect, store, or transmit any personal or usage data.</li>

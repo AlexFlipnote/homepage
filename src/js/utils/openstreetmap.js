@@ -1,4 +1,5 @@
 import leaflet from "leaflet"
+import { http } from "./http"
 
 export class WorldMap {
   constructor() {
@@ -43,4 +44,17 @@ export class WorldMap {
   getCoordinates() {
     return { lat: this.lat, lon: this.lon }
   }
+}
+
+/**
+ * Reverse geocode using OpenStreetMap Nominatim API.
+ * Has a rate limit of 1 request/second.
+ * @param {number} lat - Latitude
+ * @param {number} lon - Longitude
+ * @param {function} callback - Callback function to handle the response
+ */
+export function reverseGeocode(lat, lon, callback) {
+  http("GET", `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`, (r) => {
+    callback(r)
+  })
 }

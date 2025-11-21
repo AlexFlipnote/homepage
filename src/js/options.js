@@ -3,9 +3,9 @@ import Sortable from "sortablejs"
 
 import { extensionSettings } from "./utils/settings.js"
 import { isFirefox } from "./utils/browser.js"
-import { WorldMap } from "./utils/map.js"
-import { HexClock } from "./utils/timeManager.js"
-import { weatherLanguages, dateLocales } from "./utils/lists.js"
+import { WorldMap } from "./utils/openstreetmap.js"
+import { HexClock, languages as dateLocales } from "./utils/timeManager.js"
+import { languages as weatherLanguages } from "./utils/weather.js"
 
 const findVersion = document.getElementById("version")
 if (findVersion) {
@@ -41,7 +41,7 @@ function saveOptions(message, css="") {
     fmt_date: document.getElementById("fmt_date").value,
     customfont: document.getElementById("customfont").value,
     customfontgoogle: document.getElementById("customfontgoogle").checked,
-    wkey: document.getElementById("wkey").value,
+    wEnable: document.getElementById("wEnable").checked,
     wlat: userMap.marker ? userMap.marker.getLatLng().lat : 0,
     wlon: userMap.marker ? userMap.marker.getLatLng().lng : 0,
     wManualLocation: document.getElementById("wManualLocation").checked,
@@ -144,9 +144,9 @@ function restoreOptions() {
     hexbg.checked = items.hexbg
     hexbg.onchange = () => { saveOptions(`HEX background set: ${hexbg.checked}`, hexbg.checked ? "add" : "remove") }
 
-    const wkey = document.getElementById("wkey")
-    wkey.value = items.wkey
-    wkey.onchange = () => { saveOptions("Saved OpenWeatherMap API key", wkey.value.length ? "add" : "remove") }
+    const wEnable = document.getElementById("wEnable")
+    wEnable.checked = items.wEnable
+    wEnable.onchange = () => { saveOptions(`Set weather: ${wEnable.checked}`, wEnable.checked ? "add" : "remove") }
 
     const tempType = document.getElementById("temp_type")
     tempType.value = items.temp_type

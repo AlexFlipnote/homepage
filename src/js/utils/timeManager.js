@@ -207,3 +207,65 @@ export class HexClock {
     cancelAnimationFrame(this.animationFrameId)
   }
 }
+
+export const languages = {
+  // English variants
+  "en-US": "English (United States)",
+  "en-GB": "English (United Kingdom)",
+  "en-CA": "English (Canada)",
+  "en-AU": "English (Australia)",
+  "en-IN": "English (India)",
+
+  // Europe
+  "no-NO": "Norwegian (Norway)",
+  "sv-SE": "Swedish (Sweden)",
+  "da-DK": "Danish (Denmark)",
+  "fi-FI": "Finnish (Finland)",
+  "is-IS": "Icelandic (Iceland)",
+  "de-DE": "German (Germany)",
+  "nl-NL": "Dutch (Netherlands)",
+  "fr-FR": "French (France)",
+  "es-ES": "Spanish (Spain)",
+  "it-IT": "Italian (Italy)",
+  "pt-PT": "Portuguese (Portugal)",
+  "pt-BR": "Portuguese (Brazil)",
+  "pl-PL": "Polish (Poland)",
+  "cs-CZ": "Czech (Czech Republic)",
+  "sk-SK": "Slovak (Slovakia)",
+  "hu-HU": "Hungarian (Hungary)",
+  "ru-RU": "Russian (Russia)",
+  "uk-UA": "Ukrainian (Ukraine)",
+
+  // Asian
+  "ja-JP": "Japanese (Japan)",
+  "zh-CN": "Chinese (Simplified, China)",
+  "zh-TW": "Chinese (Traditional, Taiwan)",
+  "ko-KR": "Korean (South Korea)",
+  "th-TH": "Thai (Thailand)",
+  "hi-IN": "Hindi (India)",
+  "bn-BD": "Bengali (Bangladesh)",
+
+  // Middle East
+  "ar-SA": "Arabic (Saudi Arabia)",
+  "he-IL": "Hebrew (Israel)",
+  "tr-TR": "Turkish (Turkey)",
+  "fa-IR": "Persian (Iran)",
+
+  // Africa
+  "af-ZA": "Afrikaans (South Africa)",
+  "sw-KE": "Swahili (Kenya)",
+
+  // Americas
+  "es-MX": "Spanish (Mexico)",
+  "es-AR": "Spanish (Argentina)",
+  "fr-CA": "French (Canada)",
+  "en-NZ": "English (New Zealand)",
+
+  // Misc
+  "el-GR": "Greek (Greece)",
+  "ro-RO": "Romanian (Romania)",
+  "id-ID": "Indonesian (Indonesia)",
+  "ms-MY": "Malay (Malaysia)",
+  "vi-VN": "Vietnamese (Vietnam)",
+  "ta-IN": "Tamil (India)"
+}
