@@ -50,11 +50,13 @@ export function translate(lang, key, args = {}) {
 
 /**
  * Get a list of available languages with their native names
+ * @param {boolean} hideDefault - Whether to hide the default language from the list
  * @returns {Object} Object with language codes as keys and native names as values
  */
-export function availableLanguages() {
+export function availableLanguages({ hideDefault = false } = {}) {
   const langs = {}
   for (const code in translations) {
+    if (hideDefault && code === DEFAULT_LANG) continue
     langs[code] = translations[code]["language.name"] || code
   }
   return langs

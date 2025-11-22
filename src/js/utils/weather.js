@@ -1,5 +1,5 @@
 import { http } from "./http.js"
-import { translate, availableLanguages } from "./i18n.js"
+import { translate } from "./i18n.js"
 import { reverseGeocode } from "./openstreetmap.js"
 import { Cache } from "./cache.js"
 
@@ -65,5 +65,3 @@ export async function getWeather(items, position, lang) {
     cache.set(cacheKey, wname.innerText)
   })
 }
-
-export const languages = availableLanguages()

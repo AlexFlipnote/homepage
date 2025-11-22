@@ -13,7 +13,7 @@ async function cleanUp() {
   console.log("🧹 Cleaning up build files...")
   const foldersDelete = ["out", "dist"]
   foldersDelete.forEach(folder => {
-    fs.rmdir(path.join(__dirname, folder), { recursive: true }, (err) => {
+    fs.rm(path.join(__dirname, folder), { recursive: true, force: true }, (err) => {
       if (err) {
         // Ignore errors
       }

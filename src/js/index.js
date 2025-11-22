@@ -217,7 +217,7 @@ if (isExtension) {
   })
 
   // Load all languages
-  for (const [k, v] of Object.entries(availableLanguages())) {
+  for (const [k, v] of Object.entries(availableLanguages({ hideDefault: true }))) {
     const option = document.createElement("option")
     option.text = v
     option.value = k
