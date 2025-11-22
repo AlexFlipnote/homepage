@@ -1,7 +1,8 @@
-import { isChrome, isFirefox, isExtension } from "./utils/browser"
+import { isFirefox, isExtension } from "./utils/browser"
 import { extensionSettings } from "./utils/settings.js"
 import { getWeather } from "./utils/weather.js"
-import { HexClock, changeLocale, Clock, languages as dateLocales } from "./utils/timeManager.js"
+import { HexClock, Clock } from "./utils/timeManager.js"
+import { availableLanguages, setLocale, translate } from "./utils/i18n.js"
 import * as manifest from "../manifest.json"
 
 const DEFAULT = {
@@ -73,15 +74,18 @@ if (isExtension) {
   }
 
   chrome.storage.local.get({ ...extensionSettings }, function(items) {
+    // Start by setting language
+    setLocale(items.language)
+    const defaultTime = translate(items.language, "time.format.default")
+    const defaultDate = translate(items.language, "date.format.default")
+
     if (items.show_time) {
-      new Clock("time", items.fmt_time || DEFAULT.fmt_time).start()
+      new Clock("time", items.fmt_time || defaultTime).start()
     }
 
     if (items.show_date) {
-      new Clock("date", items.fmt_date || DEFAULT.fmt_date).start()
+      new Clock("date", items.fmt_date || defaultDate).start()
     }
-
-    changeLocale(items.language)
 
     const backgroundElement = document.getElementById("background")
     const randomBgNum = Math.floor(Math.random() * DEFAULT.backgroundImagesCount)
@@ -100,10 +104,10 @@ if (isExtension) {
     if (items.wEnable) {
       if (items.wManualLocation) {
         const position = new ManualPosition(items.wlat, items.wlon)
-        getWeather(items, position, items.wlanguage)
+        getWeather(items, position, items.language)
       } else {
         navigator.geolocation.getCurrentPosition((position) => {
-          getWeather(items, position, items.wlanguage)
+          getWeather(items, position, items.language)
         })
       }
     }
@@ -121,6 +125,8 @@ if (isExtension) {
 
     if (items.searchbar) {
       const searchForm = document.getElementById("search-form")
+      const searchInput = document.getElementById("search-input")
+      searchInput.placeholder = translate(items.language, "search.placeholder")
       searchForm.style.display = "block"
     }
 
@@ -170,10 +176,15 @@ if (isExtension) {
   console.log("ℹ️ Running in demo mode")
   // Demo mode
 
-  const timeClock = new Clock("time", DEFAULT.fmt_time)
+  const wname = document.getElementById("wname")
+  const wdescription = document.getElementById("wdescription")
+  wname.textContent = translate(undefined, "demo.weather.location")
+  wdescription.textContent = translate(undefined, "demo.weather.condition")
+
+  const timeClock = new Clock("time", translate(undefined, "time.format.default"))
   timeClock.start()
 
-  const dateClock = new Clock("date", DEFAULT.fmt_date)
+  const dateClock = new Clock("date", translate(undefined, "date.format.default"))
   dateClock.start()
 
   // Create some boiler plate bookmarks
@@ -206,11 +217,10 @@ if (isExtension) {
   })
 
   // Load all languages
-  const languages = Object.keys(dateLocales).sort()
-  for (let i = 0; i < languages.length; i++) {
+  for (const [k, v] of Object.entries(availableLanguages())) {
     const option = document.createElement("option")
-    option.text = languages[i]
-    option.value = languages[i]
+    option.text = v
+    option.value = k
     document.getElementById("language").appendChild(option)
   }
 
@@ -285,28 +295,41 @@ if (isExtension) {
     turnSwitch(document.getElementById("weather-container"), "flex")
   }
 
+  // Add a nice install button
+  function downloadButton(language=undefined) {
+    let browser = "Chrome"
+    let link = "https://chromewebstore.google.com/detail/alexflipnotehomepage/npagigfpfilcemncemkphndcaigegcbk"
+
+    if (isFirefox) {
+      browser = "Firefox"
+      link = "https://addons.mozilla.org/addon/alexflipnote-homepage/"
+    }
+
+    const addbutton = document.getElementById("install-button")
+    addbutton.style.display = "block"
+    addbutton.innerText = translate(language, "demo.install", {browser: browser})
+    addbutton.href = link
+    if (link === "#") addbutton.onclick = () => { return false }
+  }
+
+  downloadButton()
+
   // Change language
   document.getElementById("language").onchange = () => {
     let getLangVal = document.getElementById("language").value
     if (!getLangVal) { getLangVal = navigator.language }
 
-    changeLocale(getLangVal)
-  }
+    setLocale(getLangVal)
+    timeClock.changeFormat(translate(getLangVal, "time.format.default"))
+    dateClock.changeFormat(translate(getLangVal, "date.format.default"))
 
-  // Add a nice install button
-  function downloadButton(text, link) {
-    const addbutton = document.getElementById("install-button")
-    addbutton.style.display = "block"
-    addbutton.innerText = text
-    addbutton.href = link
-    if (link === "#") addbutton.onclick = () => { return false }
-  }
+    const searchInput = document.getElementById("search-input")
+    searchInput.placeholder = translate(getLangVal, "search.placeholder")
 
-  if (isFirefox) {
-    downloadButton("Add to Firefox", "https://addons.mozilla.org/addon/alexflipnote-homepage/")
-  } else if (isChrome) {
-    downloadButton("Add to Chrome", "https://chromewebstore.google.com/detail/alexflipnotehomepage/npagigfpfilcemncemkphndcaigegcbk")
-  }
+    wname.textContent = translate(getLangVal, "demo.weather.location")
+    wdescription.textContent = translate(getLangVal, "demo.weather.condition")
 
+    downloadButton(getLangVal)
+  }
 }
 

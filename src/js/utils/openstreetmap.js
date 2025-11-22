@@ -11,6 +11,12 @@ export class WorldMap {
     this.marker = null
   }
 
+  /**
+   * Create a map and set the initial view
+   * @param {string} targetId - The ID of the HTML element to contain the map
+   * @param {number} lat - Latitude for the initial view
+   * @param {number} lon - Longitude for the initial view
+   */
   createMap(targetId, lat, lon) {
     this.lat = lat
     this.lon = lon
@@ -35,12 +41,21 @@ export class WorldMap {
     }).addTo(this.map)
   }
 
+  /**
+   * Set the marker position on the map
+   * @param {number} lat - Latitude for the marker
+   * @param {number} lon - Longitude for the marker
+   */
   setMarker(lat, lon) {
     this.lat = lat
     this.lon = lon
     this.marker.setLatLng([lat, lon])
   }
 
+  /**
+   * Get the current coordinates of the marker
+   * @returns {Object} An object with 'lat' and 'lon' properties
+   */
   getCoordinates() {
     return { lat: this.lat, lon: this.lon }
   }

@@ -1,4 +1,4 @@
-let clockLocale = navigator.language || "en-US"
+import { translate, SELECTED_LANG } from "./i18n.js"
 
 export function compileStrftime(fmt) {
   const pad2 = n => (n < 10 ? "0" + n : "" + n)
@@ -13,32 +13,35 @@ export function compileStrftime(fmt) {
     dayPeriod: new Map()
   }
 
-  function fmtPartsForMonth(localeKey, options) {
-    const map = options.length === "short" ? intlCache.monthShort : intlCache.monthLong
-    if (!map.has(localeKey)) {
-      map.set(localeKey, new Intl.DateTimeFormat(localeKey, { month: options.length }))
-    }
-    const dtf = map.get(localeKey)
+  function fmtPartsForMonth(options) {
+    const translateKey = options.length === "short" ? "date.months.short" : "date.months.long"
+    const monthNames = [
+      "january", "february", "march", "april", "may", "june",
+      "july", "august", "september", "october", "november", "december"
+    ]
+
     return monthIndex => {
-      return dtf.format(new Date(2000, monthIndex, 1))
+      const monthKey = monthNames[monthIndex]
+      return translate(SELECTED_LANG, `${translateKey}.${monthKey}`)
     }
   }
 
-  function fmtPartsForWeekday(localeKey, options) {
-    const map = options.length === "short" ? intlCache.weekdayShort : intlCache.weekdayLong
-    if (!map.has(localeKey)) {
-      map.set(localeKey, new Intl.DateTimeFormat(localeKey, { weekday: options.length }))
+  function fmtPartsForWeekday(options) {
+    const translateKey = options.length === "short" ? "date.days.short" : "date.days.long"
+    const dayNames = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]
+
+    return weekdayIndex => {
+      const dayKey = dayNames[weekdayIndex]
+      return translate(SELECTED_LANG, `${translateKey}.${dayKey}`)
     }
-    const dtf = map.get(localeKey)
-    return weekdayIndex => dtf.format(new Date(2020, 0, 5 + weekdayIndex))
   }
 
-  function fmtDayPeriod(localeKey) {
-    if (!intlCache.dayPeriod.has(localeKey)) {
-      const dtf = new Intl.DateTimeFormat(localeKey, { hour: "numeric", hour12: true })
-      intlCache.dayPeriod.set(localeKey, dtf)
+  function fmtDayPeriod() {
+    if (!intlCache.dayPeriod.has("en-US")) {
+      const dtf = new Intl.DateTimeFormat("en-US", { hour: "numeric", hour12: true })
+      intlCache.dayPeriod.set("en-US", dtf)
     }
-    const dtf = intlCache.dayPeriod.get(localeKey)
+    const dtf = intlCache.dayPeriod.get("en-US")
     return hour => {
       const parts = dtf.formatToParts(new Date(2020, 0, 1, hour))
       const p = parts.find(x => x.type === "dayPeriod")
@@ -46,18 +49,18 @@ export function compileStrftime(fmt) {
     }
   }
 
-  function tokenFactory(token, localeKey) {
+  function tokenFactory(token) {
     switch (token) {
     case "%Y": return d => String(d.getFullYear())
     case "%y": return d => pad2(d.getFullYear() % 100)
 
     case "%m": return d => pad2(d.getMonth() + 1)
     case "%B": {
-      const getMonth = fmtPartsForMonth(localeKey || undefined, { length: "long" })
+      const getMonth = fmtPartsForMonth({ length: "long" })
       return d => getMonth(d.getMonth())
     }
     case "%b": {
-      const getMonth = fmtPartsForMonth(localeKey || undefined, { length: "short" })
+      const getMonth = fmtPartsForMonth({ length: "short" })
       return d => getMonth(d.getMonth())
     }
 
@@ -70,11 +73,11 @@ export function compileStrftime(fmt) {
     }
 
     case "%A": {
-      const getDay = fmtPartsForWeekday(localeKey || undefined, { length: "long" })
+      const getDay = fmtPartsForWeekday({ length: "long" })
       return d => getDay(d.getDay())
     }
     case "%a": {
-      const getDay = fmtPartsForWeekday(localeKey || undefined, { length: "short" })
+      const getDay = fmtPartsForWeekday({ length: "short" })
       return d => getDay(d.getDay())
     }
     case "%w": return d => String(d.getDay())
@@ -85,7 +88,7 @@ export function compileStrftime(fmt) {
       return pad2(h === 0 ? 12 : h)
     }
     case "%p": {
-      const getPeriod = fmtDayPeriod(localeKey || undefined)
+      const getPeriod = fmtDayPeriod()
       return d => getPeriod(d.getHours())
     }
 
@@ -103,7 +106,7 @@ export function compileStrftime(fmt) {
     }
     case "%Z": return d => {
       try {
-        const parts = new Intl.DateTimeFormat(localeKey || undefined, { timeZoneName: "short" }).formatToParts(d)
+        const parts = new Intl.DateTimeFormat(undefined, { timeZoneName: "short" }).formatToParts(d)
         const t = parts.find(p => p.type === "timeZoneName")
         return t ? t.value : tokenFactory("%z")(d)
       } catch {
@@ -131,7 +134,7 @@ export function compileStrftime(fmt) {
       parts.push(fmt.slice(lastIndex, idx))
     }
     const token = m[0]
-    parts.push(tokenFactory(token, clockLocale))
+    parts.push(tokenFactory(token))
     lastIndex = idx + token.length
   }
   if (lastIndex < fmt.length) parts.push(fmt.slice(lastIndex))
@@ -146,10 +149,6 @@ export function compileStrftime(fmt) {
     }
     return o.join("")
   }
-}
-
-export function changeLocale(newLocale) {
-  clockLocale = newLocale || navigator.language || "en-US"
 }
 
 export class Clock {
@@ -206,66 +205,4 @@ export class HexClock {
   stop() {
     cancelAnimationFrame(this.animationFrameId)
   }
-}
-
-export const languages = {
-  // English variants
-  "en-US": "English (United States)",
-  "en-GB": "English (United Kingdom)",
-  "en-CA": "English (Canada)",
-  "en-AU": "English (Australia)",
-  "en-IN": "English (India)",
-
-  // Europe
-  "no-NO": "Norwegian (Norway)",
-  "sv-SE": "Swedish (Sweden)",
-  "da-DK": "Danish (Denmark)",
-  "fi-FI": "Finnish (Finland)",
-  "is-IS": "Icelandic (Iceland)",
-  "de-DE": "German (Germany)",
-  "nl-NL": "Dutch (Netherlands)",
-  "fr-FR": "French (France)",
-  "es-ES": "Spanish (Spain)",
-  "it-IT": "Italian (Italy)",
-  "pt-PT": "Portuguese (Portugal)",
-  "pt-BR": "Portuguese (Brazil)",
-  "pl-PL": "Polish (Poland)",
-  "cs-CZ": "Czech (Czech Republic)",
-  "sk-SK": "Slovak (Slovakia)",
-  "hu-HU": "Hungarian (Hungary)",
-  "ru-RU": "Russian (Russia)",
-  "uk-UA": "Ukrainian (Ukraine)",
-
-  // Asian
-  "ja-JP": "Japanese (Japan)",
-  "zh-CN": "Chinese (Simplified, China)",
-  "zh-TW": "Chinese (Traditional, Taiwan)",
-  "ko-KR": "Korean (South Korea)",
-  "th-TH": "Thai (Thailand)",
-  "hi-IN": "Hindi (India)",
-  "bn-BD": "Bengali (Bangladesh)",
-
-  // Middle East
-  "ar-SA": "Arabic (Saudi Arabia)",
-  "he-IL": "Hebrew (Israel)",
-  "tr-TR": "Turkish (Turkey)",
-  "fa-IR": "Persian (Iran)",
-
-  // Africa
-  "af-ZA": "Afrikaans (South Africa)",
-  "sw-KE": "Swahili (Kenya)",
-
-  // Americas
-  "es-MX": "Spanish (Mexico)",
-  "es-AR": "Spanish (Argentina)",
-  "fr-CA": "French (Canada)",
-  "en-NZ": "English (New Zealand)",
-
-  // Misc
-  "el-GR": "Greek (Greece)",
-  "ro-RO": "Romanian (Romania)",
-  "id-ID": "Indonesian (Indonesia)",
-  "ms-MY": "Malay (Malaysia)",
-  "vi-VN": "Vietnamese (Vietnam)",
-  "ta-IN": "Tamil (India)"
 }

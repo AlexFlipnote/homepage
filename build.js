@@ -57,6 +57,10 @@ async function buildJS() {
       minify: true,
       sourcemap: false,
       target: ["es2017"],
+      alias: {
+        "@": path.join(__dirname, "src"),
+        "@i18n": path.join(__dirname, "src/i18n")
+      },
       ...cfg
     }))
   )
@@ -64,12 +68,12 @@ async function buildJS() {
 }
 
 async function buildSASS() {
-  console.log("🎨 Building SASS files...")
-  const result = sass.compile(path.join(__dirname, "src/sass/index.sass"), { style: "compressed" })
+  console.log("🎨 Building SCSS files...")
+  const result = sass.compile(path.join(__dirname, "src/scss/index.scss"), { style: "compressed" })
   const outputFile = path.join(__dirname, "out/css", "index.css")
   fs.mkdirSync(path.dirname(outputFile), { recursive: true })
   fs.writeFileSync(outputFile, result.css)
-  console.log("🎨 SASS build complete")
+  console.log("🎨 SCSS build complete")
 }
 
 async function createZip() {

@@ -16,6 +16,12 @@
 
       <div class="box-container">
         <h1 class="no-margin">General settings</h1>
+        <label class="column secondary-bg">
+          Language:
+          <select id="language">
+            <option value="">Default: Local language</option>
+          </select>
+        </label>
         <label><input type="checkbox" id="show-settings"> Show settings button</label>
         <label><input type="checkbox" id="searchbar"> Show search bar</label>
         <label><input type="checkbox" id="show_time"> Show time</label>
@@ -28,12 +34,6 @@
           You can customize the time and date format using Python strftime format.<br>
           Leave empty to use the default format.
         </p>
-        <label class="column secondary-bg">
-          Language:
-          <select id="language">
-            <option value="">Default: Local language</option>
-          </select>
-        </label>
         <label class="column secondary-bg">
           Time format:
           <input id="fmt_time" class="secondary" placeholder="%H:%M:%S">
@@ -212,12 +212,6 @@
         <h1 class="no-margin">Weather</h1>
         <label>
           <input type="checkbox" id="wEnable"> Enable weather (Source: <a href="https://api.met.no/" target="_blank">MET Norway</a>)
-        </label>
-        <label class="column secondary-bg">
-          Language:
-          <select id="wlanguage">
-            <option value="">Default: English</option>
-          </select>
         </label>
         <label class="column secondary-bg">
           Temperature type:

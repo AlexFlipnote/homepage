@@ -4,8 +4,8 @@ import Sortable from "sortablejs"
 import { extensionSettings } from "./utils/settings.js"
 import { isFirefox } from "./utils/browser.js"
 import { WorldMap } from "./utils/openstreetmap.js"
-import { HexClock, languages as dateLocales } from "./utils/timeManager.js"
-import { languages as weatherLanguages } from "./utils/weather.js"
+import { HexClock } from "./utils/timeManager.js"
+import { availableLanguages } from "./utils/i18n.js"
 
 const findVersion = document.getElementById("version")
 if (findVersion) {
@@ -32,7 +32,6 @@ function saveOptions(message, css="") {
 
   chrome.storage.local.set({
     language: document.getElementById("language").value,
-    wlanguage: document.getElementById("wlanguage").value,
     custombg: custombg,
     show_time: document.getElementById("show_time").checked,
     show_date: document.getElementById("show_date").checked,
@@ -98,10 +97,6 @@ function restoreOptions() {
     const searchbar = document.getElementById("searchbar")
     searchbar.checked = items.searchbar
     searchbar.onchange = () => { saveOptions(`Search bar set: ${searchbar.checked}`, searchbar.checked ? "add" : "remove") }
-
-    const wlanguage = document.getElementById("wlanguage")
-    wlanguage.value = items.wlanguage
-    wlanguage.onchange = () => { saveOptions(`Weather language set: ${wlanguage.value || "default"}`, wlanguage.value ? "change" : "remove") }
 
     const wManualLocation = document.getElementById("wManualLocation")
     wManualLocation.checked = items.wManualLocation
@@ -189,7 +184,7 @@ function restoreOptions() {
 
 document.addEventListener("DOMContentLoaded", () => {
   const languages = document.getElementById("language")
-  for (const [k, v] of Object.entries(dateLocales)) {
+  for (const [k, v] of Object.entries(availableLanguages())) {
     const option = document.createElement("option")
     option.text = v
     option.value = k
@@ -199,15 +194,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Show live demo
   new HexClock(document.getElementById("hexbgdemobg"), {background:true}).start()
   new HexClock(document.getElementById("hexbgdemotext"), {text:true}).start()
-
-  // Weather languages
-  const wlanguage = document.getElementById("wlanguage")
-  for (const [code, name] of Object.entries(weatherLanguages)) {
-    const option = document.createElement("option")
-    option.text = name
-    option.value = code
-    wlanguage.appendChild(option)
-  }
 
   new Sortable(document.getElementById("blist"), {
     animation: 150,

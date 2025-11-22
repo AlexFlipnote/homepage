@@ -1,3 +1,9 @@
+/**
+ * Make an HTTP request
+ * @param {string} method - HTTP method (e.g., "GET", "POST")
+ * @param {string} url - Request URL
+ * @param {function} callback - Callback function to handle the response
+ */
 export const http = (method, url, callback) => {
   if (!window.XMLHttpRequest) return console.log("This browser does not support requests")
   const request = new XMLHttpRequest()

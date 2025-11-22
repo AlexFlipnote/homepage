@@ -4,7 +4,7 @@
   "name": "AlexFlipnote/Homepage",
   "description": "A website that gives you a clean homepage.",
   "homepage_url": "https://alexflipnote.dev/homepage/",
-  "version": "2.4.0",
+  "version": "2.4.1",
 
   "chrome_url_overrides": {
     "newtab": "index.html"

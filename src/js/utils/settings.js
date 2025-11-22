@@ -15,7 +15,6 @@ export const extensionSettings = {
   bookmarksTopSitesEnabled: false,
   bookmarksTopSitesAmount: 5,
   wEnable: false,
-  wlanguage: "",
   wlat: 0,
   wlon: 0,
   wManualLocation: false,

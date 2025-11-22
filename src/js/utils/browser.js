@@ -2,6 +2,10 @@ export const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(
 export const isFirefox = typeof InstallTrigger !== "undefined"
 export const isExtension = /^(?:chrome|moz)-extension:$/.test(location.protocol)
 
+/**
+ *
+ * @returns {string} The browser name: "chrome", "firefox", "safari", "edge", "opera", or "browser"
+ */
 export function getBrowser() {
   // Thanks Bowser65 xd
   if (navigator.userAgent.includes("Edg/")) { return "edge" }

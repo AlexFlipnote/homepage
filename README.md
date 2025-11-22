@@ -18,6 +18,11 @@ Goal is to make it as lightweight as possible, meaning no unnecessary bloat or d
 ## Preview
 ![Image](.github/preview1.png)
 
+## i18n - Internationalization
+This project supports multiple languages through the use of internationalization (i18n) files.
+You can find these files in the [`src/i18n`](src/i18n) directory.
+If you want to contribute with translations, feel free to do so by following the instructions in the [`src/i18n/README.md`](src/i18n/README.md) file.
+
 ## Development
 In order to set up the development environment, you need to have [NodeJS](https://nodejs.org/) installed on your machine. After that, you can clone the repository and install the dependencies using npm or yarn.
 ```bash
@@ -48,3 +53,4 @@ npm run build:js
 | Google Font Icons | https://fonts.google.com/icons |
 | Leaflet | https://leafletjs.com/ |
 | OpenStreetMap | https://www.openstreetmap.org/ |
+| MET Norway | https://met.no/ |
