@@ -1,0 +1,19 @@
+.time-container {
+  align-items: center;
+  animation: enter-page 1s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+
+  #time { letter-spacing: .25rem; }
+
+  #time, #date {
+    text-shadow: 0 0 .5rem #000;
+    font-size: 10vmin;
+    font-variant-numeric: tabular-nums;
+    margin: 0;
+    transition: all .5s ease;
+    line-height: 100%;
+  }
+}
