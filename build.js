@@ -59,7 +59,7 @@ async function buildJS() {
       target: ["es2017"],
       alias: {
         "@": path.join(__dirname, "src"),
-        "@i18n": path.join(__dirname, "src/i18n")
+        "@i18n": path.join(__dirname, "i18n")
       },
       ...cfg
     }))
