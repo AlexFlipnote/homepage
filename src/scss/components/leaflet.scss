@@ -29,13 +29,14 @@
 .leaflet-marker-shadow { display: block; }
 
 .leaflet-container {
-  cursor: -webkit-grab;
-  cursor: -moz-grab;
-  overflow: hidden;
   -ms-touch-action: none;
   background: #ddd;
-  outline: 0;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
   font: 12px / 1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+  outline: 0;
+  overflow: hidden;
+  touch-action: none;
 
   a {
     color: #0078A8;
