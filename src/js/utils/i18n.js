@@ -1,6 +1,8 @@
-import * as enGb from "@i18n/en-GB.json"
-import * as noNb from "@i18n/no-NB.json"
-import * as esEs from "@i18n/es-ES.json"
+import enGb from "@i18n/en-GB.json"
+import noNb from "@i18n/no-NB.json"
+import esEs from "@i18n/es-ES.json"
+import frFr from "@i18n/fr-FR.json"
+import ptPt from "@i18n/pt-PT.json"
 
 export const DEFAULT_LANG = "en-GB"
 export let SELECTED_LANG = DEFAULT_LANG
@@ -25,7 +27,9 @@ export function getLocale() {
 export const translations = {
   "en-GB": enGb,
   "no-NB": noNb,
-  "es-ES": esEs
+  "es-ES": esEs,
+  "fr-FR": frFr,
+  "pt-PT": ptPt
 }
 
 /**
