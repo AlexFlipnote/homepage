@@ -2,12 +2,10 @@ import { isFirefox, isExtension } from "./utils/browser"
 import { extensionSettings } from "./utils/settings.js"
 import { getWeather } from "./utils/weather.js"
 import { HexClock, Clock } from "./utils/timeManager.js"
-import { availableLanguages, setLocale, translate } from "./utils/i18n.js"
+import { availableLanguages, setLocale, translate, getLocale } from "./utils/i18n.js"
 import * as manifest from "../manifest.json"
 
 const DEFAULT = {
-  fmt_time: "%H:%M:%S",
-  fmt_date: "%e. %B %Y",
   backgroundImagesCount: 31
 }
 
@@ -276,7 +274,7 @@ if (isExtension) {
     if (format) {
       timeClock.changeFormat(format)
     } else {
-      timeClock.changeFormat(DEFAULT.fmt_time)
+      timeClock.changeFormat(translate(getLocale(), "time.format.default"))
     }
   }
 
@@ -286,7 +284,7 @@ if (isExtension) {
     if (format) {
       dateClock.changeFormat(format)
     } else {
-      dateClock.changeFormat(DEFAULT.fmt_date)
+      dateClock.changeFormat(translate(getLocale(), "date.format.default"))
     }
   }
 
