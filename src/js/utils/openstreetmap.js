@@ -66,10 +66,7 @@ export class WorldMap {
  * Has a rate limit of 1 request/second.
  * @param {number} lat - Latitude
  * @param {number} lon - Longitude
- * @param {function} callback - Callback function to handle the response
  */
-export function reverseGeocode(lat, lon, callback) {
-  http("GET", `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`, (r) => {
-    callback(r)
-  })
+export async function reverseGeocode(lat, lon) {
+  return await http("GET", `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`)
 }

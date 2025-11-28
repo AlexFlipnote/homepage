@@ -1,21 +1,28 @@
+import manifest from "../../manifest.json"
+
 /**
- * Make an HTTP request
- * @param {string} method - HTTP method (e.g., "GET", "POST")
- * @param {string} url - Request URL
- * @param {function} callback - Callback function to handle the response
+ * Make an HTTP request, returning the response as JSON.
+ * @param {string} method - HTTP method (GET, POST, etc.)
+ * @param {string} url - The URL to send the request to
+ * @returns {Promise<any>} - The response data as JSON
  */
-export const http = (method, url, callback) => {
-  if (!window.XMLHttpRequest) return console.log("This browser does not support requests")
-  const request = new XMLHttpRequest()
-  request.open(method, url, true)
-  request.setRequestHeader("Content-Type", "application/json")
-  request.onload = function () {
-    if (this.status >= 200 && this.status < 400) {
-      const json = JSON.parse(this.response)
-      if (callback && typeof(callback) === "function") {
-        callback(json)
-      }
+export async function http(method, url) {
+  if (!window.fetch) return console.error("This browser does not support requests")
+
+  const response = await fetch(url, {
+    method: method.toUpperCase(),
+    headers: {
+      "Content-Type": "application/json",
+      // The only reason I use X-* headers is because some browsers refuse to set custom "unsafe headers"
+      "X-Referer": "https://alexflipnote.dev/homepage",
+      "X-User-Agent": `AlexFlipnoteHomepage/${manifest.version}`
     }
+  })
+
+  if (!response.ok) {
+    console.error(`HTTP-Error: ${response.status}`, await response.text())
+    return
   }
-  request.send(null)
+
+  return await response.json()
 }
