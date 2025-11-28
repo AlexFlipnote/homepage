@@ -3,7 +3,7 @@ export const isFirefox = typeof InstallTrigger !== "undefined"
 export const isExtension = /^(?:chrome|moz)-extension:$/.test(location.protocol)
 
 /**
- *
+ * Get the browser name
  * @returns {string} The browser name: "chrome", "firefox", "safari", "edge", "opera", or "browser"
  */
 export function getBrowser() {
